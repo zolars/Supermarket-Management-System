@@ -1,4 +1,4 @@
-// Name: Qsort
+// Name: Qsort.cpp
 // Author: 辛逸飞
 // Date: 2017-09-12
 // Language: C
