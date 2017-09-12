@@ -4,33 +4,15 @@
 // Language: C
 // Features: 完成"管理员身份-查询订单"功能的模块.
 // Modules:
-//   - qsort.h
+//   - database.h
 //   - stdio.h
 //   - string.h
 //   - stdlib.h
 
+#include "database_order_admin_all.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// 定义结构体存放所有数据
-typedef struct {
-  char order_id[11];    // 订单编号
-  char consumer_id[11]; // 顾客编号
-  char sold_time[25];   // 购买时间
-  char goods_id[11];    // 商品编号
-  int goods_num;        // 购买数量
-  float unit_price;     // 单价
-  float all_price;      // 总价
-} STU_all;
-
-// 定义结构体存放商品索引数据
-typedef struct {
-  char goods_id[11]; // 商品编号
-  int goods_num;     // 购买数量
-  float all_price;   // 营业额
-  float profit;      // 利润
-} STU_goods;
 
 // 对结构体排序时, 需要使用结构体的重构来实现
 int cmp_goods_num(const void *a, const void *b) {
@@ -46,40 +28,7 @@ int cmp_profit(const void *a, const void *b) {
   return (*(STU_goods *)a).profit < (*(STU_goods *)b).profit ? 1 : -1;
 }
 
-STU_goods order_goods[100]; // 最多存放一百笔订单
-
 void order_tool(char user_id[11]) {
-  // 声明读取文件所需指针
-  FILE *fread;
-
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/"; // 该字符串用于处理文件名
-  strcat(file_name, "order_admin/");    // 加入路径"order_admin/"
-
-  // 处理文件名
-  strcat(file_name, user_id);
-  strcat(file_name, "_goods.txt");
-
-  // 打开特定的订单数据文件
-  if ((fread = fopen(file_name,
-                     "r")) == NULL) // 判断文件是否存在及可读
-  {
-    printf("You have not sold anything.\n");
-    return;
-  }
-
-  int i = 0; // 循环变量(注意这里的i一定要定为0)
-  while (!feof(fread)) {
-
-    // 读取数据
-    fscanf(fread, "%s %d %f %f", order_goods[i].goods_id,
-           &order_goods[i].goods_num, &order_goods[i].all_price,
-           &order_goods[i].profit);
-
-    i++;
-  }
 
   int order_num = i; // 保存订单数量
 
@@ -179,47 +128,15 @@ void order_tool(char user_id[11]) {
 }
 
 int search_for_orders_admin(char user_id[11]) {
+  int i; // 循环变量
 
-  // 声明读取文件所需指针
-  FILE *fread;
+  int order_num = database_order_admin_all(user_id); // 数据库传入数组长度
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/"; // 该字符串用于处理文件名
-  char choose[10];                      // 记录管理员操作时的选择
-
-  strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
-
-  // 处理文件名
-  strcat(file_name, user_id);
-  strcat(file_name, "_all.txt");
-
-  // 打开特定的订单数据文件
-  if ((fread = fopen(file_name,
-                     "r")) == NULL) // 判断文件是否存在及可读
-  {
-    printf("You have not sold anything.\n");
+  if (order_num < 0) { // 读取文件发生错误, 返回上一级
     return 0;
   }
 
-  STU_all order_all[100]; // 最多存放一百笔订单
-
-  // 遍历组件, 将所有订单信息存入 order_all 结构体
-  int i = 0;
-
-  while (!feof(fread)) {
-
-    // 读取数据
-    fscanf(fread, "%s %s %s %s %d %f %f", order_all[i].order_id,
-           order_all[i].consumer_id, order_all[i].sold_time,
-           order_all[i].goods_id, &order_all[i].goods_num,
-           &order_all[i].unit_price, &order_all[i].all_price);
-
-    i++;
-  }
-
-  int order_num = i; // 保存订单数量
+  char choose[10]; // 记录管理员操作时的选择
 
   // 用户界面
   while (1) {
@@ -238,7 +155,7 @@ int search_for_orders_admin(char user_id[11]) {
     }
 
     // 管理员: 统计顾客订单信息
-    int choose_num = atoi(choose); // 字符串转整数, ��于之后的 switch 操作
+    int choose_num = atoi(choose); // 字符串转整数, 便于之后的 switch 操作
     switch (choose_num) {
     case 1: {
       order_tool(user_id);
@@ -262,7 +179,6 @@ int search_for_orders_admin(char user_id[11]) {
 
     // 返回
     case 3: {
-      fclose(fread);
       return 0;
     }
     }

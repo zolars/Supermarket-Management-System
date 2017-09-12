@@ -63,10 +63,5 @@ void database(char user_id[11]) {
     );
     i++;
   }
-}
-
-int main() {
-  char user_id = "aabb";
-  database(userid);
-  return 0;
+  fclose(fread);
 }
