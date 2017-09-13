@@ -1,8 +1,8 @@
-// Name: database.h
+// Name: database_goods_information.h
 // Author: 辛逸飞
 // Date: 2017-09-12
 // Language: C
-// Features: 数据库文件读取, 转存为结构体.
+// Features: 数据库"/goods_information/user_id.txt"文件读取, 转存为结构体.
 // Modules:
 //   - stdio.h
 //   - stdlib.h
@@ -17,7 +17,7 @@ typedef struct {
   float unit_price;             // 零售价格
   float in_price;               // 进货价格
   int sales_volume;             // 销量
-  int goods_in_stock;           //存货
+  int goods_in_stock;           // 存货
   float discount_price;         // 折扣价
   char discount_begin_time[25]; // 折扣开始时间
   char discount_end_time[25];   // 折扣结束时间
@@ -26,7 +26,7 @@ typedef struct {
 
 STU_goods_information goods_information[100];
 
-void database(char user_id[11]) {
+void database_goods_information(char user_id[11]) {
   // 声明读取文件所需指针
   FILE *fread;
 

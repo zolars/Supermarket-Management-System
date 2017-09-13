@@ -24,7 +24,7 @@ typedef struct {
 
 STU_consumer order_consumer[100]; // 最多存放一百笔订单
 
-int search_for_orders_consumer(char user_id[15]) {
+int search_orders_consumer(char user_id[15]) {
   // 声明读取文件所需指针
   FILE *fread;
 

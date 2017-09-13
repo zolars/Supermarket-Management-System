@@ -3,10 +3,17 @@
 // Date: 2017-09-12
 // Language: C
 // Features: 网上超市管理系统主程序.
+// Modules:
+//   - database_order_admin_all.h
+//   - databse_order_admin_goods.h
+//   - stdio.h
+//   - string.h
+//   - stdlib.h
 
-#include "search_for_orders_admin.h"
-#include "search_for_orders_consumer.h"
+#include "search_orders_admin.h"
+#include "search_orders_consumer.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int main() {
@@ -15,8 +22,8 @@ int main() {
   user_type = 1;
 
   if (user_type == 1)
-    search_for_orders_admin(user_id);
+    search_orders_admin(user_id);
   else
-    search_for_orders_consumer(user_id);
+    search_orders_consumer(user_id);
   return 0;
 }

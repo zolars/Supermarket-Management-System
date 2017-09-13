@@ -1,4 +1,4 @@
-// Name: database_order_all.h
+// Name: database_order_admin_all.h
 // Author: 辛逸飞
 // Date: 2017-09-12
 // Language: C
@@ -21,9 +21,9 @@ typedef struct {
   int goods_num;        // 购买数量
   float unit_price;     // 单价
   float all_price;      // 总价
-} STU_all;
+} STU_admin_all;
 
-STU_all order_all[100]; // 最多存放一百笔订单
+STU_admin_all order_admin_all[100]; // 最多存放一百笔订单
 
 int database_order_admin_all(char user_id[11]) {
   // 声明读取文件所需指针
@@ -48,19 +48,19 @@ int database_order_admin_all(char user_id[11]) {
     return -1;
   }
 
-  // 遍历组件, 将所有订单信息存入 order_all 结构体
+  // 遍历组件, 将所有订单信息存入 order_admin_all 结构体
   int i = 0;
   while (!feof(fread)) {
 
     // 读取数据
     fscanf(fread, "%s %s %s %s %d %f %f",
-           order_all[i].order_id,    // 订单编号
-           order_all[i].consumer_id, // 顾客编号
-           order_all[i].sold_time,   // 购买时间
-           order_all[i].goods_id,    // 商品编号
-           &order_all[i].goods_num,  // 购买数量
-           &order_all[i].unit_price, // 单价
-           &order_all[i].all_price); // 总价
+           order_admin_all[i].order_id,    // 订单编号
+           order_admin_all[i].consumer_id, // 顾客编号
+           order_admin_all[i].sold_time,   // 购买时间
+           order_admin_all[i].goods_id,    // 商品编号
+           &order_admin_all[i].goods_num,  // 购买数量
+           &order_admin_all[i].unit_price, // 单价
+           &order_admin_all[i].all_price); // 总价
 
     i++;
   }
