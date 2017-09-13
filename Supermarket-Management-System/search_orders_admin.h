@@ -89,7 +89,7 @@ void order_tool(char user_id[11]) {
       printf("\n营业期间的总营业额为: "
              "%0.2f.\n\n请输入任意字符并按回车键以继续...\n",
              turnover);
-      scanf("%s", choose); // 延迟屏幕显示
+      scanf("%s", choose); // 延长屏幕显示时间
       break;
     }
 
@@ -116,7 +116,7 @@ void order_tool(char user_id[11]) {
                order_admin_goods[i].profit);
 
       printf("\n请输入任意字符并按回车键以继续...\n");
-      scanf("%s", choose); // 延迟屏幕显示
+      scanf("%s", choose); // 延长屏幕显示时间
       break;
     }
 
@@ -136,7 +136,7 @@ void order_tool(char user_id[11]) {
              order_admin_goods[order_num - 2].goods_id);
 
       printf("请输入任意字符并按回车键以继续...\n");
-      scanf("%s", choose); // 延迟屏幕显示
+      scanf("%s", choose); // 延长屏幕显示时间
       break;
     }
 
@@ -170,7 +170,7 @@ void order_tool(char user_id[11]) {
         printf("无\n");
 
       printf("请输入任意字符并按回车键以继续...\n");
-      scanf("%s", choose); // 延迟屏幕显示
+      scanf("%s", choose); // 延长屏幕显示时间
       break;
     }
 
@@ -223,15 +223,17 @@ int search_orders_admin(char user_id[11]) {
     // 管理员: 打印数据
     case 2: {
       printf("\n您店内的所有订单如下:\n");
-      printf("订单编号  顾客编号  购买时间  商品编号  购买数量  单价  总价\n");
+      printf("      订单编号   顾客编号       购买时间   商品编号  购买数量  "
+             "单价  总价\n");
       for (i = 0; i < order_num - 1; i++)
-        printf("%s\t%s\t%s\t%d\t%0.2f\t%0.2f\n", order_admin_all[i].order_id,
-               order_admin_all[i].consumer_id, order_admin_all[i].sold_time,
-               order_admin_all[i].goods_id, order_admin_all[i].goods_num,
-               order_admin_all[i].unit_price, order_admin_all[i].all_price);
+        printf("%s  %s  %s  %s        %d    %0.2f  %0.2f\n",
+               order_admin_all[i].order_id, order_admin_all[i].consumer_id,
+               order_admin_all[i].sold_time, order_admin_all[i].goods_id,
+               order_admin_all[i].goods_num, order_admin_all[i].unit_price,
+               order_admin_all[i].all_price);
 
       printf("\n以上即为您的历史订单.\n请输入任意字符并按回车键以继续...\n");
-      scanf("%s", choose); // 延迟屏幕显示
+      scanf("%s", choose); // 延长屏幕显示时间
       break;
     }
 
