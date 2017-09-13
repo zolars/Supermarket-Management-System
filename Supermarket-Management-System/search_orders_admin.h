@@ -72,6 +72,7 @@ void order_tool(char user_id[11]) {
         strcmp(choose, "3") != 0 && strcmp(choose, "4") != 0 &&
         strcmp(choose, "5") != 0) {
       printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
+      continue;
     }
 
     int choose_num = atoi(choose); // 字符串转整数, 便于之后的 switch 操作
