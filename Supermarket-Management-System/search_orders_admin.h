@@ -11,7 +11,7 @@
 //   - stdlib.h
 //
 
-// #include "database_goods_information.h"
+#include "database_goods_information.h"
 #include "database_order_admin_all.h"
 #include "database_order_admin_goods.h"
 #include <stdio.h>
@@ -35,6 +35,13 @@ int cmp_all_price(const void *a, const void *b) {
 int cmp_profit(const void *a, const void *b) {
   return (*(STU_admin_goods *)a).profit < (*(STU_admin_goods *)b).profit ? 1
                                                                          : -1;
+}
+
+int cmp_goods_in_stock(const void *a, const void *b) {
+  return (*(STU_goods_information *)a).goods_in_stock <
+                 (*(STU_goods_information *)b).goods_in_stock
+             ? 1
+             : -1;
 }
 
 void order_tool(char user_id[11]) {
@@ -132,6 +139,13 @@ void order_tool(char user_id[11]) {
 
     //根据库存和销售情况判断商品中哪些需要进货、哪些存在滞销情况
     case 4: {
+      printf("iamhere");
+      int order_num = database_goods_information(user_id); // 数据库传入数组长度
+
+      if (order_num < 0) { // 读取文件发生错误, 返回上一级
+        return;
+      }
+      break;
     }
 
     // 返回主程序
@@ -140,6 +154,7 @@ void order_tool(char user_id[11]) {
       break;
     }
     }
+
   } while (not_over);
 }
 

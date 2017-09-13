@@ -26,11 +26,14 @@ typedef struct {
 
 STU_goods_information goods_information[100];
 
-void database_goods_information(char user_id[11]) {
+int database_goods_information(char user_id[11]) {
   // 声明读取文件所需指针
   FILE *fread;
 
-  char file_name[300] = "";                // 该字符串用于处理文件名
+  char file_name[300] =
+      "/Users/zolar/OneDrive - Queen Mary, University of "
+      "London/Project/Supermarket-Management-System/"
+      "Supermarket-Management-System/";    // 该字符串用于处理文件名
   strcat(file_name, "goods_information/"); // 加入路径"goods_information/"
 
   // 处理文件名
@@ -38,13 +41,10 @@ void database_goods_information(char user_id[11]) {
   strcat(file_name, ".txt");
 
   // 打开特定的订单数据文件
-  if ((fread =
-           fopen("/Users/zolar/Supermarket-Management-System/goods_information/"
-                 "KMDM007.txt",
-                 "r")) == NULL) // 判断文件是否存在及可读
+  if ((fread = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
   {
     printf("You have not sold anything.\n");
-    return;
+    return -1;
   }
 
   int i = 0; // 循环变量(注意这里的i一定要定为0)
@@ -64,4 +64,6 @@ void database_goods_information(char user_id[11]) {
     i++;
   }
   fclose(fread);
+
+  return i; // 保存订单数量
 }

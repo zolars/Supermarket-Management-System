@@ -38,8 +38,7 @@ int database_order_admin_goods(char user_id[11]) {
   strcat(file_name, "_goods.txt");
 
   // 打开特定的订单数据文件
-  if ((fread = fopen(file_name,
-                     "r")) == NULL) // 判断文件是否存在及可读
+  if ((fread = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
   {
     printf("You have not sold anything.\n");
     return -1;
