@@ -101,7 +101,7 @@ void order_tool(char user_id[11]) {
       printf("\n对销量排序结果如下:\n");
       printf("商品编号  销量  营业额  利润\n");
       for (i = 0; i < order_num - 1; i++)
-        printf("%s\t%3d\t%0.2f\t%0.2f\n", order_admin_goods[i].goods_id,
+        printf("%s\t%4d\t%0.2f\t%0.2f\n", order_admin_goods[i].goods_id,
                order_admin_goods[i].goods_num, order_admin_goods[i].all_price,
                order_admin_goods[i].profit);
 
@@ -109,8 +109,9 @@ void order_tool(char user_id[11]) {
             cmp_all_price);
 
       printf("\n对营业额排序结果如下:\n");
+      printf("商品编号  销量  营业额  利润\n");
       for (i = 0; i < order_num - 1; i++)
-        printf("%s %d %0.2f %0.2f\n", order_admin_goods[i].goods_id,
+        printf("%s\t%4d\t%0.2f\t%0.2f\n", order_admin_goods[i].goods_id,
                order_admin_goods[i].goods_num, order_admin_goods[i].all_price,
                order_admin_goods[i].profit);
 
@@ -125,11 +126,12 @@ void order_tool(char user_id[11]) {
             cmp_profit);
 
       printf("\n对利润排序结果如下:\n");
+      printf("商品编号  销量  营业额  利润\n");
       for (i = 0; i < order_num - 1; i++)
-        printf("%s %d %0.2f %0.2f\n", order_admin_goods[i].goods_id,
+        printf("%s\t%4d\t%0.2f\t%0.2f\n", order_admin_goods[i].goods_id,
                order_admin_goods[i].goods_num, order_admin_goods[i].all_price,
                order_admin_goods[i].profit);
-      printf("利润最高的商品为:%s\n利润最低的商品为:%s\n\n",
+      printf("\n利润最高的商品为:%s\n利润最低的商品为:%s\n\n",
              order_admin_goods[0].goods_id,
              order_admin_goods[order_num - 2].goods_id);
 
@@ -220,9 +222,9 @@ int search_orders_admin(char user_id[11]) {
 
     // 管理员: 打印数据
     case 2: {
-      printf("\n");
+      printf("\n您店内的所有订单如下:\n");
+      printf("订单编号  顾客编号  购买时间  商品编号  购买数量  单价  总价\n");
       for (i = 0; i < order_num - 1; i++)
-
         printf("%s\t%s\t%s\t%d\t%0.2f\t%0.2f\n", order_admin_all[i].order_id,
                order_admin_all[i].consumer_id, order_admin_all[i].sold_time,
                order_admin_all[i].goods_id, order_admin_all[i].goods_num,
