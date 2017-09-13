@@ -11,9 +11,9 @@
 //   - stdlib.h
 //
 
-#include "database_goods_information.h"
 #include "database_order_admin_all.h"
 #include "database_order_admin_goods.h"
+#include "database_shop_index.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,8 +38,8 @@ int cmp_profit(const void *a, const void *b) {
 }
 
 int cmp_goods_in_stock(const void *a, const void *b) {
-  return (*(STU_goods_information *)a).goods_in_stock <
-                 (*(STU_goods_information *)b).goods_in_stock
+  return (*(STU_shop_index *)a).goods_in_stock <
+                 (*(STU_shop_index *)b).goods_in_stock
              ? 1
              : -1;
 }
@@ -54,7 +54,7 @@ void order_tool(char user_id[11]) {
 
   char choose[10]; // 记录管理员操作时的选择
 
-  int not_over = true; // 循环尽头指示
+  int not_over = 1; // 循环尽头指示
 
   do {
 
@@ -140,7 +140,7 @@ void order_tool(char user_id[11]) {
     //根据库存和销售情况判断商品中哪些需要进货、哪些存在滞销情况
     case 4: {
       printf("iamhere");
-      int order_num = database_goods_information(user_id); // 数据库传入数组长度
+      int order_num = database_shop_index(user_id); // 数据库传入数组长度
 
       if (order_num < 0) { // 读取文件发生错误, 返回上一级
         return;
@@ -150,7 +150,7 @@ void order_tool(char user_id[11]) {
 
     // 返回主程序
     case 5: {
-      not_over = false;
+      not_over = 0;
       break;
     }
     }
@@ -173,7 +173,7 @@ int search_orders_admin(char user_id[11]) {
   while (1) {
 
     printf("\n---------------操作选项---------------\n\n");
-    printf("1. 统计顾客订单信息.\n2. 查看顾客订单情况.\n3. 返回.");
+    printf("1. 统计顾客订单信息.\n2. 查看顾客订单情况.\n3. 返回.\n");
     printf("\n-------------------------------------\n");
     printf("请按数字键选择要执行的操作:\n");
 

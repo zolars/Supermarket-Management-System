@@ -32,9 +32,9 @@ int database_order_admin_all(char user_id[11]) {
   char file_name[300] =
       "/Users/zolar/OneDrive - Queen Mary, University of "
       "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/"; // 该字符串用于处理文件名
+      "Supermarket-Management-System/database"; // 该字符串用于处理文件名
 
-  strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
+  strcat(file_name, "/order_admin/"); // 加入路径"order_admin/"
 
   // 处理文件名
   strcat(file_name, user_id);
