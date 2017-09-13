@@ -20,7 +20,7 @@ n行
 
 商品ID | 销量 | 营业额 | 利润
 
-### {shop_id}\_users.txt
+### {shop_id}\_consumer.txt
 
 n行
 

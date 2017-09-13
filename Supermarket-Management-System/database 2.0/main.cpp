@@ -5,19 +5,20 @@
 
 int main() // 调试
 {
-  char user_id[10] = "shangpin";
+  char user_id[30] = "guanli";
 
-  int list_num = database_goods_index(user_id, -1);
-  if (list_num) {
+  if (database_order_admin_consumer(user_id, 0)) {
     printf("文件存在并读取完毕\n");
   } else {
     printf("文件不存在\n");
   }
 
-  printf("%d", goods_index[3].time_end.year);
-  goods_index[3].time_end.year = goods_index[3].time_end.year * 2 + 1;
-  printf("%d", list_num);
-  database_goods_index(user_id, list_num - 1);
+  printf("%s\n", order_admin_consumer[0].consumer_id);
+
+  strcat(order_admin_consumer[0].consumer_id, "com");
+
+  printf("%s\n", order_admin_consumer[0].consumer_id);
+  database_order_admin_consumer(user_id, 1);
 
   return 0;
 }
