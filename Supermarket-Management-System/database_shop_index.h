@@ -54,11 +54,11 @@ int database_shop_index(char user_id[11]) {
     // 读取数据
     fscanf(fread, "%s %f %f %d %d %f %s %s",
            shop_index[i].goods_id,            // 商品编号
-           shop_index[i].unit_price,          // 零售价格
-           shop_index[i].in_price,            // 进货价格
-           shop_index[i].sales_volume,        // 销量
-           shop_index[i].goods_in_stock,      // 存货
-           shop_index[i].discount_price,      // 折扣价
+           &shop_index[i].unit_price,         // 零售价格
+           &shop_index[i].in_price,           // 进货价格
+           &shop_index[i].sales_volume,       // 销量
+           &shop_index[i].goods_in_stock,     // 存货
+           &shop_index[i].discount_price,     // 折扣价
            shop_index[i].discount_begin_time, // 折扣开始时间
            shop_index[i].discount_end_time    // 折扣结束时间
     );

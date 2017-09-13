@@ -86,9 +86,9 @@ void order_tool(char user_id[11]) {
       for (i = 0; i < order_num; i++) {
         turnover += order_admin_goods[i].all_price;
       }
-      printf(
-          "\n营业期间的总营业额为: %0.2f.\n请输入任意字符并按回车键以继续...\n",
-          turnover);
+      printf("\n营业期间的总营业额为: "
+             "%0.2f.\n\n请输入任意字符并按回车键以继续...\n",
+             turnover);
       scanf("%s", choose); // 延迟屏幕显示
       break;
     }
@@ -99,8 +99,9 @@ void order_tool(char user_id[11]) {
             cmp_goods_num);
 
       printf("\n对销量排序结果如下:\n");
+      printf("商品编号  销量  营业额  利润\n");
       for (i = 0; i < order_num - 1; i++)
-        printf("%s %d %0.2f %0.2f\n", order_admin_goods[i].goods_id,
+        printf("%s\t%3d\t%0.2f\t%0.2f\n", order_admin_goods[i].goods_id,
                order_admin_goods[i].goods_num, order_admin_goods[i].all_price,
                order_admin_goods[i].profit);
 
@@ -139,12 +140,35 @@ void order_tool(char user_id[11]) {
 
     //根据库存和销售情况判断商品中哪些需要进货、哪些存在滞销情况
     case 4: {
-      printf("iamhere");
       int order_num = database_shop_index(user_id); // 数据库传入数组长度
-
       if (order_num < 0) { // 读取文件发生错误, 返回上一级
         return;
       }
+
+      qsort(shop_index, order_num, sizeof(shop_index[0]), cmp_goods_in_stock);
+
+      int temp = 1; // 记录是否为"无"
+      printf("\n需要补充库存的商品编号:\n");
+      for (i = 0; i < order_num - 1; i++)
+        if (shop_index[i].goods_in_stock == 0) {
+          printf("%s\n", shop_index[i].goods_id);
+          temp = 0;
+        }
+      if (temp)
+        printf("无\n");
+
+      temp = 1;
+      printf("\n滞销的商品编号:\n");
+      for (i = 0; i < order_num - 1; i++)
+        if (shop_index[i].sales_volume == 0) {
+          printf("%s\n", shop_index[i].goods_id);
+          temp = 0;
+        }
+      if (temp)
+        printf("无\n");
+
+      printf("请输入任意字符并按回车键以继续...\n");
+      scanf("%s", choose); // 延迟屏幕显示
       break;
     }
 
