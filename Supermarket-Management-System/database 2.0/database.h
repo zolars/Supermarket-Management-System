@@ -249,7 +249,7 @@ int database_goods_index(char user_id[30], int read_type) {
              goods_index[i].shop_id,             // 超市ID
              &goods_index[i].unit_price,         // 单价
              &goods_index[i].in_price,           // 进价
-             &goods_index[i].sales_volume,       // ��量
+             &goods_index[i].sales_volume,       // 销量
              &goods_index[i].goods_num_in_stock, // 库存
              &goods_index[i].discount_price,     // 折扣价格
              &goods_index[i].time_begin.year,    // 折扣开始时间
@@ -261,13 +261,14 @@ int database_goods_index(char user_id[30], int read_type) {
              &goods_index[i].time_end.month,     // ...
              &goods_index[i].time_end.day,       // ...
              &goods_index[i].time_end.hour,      // ...
-             &goods_index[i].time_end.minute);   // ...
+             &goods_index[i].time_end.minute     // ...
+      );
     }
   } else {
 
     // 打开特定的订单数据文件
     fwrite = fopen(file_name, "w+");
-    // 写入数����������������������������������������
+    // 写���������������数据
     i = 0;
     while (goods_index[i].unit_price != 0) {
       fprintf(fwrite,
@@ -275,7 +276,7 @@ int database_goods_index(char user_id[30], int read_type) {
               goods_index[i].shop_id,            // 超市ID
               goods_index[i].unit_price,         // 单价
               goods_index[i].in_price,           // 进价
-              goods_index[i].sales_volume,       // ��量
+              goods_index[i].sales_volume,       // 销量
               goods_index[i].goods_num_in_stock, // 库存
               goods_index[i].discount_price,     // 折扣价格
               goods_index[i].time_begin.year,    // 折扣开始时间
@@ -287,7 +288,8 @@ int database_goods_index(char user_id[30], int read_type) {
               goods_index[i].time_end.month,     // ...
               goods_index[i].time_end.day,       // ...
               goods_index[i].time_end.hour,      // ...
-              goods_index[i].time_end.minute);   // ...
+              goods_index[i].time_end.minute     // ...
+      );
       i++;
     }
   }
@@ -325,7 +327,7 @@ typedef struct {
   char consumer_id[11]; // 顾客编号
   STU_time sold_time;   // 购买时间
   char goods_id[11];    // 商品编号
-  int goods_num;        // 购买数量
+  int purchase_num;     // 购买数量
   float unit_price;     // 单价
   float all_price;      // 总价
 } STU_order_admin_all;
@@ -366,9 +368,10 @@ int database_order_admin_all(char user_id[30], int read_type) {
              &order_admin_all[i].sold_time.hour,   // ...
              &order_admin_all[i].sold_time.minute, // ...
              order_admin_all[i].goods_id,          // 商品编号
-             &order_admin_all[i].goods_num,        // 购买数量
+             &order_admin_all[i].purchase_num,     // 购买数量
              &order_admin_all[i].unit_price,       // 单价
-             &order_admin_all[i].all_price);       // 总价
+             &order_admin_all[i].all_price         // 总价
+      );
     }
   } else {
 
@@ -377,19 +380,20 @@ int database_order_admin_all(char user_id[30], int read_type) {
 
     // 写入数据
     i = 0;
-    while (order_admin_all[i].goods_num != 0) {
+    while (order_admin_all[i].purchase_num != 0) {
       fprintf(fwrite, "%s %s %d:%d:%d:%d:%d %s %d %f %f",
               order_admin_all[i].order_id,         // 订单编号
-              order_admin_all[i].consumer_id,      // 顾客编��
+              order_admin_all[i].consumer_id,      // 顾客编号
               order_admin_all[i].sold_time.year,   // 购买时间
               order_admin_all[i].sold_time.month,  // ...
               order_admin_all[i].sold_time.day,    // ...
               order_admin_all[i].sold_time.hour,   // ...
               order_admin_all[i].sold_time.minute, // ...
               order_admin_all[i].goods_id,         // 商品编号
-              order_admin_all[i].goods_num,        // 购买数量
+              order_admin_all[i].purchase_num,     // 购买数量
               order_admin_all[i].unit_price,       // 单价
-              order_admin_all[i].all_price);       // 总价
+              order_admin_all[i].all_price         // 总价
+      );
       i++;
     }
   }
@@ -399,7 +403,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
 
 /*************************************************
 标题:
-  order_admin_consumer数据库 管理员可查询订单 可读写
+  order_admin_consumer数据库 管理员可查询订单_按顾客分类 可读写
 
 路径
   ./database/order_admin/
@@ -409,7 +413,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
 
 存放数据
   n行3列
-  顾客ID | 商品ID | 购买数
+  顾客ID | 商品ID | 购买数量
 
 接收:
   user_id: 用户ID
@@ -425,7 +429,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
 typedef struct {
   char consumer_id[30]; // 顾客ID
   char goods_id[30];    //商品ID
-  int purchase_num;     // 购买数
+  int purchase_num;     // 购买数量
 } STU_order_admin_consumer;
 
 STU_order_admin_consumer order_admin_consumer[100]; // 最多存放100笔订单
@@ -456,9 +460,10 @@ int database_order_admin_consumer(char user_id[30], int read_type) {
     while (!feof(fwrite)) {
       i++;
       fscanf(fwrite, "%s %s %d",
-             order_admin_consumer[i].consumer_id,    // 顾客ID
-             order_admin_consumer[i].goods_id,       //商品ID
-             &order_admin_consumer[i].purchase_num); // 购买数
+             order_admin_consumer[i].consumer_id,  // 顾客ID
+             order_admin_consumer[i].goods_id,     //商品ID
+             &order_admin_consumer[i].purchase_num // 购买数量
+      );
     }
   } else {
 
@@ -469,12 +474,101 @@ int database_order_admin_consumer(char user_id[30], int read_type) {
     i = 0;
     while (order_admin_consumer[i].purchase_num != 0) {
       fprintf(fwrite, "%s %s %d\n",
-              order_admin_consumer[i].consumer_id,   // 顾客ID
-              order_admin_consumer[i].goods_id,      //商品ID
-              order_admin_consumer[i].purchase_num); // 购买数
+              order_admin_consumer[i].consumer_id, // 顾客ID
+              order_admin_consumer[i].goods_id,    //商品ID
+              order_admin_consumer[i].purchase_num // 购买数量
+      );
       i++;
     }
   }
+  fclose(fwrite);
+  return 1; // 成功读写返回"1"
+}
+
+/*************************************************
+标题:
+  order_admin_goods数据库 管理员可查询订单_按货物分类 可读写
+
+路径
+  ./database/order_admin/
+
+文件名
+  {admin_id}_goods.txt
+
+存放数据
+n行4列
+商品ID | 销量 | 营业额 | 利润
+
+接收:
+  user_id: 用户ID
+  read_type: 读写类型
+    0: 读取
+    1: 写入
+
+返回:
+  0: 文件不存在
+  1: 文件存在并成功读写
+*************************************************/
+
+typedef struct {
+  char goods_id[11]; // 商品编号
+  int purchase_num;  // 购买数量
+  float all_price;   // 营业额
+  float profit;      // 利润
+} STU_order_admin_goods;
+
+STU_order_admin_goods order_admin_goods[100]; // 最多存放100笔订单
+
+int database_order_admin_goods(char user_id[11], int read_type) {
+  // 声明读取文件所需指针
+  FILE *fwrite;
+
+  char file_name[300] =
+      "/Users/zolar/OneDrive - Queen Mary, University of "
+      "London/Project/Supermarket-Management-System/"
+      "Supermarket-Management-System/database"; // 该字符串用于处理文件名
+
+  strcat(file_name, "/order_admin/"); // 加入路径"order_admin/"
+
+  // 处理文件名
+  strcat(file_name, user_id);
+  strcat(file_name, "_goods.txt");
+
+  int i = -1;
+  if (!read_type) {
+
+    // 打开���定的订单数据�����件
+    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
+      return 0;                                    // 不存在, 返回"0"
+
+    // 遍历组件, 读取数据
+    while (!feof(fwrite)) {
+      i++;
+      fscanf(fwrite, "%s %d %f %f",
+             order_admin_goods[i].goods_id,      // 商品编号
+             &order_admin_goods[i].purchase_num, // 购买数量
+             &order_admin_goods[i].all_price,    // 营业额
+             &order_admin_goods[i].profit        // 利润
+      );
+    }
+  } else {
+
+    // 打开特定的订单数据文件
+    fwrite = fopen(file_name, "w+");
+
+    // 写入数据
+    i = 0;
+    while (order_admin_goods[i].purchase_num != 0) {
+      fprintf(fwrite, "%s %d %0.2f %0.2f\n",
+              order_admin_goods[i].goods_id,     // 商品编号
+              order_admin_goods[i].purchase_num, // 购买数量
+              order_admin_goods[i].all_price,    // 营业额
+              order_admin_goods[i].profit        // 利润
+      );
+      i++;
+    }
+  }
+
   fclose(fwrite);
   return 1; // 成功读写返回"1"
 }
