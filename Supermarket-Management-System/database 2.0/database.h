@@ -55,7 +55,7 @@ typedef struct {
 *************************************************/
 
 typedef struct {
-  char shop_id[10];  // 超市名
+  char shop_id[30];  // 超市名
   char name[10];     // 管理员姓名
   char email[30];    // 邮箱
   char password[30]; // 密码
@@ -80,6 +80,7 @@ int database_admin_information(char user_id[30], int read_type) {
     return 0;                                    // 不存在, 返回"0"
 
   if (!read_type) {
+
     // 读取数据
     fscanf(fwrite, "%s %s %s %s",
            admin_information.shop_id, // 超市名
@@ -89,6 +90,7 @@ int database_admin_information(char user_id[30], int read_type) {
     );
 
   } else {
+
     // 写入数据
     fprintf(fwrite, "%s %s %s %s",
             admin_information.shop_id, // 超市名
@@ -149,13 +151,14 @@ int database_consumer_information(char user_id[30], int read_type) {
 
   strcat(file_name, "consumer_information/"); // 加入路径"consumer_information/"
   strcat(file_name, user_id);                 // 文件名为"user_id"
-  strcat(file_name, ".txt");                  // 后缀为.txt
+  strcat(file_name, ".txt");                  // 后��为.txt
 
   // 打开特定的订单数据文件
   if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
     return 0;                                    // 不存在, 返回"0"
 
   if (!read_type) {
+
     // 读取数据
     fscanf(fwrite, "%s %s %s %s %s %s %f",
            consumer_information.name,     // 顾客姓名
@@ -211,7 +214,7 @@ int database_consumer_information(char user_id[30], int read_type) {
 *************************************************/
 
 typedef struct {
-  char shop_id[10];       // 超市ID
+  char shop_id[30];       // 超市ID
   float unit_price;       // 单价
   float in_price;         // 进价
   int sales_volume;       // 销量
@@ -235,16 +238,15 @@ int database_goods_index(char user_id[30], int read_type) {
   strcat(file_name, user_id);        // 文件名为"user_id"
   strcat(file_name, ".txt");         // 后缀为.txt
 
-  int i = -1;
+  int i = 0;
   if (!read_type) {
 
     // 打开特定的订单数据文件
     if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
       return 0;                                    // 不存在, 返回"0"
 
-    // 遍历组件, 读取数据
+    // 读取数据
     while (!feof(fwrite)) {
-      i++;
       fscanf(fwrite, "%s %f %f %d %d %f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
              goods_index[i].shop_id,             // 超市ID
              &goods_index[i].unit_price,         // 单价
@@ -263,13 +265,14 @@ int database_goods_index(char user_id[30], int read_type) {
              &goods_index[i].time_end.hour,      // ...
              &goods_index[i].time_end.minute     // ...
       );
+      i++;
     }
   } else {
 
     // 打开特定的订单数据文件
     fwrite = fopen(file_name, "w+");
-    // 写���������������������������������������������������������������������������数据
-    i = 0;
+
+    // 写入数据
     while (goods_index[i].unit_price != 0) {
       fprintf(fwrite,
               "%s %0.2f %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
@@ -323,10 +326,10 @@ int database_goods_index(char user_id[30], int read_type) {
 *************************************************/
 
 typedef struct {
-  char order_id[11];    // 订单编号
-  char consumer_id[11]; // 顾客编号
+  char order_id[30];    // 订单编号
+  char consumer_id[30]; // 顾客编号
   STU_time sold_time;   // 购买时间
-  char goods_id[11];    // 商品ID
+  char goods_id[30];    // 商品ID
   int purchase_num;     // 购买数量
   float unit_price;     // 单价
   float all_price;      // 总价
@@ -349,16 +352,15 @@ int database_order_admin_all(char user_id[30], int read_type) {
   strcat(file_name, user_id);
   strcat(file_name, "_all.txt");
 
-  int i = -1;
+  int i = 0;
   if (!read_type) {
 
     // 打开特定的订单数据文件
     if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
       return 0;                                    // 不存在, 返回"0"
 
-    // 遍历组件, 读取数据
+    // 读取数据
     while (!feof(fwrite)) {
-      i++;
       fscanf(fwrite, "%s %s %d:%d:%d:%d:%d %s %d %f %f",
              order_admin_all[i].order_id,          // 订单编号
              order_admin_all[i].consumer_id,       // 顾客编号
@@ -372,6 +374,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
              &order_admin_all[i].unit_price,       // 单价
              &order_admin_all[i].all_price         // 总价
       );
+      i++;
     }
   } else {
 
@@ -379,7 +382,6 @@ int database_order_admin_all(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    i = 0;
     while (order_admin_all[i].purchase_num != 0) {
       fprintf(fwrite, "%s %s %d:%d:%d:%d:%d %s %d %f %f",
               order_admin_all[i].order_id,         // 订单编号
@@ -449,21 +451,21 @@ int database_order_admin_consumer(char user_id[30], int read_type) {
   strcat(file_name, user_id);
   strcat(file_name, "_consumer.txt");
 
-  int i = -1;
+  int i = 0;
   if (!read_type) {
 
     // 打开特定的订单数据文件
     if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
       return 0;                                    // 不存在, 返回"0"
 
-    // 遍历组件, 读取数据
+    // 读取数据
     while (!feof(fwrite)) {
-      i++;
       fscanf(fwrite, "%s %s %d",
              order_admin_consumer[i].consumer_id,  // 顾客ID
              order_admin_consumer[i].goods_id,     //商品ID
              &order_admin_consumer[i].purchase_num // 购买数量
       );
+      i++;
     }
   } else {
 
@@ -471,7 +473,6 @@ int database_order_admin_consumer(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    i = 0;
     while (order_admin_consumer[i].purchase_num != 0) {
       fprintf(fwrite, "%s %s %d\n",
               order_admin_consumer[i].consumer_id, // 顾客ID
@@ -511,7 +512,7 @@ n行4列
 *************************************************/
 
 typedef struct {
-  char goods_id[11]; // 商品ID
+  char goods_id[30]; // 商品ID
   int purchase_num;  // 购买数量
   float all_price;   // 营业额
   float profit;      // 利润
@@ -532,22 +533,23 @@ int database_order_admin_goods(char user_id[30], int read_type) {
   strcat(file_name, user_id);
   strcat(file_name, "_goods.txt");
 
-  int i = -1;
+  int i = 0;
   if (!read_type) {
 
     // 打开���定的订单数据�����件
-    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
-      return 0;                                    // 不存在, 返回"0"
+    if ((fwrite = fopen(file_name, "r+")) ==
+        NULL)   // 判断文�������是否存在及可读
+      return 0; // 不存在, 返回"0"
 
-    // 遍历组件, 读取数据
+    // 读取数据
     while (!feof(fwrite)) {
-      i++;
       fscanf(fwrite, "%s %d %f %f",
              order_admin_goods[i].goods_id,      // 商品ID
              &order_admin_goods[i].purchase_num, // 购买数量
              &order_admin_goods[i].all_price,    // 营业额
              &order_admin_goods[i].profit        // 利润
       );
+      i++;
     }
   } else {
 
@@ -555,7 +557,7 @@ int database_order_admin_goods(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    i = 0;
+
     while (order_admin_goods[i].purchase_num != 0) {
       fprintf(fwrite, "%s %d %0.2f %0.2f\n",
               order_admin_goods[i].goods_id,     // 商品ID
@@ -597,9 +599,9 @@ n行6列
 *************************************************/
 
 typedef struct {
-  char order_id[11];  // 订单编号
+  char order_id[30];  // 订单编号
   char sold_time[25]; // 购买时间
-  char goods_id[11];  // 商品ID
+  char goods_id[30];  // 商品ID
   int purchase_num;   // 购买数量
   float unit_price;   // 单价
   float all_price;    // 总价
@@ -620,16 +622,15 @@ int database_order_consumer(char user_id[30], int read_type) {
   strcat(file_name, user_id);
   strcat(file_name, ".txt");
 
-  int i = -1;
+  int i = 0;
   if (!read_type) {
 
     // 打开���定的订单数据�����件
     if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
       return 0;                                    // 不存在, 返回"0"
 
-    // 遍历组件, 读取数据
+    // 读取数据
     while (!feof(fwrite)) {
-      i++;
       fscanf(fwrite, "%s %s %s %d %f %f",
              order_consumer[i].order_id,      // 订单编号
              order_consumer[i].sold_time,     // 购买时间
@@ -638,6 +639,7 @@ int database_order_consumer(char user_id[30], int read_type) {
              &order_consumer[i].unit_price,   // 单价
              &order_consumer[i].all_price     // 总价
       );
+      i++;
     }
   } else {
 
@@ -645,7 +647,7 @@ int database_order_consumer(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    i = 0;
+
     while (order_consumer[i].purchase_num != 0) {
       fprintf(fwrite, "%s %s %s %d %0.2f %0.2f\n",
               order_consumer[i].order_id,     // 订单编号
@@ -659,5 +661,120 @@ int database_order_consumer(char user_id[30], int read_type) {
     }
   }
   fclose(fwrite);
-  return 1; // 成功读写返回"1"
+  return 1; // 成功读写返��"1"
+}
+
+/*************************************************
+标题:
+  shop_index数据库 商品清单_以管理员ID为索引 可读写
+
+路径
+  ./database/shop_index/
+
+文件名
+  {admin_id}.txt
+
+存放数据
+n行8列
+顾客ID | 单价 | 进价 | 销量 | 库存 | 折扣价格 | 折扣开始时间 |折扣结束时间
+
+接收:
+  user_id: 用户ID
+  read_type: 读写类型
+    0: 读取
+    1: 写入
+
+返回:
+  0: 文件���存在
+  1: 文件存在并成功读写
+*************************************************/
+
+typedef struct {
+  char goods_id[30];    // 商品编号
+  float unit_price;     // 零售价格
+  float in_price;       // 进货价格
+  int sales_volume;     // 销量
+  int goods_in_stock;   // 存货
+  float discount_price; // 折扣价
+  STU_time time_begin;  // 折扣开始时间
+  STU_time time_end;    // 折扣结束时间
+
+} STU_shop_index;
+
+STU_shop_index shop_index[100];
+
+int database_shop_index(char user_id[30], int read_type) {
+  // 声明读取文件所需指针
+  FILE *fwrite;
+
+  char file_name[300] =
+      "/Users/zolar/OneDrive - Queen Mary, University of "
+      "London/Project/Supermarket-Management-System/"
+      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+
+  strcat(file_name, "shop_index/"); // 加入路径"shop_index/"
+  strcat(file_name, user_id);
+  strcat(file_name, ".txt");
+
+  int i = 0;
+  if (!read_type) {
+
+    // 打开特定的订单数据文件
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;                                   // 不存在, 返回"0"
+
+    while (!feof(fwrite)) {
+
+      // 读取数据
+      fscanf(fwrite, "%s %f %f %d %d %f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
+             shop_index[i].goods_id,           // 商品编号
+             &shop_index[i].unit_price,        // 零售价格
+             &shop_index[i].in_price,          // 进货价格
+             &shop_index[i].sales_volume,      // 销量
+             &shop_index[i].goods_in_stock,    // 存货
+             &shop_index[i].discount_price,    // 折扣价
+             &shop_index[i].time_begin.year,   // 折扣开始时间
+             &shop_index[i].time_begin.month,  // ...
+             &shop_index[i].time_begin.day,    // ...
+             &shop_index[i].time_begin.hour,   // ...
+             &shop_index[i].time_begin.minute, // ...
+             &shop_index[i].time_end.year,     // 折扣结束时间
+             &shop_index[i].time_end.month,    // ...
+             &shop_index[i].time_end.day,      // ...
+             &shop_index[i].time_end.hour,     // ...
+             &shop_index[i].time_end.minute    // ...
+      );
+      i++;
+    }
+  } else {
+
+    // 打开特定的订单数据文件
+    fwrite = fopen(file_name, "w+");
+
+    // 写入数据
+    while (shop_index[i].unit_price != 0) {
+      fprintf(fwrite,
+              "%s %0.2f %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+              shop_index[i].goods_id,          // 商品编号
+              shop_index[i].unit_price,        // 零售价格
+              shop_index[i].in_price,          // 进货价格
+              shop_index[i].sales_volume,      // 销量
+              shop_index[i].goods_in_stock,    // 存货
+              shop_index[i].discount_price,    // 折扣价
+              shop_index[i].time_begin.year,   // 折扣开始时间
+              shop_index[i].time_begin.month,  // ...
+              shop_index[i].time_begin.day,    // ...
+              shop_index[i].time_begin.hour,   // ...
+              shop_index[i].time_begin.minute, // ...
+              shop_index[i].time_end.year,     // 折扣结束时间
+              shop_index[i].time_end.month,    // ...
+              shop_index[i].time_end.day,      // ...
+              shop_index[i].time_end.hour,     // ...
+              shop_index[i].time_end.minute    // ...
+      );
+      i++;
+    }
+  }
+  fclose(fwrite);
+  return 1; // 成功读写返��"1"
 }
