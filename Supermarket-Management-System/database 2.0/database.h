@@ -268,7 +268,7 @@ int database_goods_index(char user_id[30], int read_type) {
 
     // 打开特定的订单数据文件
     fwrite = fopen(file_name, "w+");
-    // 写���������������数据
+    // 写���������������������������������������������������������������������������数据
     i = 0;
     while (goods_index[i].unit_price != 0) {
       fprintf(fwrite,
@@ -326,7 +326,7 @@ typedef struct {
   char order_id[11];    // 订单编号
   char consumer_id[11]; // 顾客编号
   STU_time sold_time;   // 购买时间
-  char goods_id[11];    // 商品编号
+  char goods_id[11];    // 商品ID
   int purchase_num;     // 购买数量
   float unit_price;     // 单价
   float all_price;      // 总价
@@ -367,7 +367,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
              &order_admin_all[i].sold_time.day,    // ...
              &order_admin_all[i].sold_time.hour,   // ...
              &order_admin_all[i].sold_time.minute, // ...
-             order_admin_all[i].goods_id,          // 商品编号
+             order_admin_all[i].goods_id,          // 商品ID
              &order_admin_all[i].purchase_num,     // 购买数量
              &order_admin_all[i].unit_price,       // 单价
              &order_admin_all[i].all_price         // 总价
@@ -389,7 +389,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
               order_admin_all[i].sold_time.day,    // ...
               order_admin_all[i].sold_time.hour,   // ...
               order_admin_all[i].sold_time.minute, // ...
-              order_admin_all[i].goods_id,         // 商品编号
+              order_admin_all[i].goods_id,         // 商品ID
               order_admin_all[i].purchase_num,     // 购买数量
               order_admin_all[i].unit_price,       // 单价
               order_admin_all[i].all_price         // 总价
@@ -511,7 +511,7 @@ n行4列
 *************************************************/
 
 typedef struct {
-  char goods_id[11]; // 商品编号
+  char goods_id[11]; // 商品ID
   int purchase_num;  // 购买数量
   float all_price;   // 营业额
   float profit;      // 利润
@@ -519,7 +519,7 @@ typedef struct {
 
 STU_order_admin_goods order_admin_goods[100]; // 最多存放100笔订单
 
-int database_order_admin_goods(char user_id[11], int read_type) {
+int database_order_admin_goods(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
@@ -528,9 +528,7 @@ int database_order_admin_goods(char user_id[11], int read_type) {
       "London/Project/Supermarket-Management-System/"
       "Supermarket-Management-System/database"; // 该字符串用于处理文件名
 
-  strcat(file_name, "/order_admin/"); // 加入路径"order_admin/"
-
-  // 处理文件名
+  strcat(file_name, "/order_admin/"); // 加��路��"order_admin/"
   strcat(file_name, user_id);
   strcat(file_name, "_goods.txt");
 
@@ -545,7 +543,7 @@ int database_order_admin_goods(char user_id[11], int read_type) {
     while (!feof(fwrite)) {
       i++;
       fscanf(fwrite, "%s %d %f %f",
-             order_admin_goods[i].goods_id,      // 商品编号
+             order_admin_goods[i].goods_id,      // 商品ID
              &order_admin_goods[i].purchase_num, // 购买数量
              &order_admin_goods[i].all_price,    // 营业额
              &order_admin_goods[i].profit        // 利润
@@ -560,7 +558,7 @@ int database_order_admin_goods(char user_id[11], int read_type) {
     i = 0;
     while (order_admin_goods[i].purchase_num != 0) {
       fprintf(fwrite, "%s %d %0.2f %0.2f\n",
-              order_admin_goods[i].goods_id,     // 商品编号
+              order_admin_goods[i].goods_id,     // 商品ID
               order_admin_goods[i].purchase_num, // 购买数量
               order_admin_goods[i].all_price,    // 营业额
               order_admin_goods[i].profit        // 利润
@@ -569,6 +567,97 @@ int database_order_admin_goods(char user_id[11], int read_type) {
     }
   }
 
+  fclose(fwrite);
+  return 1; // 成功读写返回"1"
+}
+
+/*************************************************
+标题:
+  order_consumer数据库 管理员可查询订单_按货物分类 可读写
+
+路径
+  ./database/order_consumer/
+
+文件名
+  {consumer_id}.txt
+
+存放数据
+n行6列
+订单编号 | 购买时间 | 商品ID | 购买数量 | 单价 | 总价
+
+接收:
+  user_id: 用户ID
+  read_type: 读写类型
+    0: 读取
+    1: 写入
+
+返回:
+  0: 文件不存在
+  1: 文件存在并成功读写
+*************************************************/
+
+typedef struct {
+  char order_id[11];  // 订单编号
+  char sold_time[25]; // 购买时间
+  char goods_id[11];  // 商品ID
+  int purchase_num;   // 购买数量
+  float unit_price;   // 单价
+  float all_price;    // 总价
+} STU_order_consumer;
+
+STU_order_consumer order_consumer[100]; // 最多存放一百笔订单
+
+int database_order_consumer(char user_id[30], int read_type) {
+  // 声明读取文件所需指针
+  FILE *fwrite;
+
+  char file_name[300] =
+      "/Users/zolar/OneDrive - Queen Mary, University of "
+      "London/Project/Supermarket-Management-System/"
+      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+
+  strcat(file_name, "order_consumer/"); // 加入路径"order_consumer/"
+  strcat(file_name, user_id);
+  strcat(file_name, ".txt");
+
+  int i = -1;
+  if (!read_type) {
+
+    // 打开���定的订单数据�����件
+    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
+      return 0;                                    // 不存在, 返回"0"
+
+    // 遍历组件, 读取数据
+    while (!feof(fwrite)) {
+      i++;
+      fscanf(fwrite, "%s %s %s %d %f %f",
+             order_consumer[i].order_id,      // 订单编号
+             order_consumer[i].sold_time,     // 购买时间
+             order_consumer[i].goods_id,      // 商品ID
+             &order_consumer[i].purchase_num, // 购买数量
+             &order_consumer[i].unit_price,   // 单价
+             &order_consumer[i].all_price     // 总价
+      );
+    }
+  } else {
+
+    // 打开特定的订单数据文件
+    fwrite = fopen(file_name, "w+");
+
+    // 写入数据
+    i = 0;
+    while (order_consumer[i].purchase_num != 0) {
+      fprintf(fwrite, "%s %s %s %d %0.2f %0.2f\n",
+              order_consumer[i].order_id,     // 订单编号
+              order_consumer[i].sold_time,    // 购买时间
+              order_consumer[i].goods_id,     // 商品ID
+              order_consumer[i].purchase_num, // 购买数量
+              order_consumer[i].unit_price,   // 单价
+              order_consumer[i].all_price     // 总价
+      );
+      i++;
+    }
+  }
   fclose(fwrite);
   return 1; // 成功读写返回"1"
 }
