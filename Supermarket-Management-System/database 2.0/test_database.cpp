@@ -5,19 +5,19 @@
 
 int main() // 调试
 {
-  char user_id[30] = "guke";
+  char user_id[30] = "guanli";
 
-  if (database_shopping_cart(user_id, 0)) {
+  if (database_shop_index(user_id, 0)) {
     printf("文件存在并读取完毕\n");
   } else {
     printf("文件不存在\n");
   }
 
-  printf("%d\n", shopping_cart[2].purchase_num);
+  printf("%s\n", shop_index[2].goods_id);
 
-  shopping_cart[2].purchase_num = -1;
-  printf("%d\n", shopping_cart[2].purchase_num);
-  database_shopping_cart(user_id, 1);
+  strcat(shop_index[2].goods_id, "fxxkwkm");
+  printf("%s\n", shop_index[2].goods_id);
+  database_shop_index(user_id, 1);
 
   return 0;
 }

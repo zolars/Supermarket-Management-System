@@ -367,6 +367,5 @@ int search_order_admin_main(char user_id[30]) {
 
   search_order_admin();
 
-  database_order_admin_all(user_id, 1);
   return 1;
 }
