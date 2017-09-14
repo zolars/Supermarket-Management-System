@@ -1,5 +1,0 @@
-clang: warning: treating 'c-header' input as 'c++-header' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-/Users/zolar/OneDrive - Queen Mary, University of London/Project/Supermarket-Management-System/代码片段/辛逸飞/search_orders_admin v2.h:13:10: fatal error: 'database.h' file not found
-#include "database.h"
-         ^
-1 error generated.

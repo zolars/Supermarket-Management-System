@@ -108,8 +108,3 @@ int login_main() {
 
   return 1;
 }
-
-int main() {
-  printf("%d\n", login_main());
-  return 0;
-}

@@ -2,47 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-/*
-// 定义结构体存放商品索引数据
-typedef struct {
-  char store[20];    // 商品编号
-  char name[20];     // 购买数量
-  char email[20];    // 营业额
-  char password[20]; // 利润
-} STU_admin_information;
-
-STU_admin_information admin_information;
-
-char file_name_global[300];
-
-void database_admin_information(char user_id[11]) {
-  // 声明读取文件所需指针
-  FILE *fread;
-
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database"; // 该字符串用于处理文件名
-
-  strcat(file_name, "/admin_information/"); // 加入路径"admin_information/"
-
-  // 处理文件名
-  strcat(file_name, user_id);
-  strcat(file_name, ".txt");
-
-  // 打开特定的订单数据文件
-  fread = fopen(file_name, "r");
-
-  fscanf(fread, "%s %s %s %s", admin_information.store, admin_information.name,
-         admin_information.email, admin_information.password);
-
-  fclose(fread);
-
-  strcpy(file_name_global, file_name);
-  return; // 保存订单数量
-}
-
-*/
 
 int check_email(char email[20]) {
   int i, j = 0, k = 0, n = 0, m = 0, temp = 0;
