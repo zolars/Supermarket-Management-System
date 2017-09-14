@@ -685,7 +685,7 @@ n行8列
     1: 写入
 
 返回:
-  0: 文件���存在
+  0: 文件�����存在
   1: 文件存在并成功读写
 *************************************************/
 
@@ -776,5 +776,89 @@ int database_shop_index(char user_id[30], int read_type) {
     }
   }
   fclose(fwrite);
-  return 1; // 成功读写返��"1"
+  return 1; // 成功读写返回"1"
+}
+
+/*************************************************
+标题:
+  shopping_cart数据库 用户离线购物车 可读写
+
+路径
+  ./database/shopping_cart/
+
+文件名
+  {guke_id}.txt
+
+存放数据
+n行3列
+商品ID | 管理员ID | 打算购买数量
+
+接收:
+  user_id: 用户ID
+  read_type: 读写类型
+    0: 读取
+    1: 写入
+
+返回:
+  0: 文件不存在
+  1: 文件存在并成功读写
+*************************************************/
+
+typedef struct {
+  char goods_id[30]; // 商品ID
+  char admin_id[30]; //管理员ID
+  int purchase_num;  // 购买数量
+} STU_shopping_cart;
+
+STU_shopping_cart shopping_cart[100]; // 最多存放100笔订单
+
+int database_shopping_cart(char user_id[30], int read_type) {
+  // 声明读取文件所需指针
+  FILE *fwrite;
+
+  char file_name[300] =
+      "/Users/zolar/OneDrive - Queen Mary, University of "
+      "London/Project/Supermarket-Management-System/"
+      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+
+  strcat(file_name, "shopping_cart/"); // 加入路径"order_admin/"
+
+  // 处理文件名
+  strcat(file_name, user_id);
+  strcat(file_name, ".txt");
+
+  int i = 0;
+  if (!read_type) {
+
+    // 打开特定的订单数据文件
+    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
+      return 0;                                    // 不存在, 返回"0"
+
+    // 读取数据
+    while (!feof(fwrite)) {
+      fscanf(fwrite, "%s %s %d",
+             shopping_cart[i].goods_id,     // 商品ID
+             shopping_cart[i].admin_id,     // 管理员ID
+             &shopping_cart[i].purchase_num // 购买数量
+      );
+      i++;
+    }
+  } else {
+
+    // 打开特定的订单数据文件
+    fwrite = fopen(file_name, "w+");
+
+    // 写入数据
+    while (shopping_cart[i].purchase_num != 0) {
+      if (shopping_cart[i].purchase_num != -1)
+        fprintf(fwrite, "%s %s %d\n",
+                shopping_cart[i].goods_id,    // 商品ID
+                shopping_cart[i].admin_id,    // 管理员ID
+                shopping_cart[i].purchase_num // 购买数量
+        );
+      i++;
+    }
+  }
+  fclose(fwrite);
+  return 1; // 成功读写返回"1"
 }
