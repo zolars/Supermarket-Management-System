@@ -9,8 +9,8 @@
 //   - string.h
 
 // 备注:
-// 1. 当我们需要遍历全部的结构体时, 找到结构体中的一个非零变量,
-//    使用 while 语句检测其是否为零, 即可判断尽头.
+//  1. 当我们需要遍历全部的结构体时, 找到结构体中的一个非零变量,
+//     使用 while 语句检测其是否为零, 即可判断尽头.
 //
 
 #include <stdio.h>
@@ -75,11 +75,11 @@ int database_admin_information(char user_id[30], int read_type) {
   strcat(file_name, user_id);              // 文件名为"user_id"
   strcat(file_name, ".txt");               // 后缀为.txt
 
-  // 打开特定的订单数据文件
-  if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
-    return 0;                                    // 不存在, 返回"0"
-
   if (!read_type) {
+
+    // 打开特定的订单数据文件
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;                                   // 不存在, 返回"0"
 
     // 读取数据
     fscanf(fwrite, "%s %s %s %s",
@@ -90,6 +90,9 @@ int database_admin_information(char user_id[30], int read_type) {
     );
 
   } else {
+
+    // 打开特定的订单数据文件
+    fwrite = fopen(file_name, "w+");
 
     // 写入数据
     fprintf(fwrite, "%s %s %s %s",
@@ -136,7 +139,7 @@ typedef struct {
   char password[30]; // 密码
   char email[30];    // 邮箱
   char address[50];  // 地址
-  float money;       // 余额
+  char money[10];    // 余额
 } STU_consumer_information;
 
 STU_consumer_information consumer_information;
@@ -153,27 +156,28 @@ int database_consumer_information(char user_id[30], int read_type) {
   strcat(file_name, user_id);                 // 文件名为"user_id"
   strcat(file_name, ".txt");                  // 后��为.txt
 
-  // 打开特定的订单数据文件
-  if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
-    return 0;                                    // 不存在, 返回"0"
-
   if (!read_type) {
+    // 打开特定的订单数据文件
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;                                   // 不存在, 返回"0"
 
     // 读取数据
-    fscanf(fwrite, "%s %s %s %s %s %s %f",
+    fscanf(fwrite, "%s %s %s %s %s %s %s",
            consumer_information.name,     // 顾客姓名
            consumer_information.sex,      // 顾客性别
            consumer_information.tel,      // 手机号
            consumer_information.password, // 密码
            consumer_information.email,    // 邮箱
            consumer_information.address,  // 地址
-           &consumer_information.money    // 余额
+           consumer_information.money     // 余额
     );
 
   } else {
+    // 打开特定的订单数据文件
+    fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    fprintf(fwrite, "%s %s %s %s %s %s %f",
+    fprintf(fwrite, "%s %s %s %s %s %s %s",
             consumer_information.name,     // 顾客姓名
             consumer_information.sex,      // 顾客性别
             consumer_information.tel,      // 手机号
@@ -538,7 +542,7 @@ int database_order_admin_goods(char user_id[30], int read_type) {
 
     // 打开���定的订单数据�����件
     if ((fwrite = fopen(file_name, "r+")) ==
-        NULL)   // 判断文�������是否存在及可读
+        NULL) // 判断文�������是否存在及�����读
       return 0; // 不存在, 返回"0"
 
     // 读取数据
@@ -845,7 +849,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
     }
   } else {
 
-    // 打开特定的订单数据文件
+    // 打开特定的数据文件
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
