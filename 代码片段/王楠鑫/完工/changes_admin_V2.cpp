@@ -1,7 +1,8 @@
+#include "database.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/*
 // 定义结构体存放商品索引数据
 typedef struct {
   char store[20];    // 商品编号
@@ -41,6 +42,8 @@ void database_admin_information(char user_id[11]) {
   return; // 保存订单数量
 }
 
+*/
+
 int check_email(char email[20]) {
   int i, j = 0, k = 0, n = 0, m = 0, temp = 0;
   for (i = 0; i < strlen(email); i++) {
@@ -59,25 +62,22 @@ int check_email(char email[20]) {
 }
 
 void changes_admin_password(char user_id[11]) {
-  FILE *fp;
 
-  database_admin_information(user_id); // 数据库传入file_name_global
   printf("\n请输入新的账户密码: ");
+
   scanf("%s", admin_information.password);
-  fp = fopen(file_name_global, "w+");
-  fprintf(fp, "%s %s %s %s", admin_information.store, admin_information.name,
-          admin_information.email, admin_information.password);
-  fclose(fp);
+
   printf("\n修改成功! ");
   return;
 }
 
 void changes_admin_email(char user_id[11]) {
-  FILE *fp;
-  database_admin_information(user_id); // 数据库传入file_name
+
   printf("\n请输入新的邮箱: ");
-  int i;
+
   scanf("%s", admin_information.email);
+
+  int i;
   i = check_email(admin_information.email);
   while (i != 2) {
     printf("\n邮箱格式错误, 请检查后重新输入! ");
@@ -87,15 +87,16 @@ void changes_admin_email(char user_id[11]) {
     i = check_email(admin_information.email);
   }
 
-  fp = fopen(file_name_global, "w+");
-  fprintf(fp, "%s %s %s %s", admin_information.store, admin_information.name,
-          admin_information.email, admin_information.password);
-  fclose(fp);
   printf("\n修改成功! ");
   return;
 }
 
 void changes_admin(char user_id[11]) {
+  if (!database_admin_information(user_id, 0)) { // 数据库读取, 只读
+    printf("没有找到文件? 请核查数据库信息.");
+    return; // 读取文件发生错误, 返回上一级
+  }
+
   int temp = 1;
   int choose;
   do {
@@ -119,6 +120,8 @@ void changes_admin(char user_id[11]) {
       temp = 0;
     }
   } while (temp == 0);
+
+  database_admin_information(user_id, 1);
 
   return;
 }

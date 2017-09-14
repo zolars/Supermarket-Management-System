@@ -4,13 +4,12 @@
 // Language: C
 // Features: 网上超市管理系统主程序.
 // Modules:
-//   - database_order_admin_all.h
-//   - databse_order_admin_goods.h
+//   - search_order.h
 //   - stdio.h
 //   - string.h
 //   - stdlib.h
 
-#include "search_orders_admin v2.h"
+#include "search_order.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,8 +19,9 @@ int main() {
   char user_id[30] = "guanli";
   user_type = 1;
 
-  if (user_type)
-    search_order_admin_main(user_id);
+  int test = search_order(user_id, user_type);
+  if (test)
+    printf("All done");
 
   return 0;
 }

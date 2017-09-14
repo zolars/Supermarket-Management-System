@@ -629,7 +629,7 @@ int database_order_consumer(char user_id[30], int read_type) {
   int i = 0;
   if (!read_type) {
 
-    // 打开���定的订单数据�����件
+    // 打开特定的订单数据文件
     if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
       return 0;                                    // 不存在, 返回"0"
 

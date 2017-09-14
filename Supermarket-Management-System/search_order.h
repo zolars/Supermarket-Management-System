@@ -2,7 +2,7 @@
 // Author: 辛逸飞
 // Date: 2017-09-12
 // Language: C
-// Features: 完成"管理员身份-查询订单"功能的模块.
+// Features: 完成"查询订单"功能的模块.
 // Modules:
 //   - database.h
 //   - stdio.h
@@ -260,7 +260,7 @@ void search_order_admin_result_2() {
 
 // 主选项
 int search_order_admin_choose() {
-  char choose[10]; // 记录管����员���作时的��择
+  char choose[10]; // 记录管�������������员���作时的��择
   int choose_num;
 
   // 用户界面
@@ -307,7 +307,7 @@ void search_order_admin() {
   return;
 }
 
-// 主程序, 负责读取数据库以及传入下一层级.
+// 管理员查询主程序, 负责读取数据库以及传入下一层级.
 int search_order_admin_main(char user_id[30]) {
 
   if (!database_order_admin_all(user_id, 0)) { // 数据库读取, 只读
@@ -326,6 +326,41 @@ int search_order_admin_main(char user_id[30]) {
   }
 
   search_order_admin();
+
+  return 1;
+}
+
+// 用户查询主程序, 负责所有
+int search_order_consumer_main(char user_id[15]) {
+
+  if (!database_order_consumer(user_id, 0)) { // 数据库读取, 只读
+    printf("没有找到数据? 请先加入部分订单.");
+    return 0; // 读取文件发生错误, 返回上一级
+  }
+
+  int i = 0; // 循环变量
+
+  // 顾客: 打印数据
+  printf("\n");
+  while (order_consumer[i].unit_price != 0) {
+    printf("%s\t%s\t%s\t%d\t%0.2f\t%0.2f\n", order_consumer[i].order_id,
+           order_consumer[i].sold_time, order_consumer[i].goods_id,
+           order_consumer[i].purchase_num, order_consumer[i].unit_price,
+           order_consumer[i].all_price);
+    i++;
+  }
+
+  printf("\n以上即为您的历史订单.\n请输入任意字符并按回车键以继续...\n");
+  char screen[50];
+  scanf("%s", screen); // 延迟屏幕显示
+  return 0;
+}
+
+int search_order(char user_id[30], int user_type) {
+  if (user_type)
+    search_order_admin_main(user_id);
+  else
+    search_order_consumer_main(user_id);
 
   return 1;
 }
