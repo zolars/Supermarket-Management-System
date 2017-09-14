@@ -10,20 +10,18 @@
 //   - string.h
 //   - stdlib.h
 
-#include "search_orders_admin.h"
-#include "search_orders_consumer.h"
+#include "search_orders_admin2.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 int main() {
   int user_type;
-  char user_id[15] = "KMDM007";
-  user_type = 0;
+  char user_id[30] = "guanli";
+  user_type = 1;
 
   if (user_type)
-    search_orders_admin(user_id);
-  else
-    search_orders_consumer(user_id);
+    search_order_admin_main(user_id);
+
   return 0;
 }
