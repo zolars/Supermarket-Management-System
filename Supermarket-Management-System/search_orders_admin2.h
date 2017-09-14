@@ -168,7 +168,44 @@ void search_order_admin_result_1_1() {
   return;
 }
 
-void search_order_admin_result_1_2() { return; }
+void search_order_admin_result_1_2() {
+  int order_num = 0, i = 0;                                // 循环变量
+  while (order_admin_goods[order_num].purchase_num != 0) { // 遍历求深度
+    order_num += 1;
+  }
+
+  printf("%d", order_num);
+  qsort(order_admin_goods, order_num, sizeof(order_admin_goods[0]),
+        cmp_purchase_num);
+
+  printf("\n对销量排序结果如下:\n");
+  printf("商品编号  销量  营业额  利润\n");
+  for (i = 0; i < order_num; i++)
+    printf("%s\t%4d\t%0.2f\t%0.2f\n",
+           order_admin_goods[i].goods_id,     // 商品编号
+           order_admin_goods[i].purchase_num, // 销量
+           order_admin_goods[i].all_price,    // 营业额
+           order_admin_goods[i].profit        // 利润
+    );
+
+  qsort(order_admin_goods, order_num, sizeof(order_admin_goods[0]),
+        cmp_all_price);
+
+  printf("\n对营业额排序结果如下:\n");
+  printf("商品编号  销量  营业额  利润\n");
+  for (i = 0; i < order_num; i++)
+    printf("%s\t%4d\t%0.2f\t%0.2f\n",
+           order_admin_goods[i].goods_id,     // 商品编号
+           order_admin_goods[i].purchase_num, // 销量
+           order_admin_goods[i].all_price,    // 营业额
+           order_admin_goods[i].profit        // 利润
+    );
+
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+  return;
+}
 
 void search_order_admin_result_1_3() { return; }
 
@@ -245,7 +282,7 @@ void search_order_admin_result_2() {
   while (order_admin_all[i].purchase_num != 0) {
     printf("%s  %s %d:%d:%d:%d:%d %s        %d    %0.2f  %0.2f\n",
            order_admin_all[i].order_id,         // 订单编号
-           order_admin_all[i].consumer_id,      // 顾客编号
+           order_admin_all[i].consumer_id,      // 顾客编���
            order_admin_all[i].sold_time.year,   // 购买时间
            order_admin_all[i].sold_time.month,  // ...
            order_admin_all[i].sold_time.day,    // ...
@@ -324,8 +361,8 @@ int search_order_admin_main(char user_id[30]) {
   }
 
   if (!database_order_admin_goods(user_id, 0)) { // 数据库读取, 只读
-    printf("没有找到数据? 请先加入部���订���.");
-    return 0; // 读取文件发生错误, 返�������上一级
+    printf("没有找到数据? 请先加入部分订单.");
+    return 0; // 读取文件发生错误, 返回上一级
   }
 
   search_order_admin();

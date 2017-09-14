@@ -4,7 +4,7 @@
 
 .../database/shop_index/
 
-### {shop_id}.txt
+### {admin_id}.txt
 
 n行
 
