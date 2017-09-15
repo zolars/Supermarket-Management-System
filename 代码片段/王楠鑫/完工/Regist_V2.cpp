@@ -96,6 +96,7 @@ void regist_result_2() {
     printf("\n当前用户名已被注册，请使用其它用户名.");
     regist_result_2();
   }
+
   printf("\n请填写您的姓名:\n");
   scanf("%s", name);
 
@@ -143,15 +144,17 @@ void regist_result_2() {
 
   printf("\n您已成功注册!\n");
 
-  float money_num;
-  // 检验输入
+  // 输入并检测余额
+  double money_num;
   do {
     printf("\n请充值您的余额: \n");
     scanf("%s", money);
     money_num = atof(money);
-    if ((int(money_num * 100) != (money_num * 100)) || money_num == 0 ||
-        strlen(money) > 6) {
+    if ((int(money_num * 100) != (money_num * 100)) || money_num == 0) {
       printf("\n输入错误, 请检查后重新输入!\n");
+      continue;
+    } else if (strlen(money) > 8 || atof(money) > 50000) {
+      printf("\n每次最多只能充值五万, 请检查后重新输入!\n");
       continue;
     }
     break;
@@ -175,7 +178,7 @@ void regist_result_2() {
 
 // 主选项
 int regist_choose() {
-  char choose[10]; // 记录管理???操???时的选择
+  char choose[10]; // 记录管理员操作时的选择
   int choose_num;
 
   // 用户界面

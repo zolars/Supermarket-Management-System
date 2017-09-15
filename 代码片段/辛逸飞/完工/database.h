@@ -18,6 +18,14 @@
 #include <string.h>
 
 /*************************************************
+声明 path:
+  文件路径
+*************************************************/
+char path[300] = "/Users/zolar/OneDrive - Queen Mary, University of "
+                 "London/Project/Supermarket-Management-System/"
+                 "Supermarket-Management-System/database/";
+
+/*************************************************
 标题:
   STU_time 时间存取结构型
 *************************************************/
@@ -66,10 +74,9 @@ STU_admin_information admin_information;
 int database_admin_information(char user_id[30], int read_type) {
 
   FILE *fwrite; // 声明读取文件所需指针
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
+
+  strcpy(file_name, path); // 该字符串用于处理文件名
 
   strcat(file_name, "admin_information/"); // 加入路径"admin_information/"
   strcat(file_name, user_id);              // 文件名为"user_id"
@@ -147,10 +154,9 @@ STU_consumer_information consumer_information;
 int database_consumer_information(char user_id[30], int read_type) {
 
   FILE *fwrite; // 声明读取文件所需指针
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
+
+  strcpy(file_name, path); // 该字符串用于处理文件名
 
   strcat(file_name, "consumer_information/"); // 加入路径"consumer_information/"
   strcat(file_name, user_id);                 // 文件名为"user_id"
@@ -233,10 +239,9 @@ STU_goods_index goods_index[100];
 int database_goods_index(char user_id[30], int read_type) {
 
   FILE *fwrite; // 声明读取文件所需指针
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
+
+  strcpy(file_name, path); // 该字符串用于处理文件名
 
   strcat(file_name, "goods_index/"); // 加入路径"goods_index/"
   strcat(file_name, user_id);        // 文件名为"user_id"
@@ -273,7 +278,7 @@ int database_goods_index(char user_id[30], int read_type) {
     }
   } else {
 
-    // 打开特定的订单数据文件
+    // 打开���定的订单数据文件
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
@@ -345,11 +350,9 @@ int database_order_admin_all(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
 
+  strcpy(file_name, path);           // 该字符串用于处理文件名
   strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
 
   // 处理文件名
@@ -444,11 +447,9 @@ int database_order_admin_consumer(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
 
+  strcpy(file_name, path);           // 该字符串用于处理文件名
   strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
 
   // 处理文件名
@@ -528,11 +529,9 @@ int database_order_admin_goods(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database"; // 该字符串用于处理文件名
+  char file_name[300];
 
+  strcpy(file_name, path);            // 该字符串用于处理文件名
   strcat(file_name, "/order_admin/"); // 加��路��"order_admin/"
   strcat(file_name, user_id);
   strcat(file_name, "_goods.txt");
@@ -549,7 +548,7 @@ int database_order_admin_goods(char user_id[30], int read_type) {
     while (!feof(fwrite)) {
       fscanf(fwrite, "%s %d %f %f",
              order_admin_goods[i].goods_id,      // 商品ID
-             &order_admin_goods[i].purchase_num, // 购买数量
+             &order_admin_goods[i].purchase_num, // 购买��量
              &order_admin_goods[i].all_price,    // 营业额
              &order_admin_goods[i].profit        // 利润
       );
@@ -617,11 +616,9 @@ int database_order_consumer(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
 
+  strcpy(file_name, path);              // 该字符串用于处理文件名
   strcat(file_name, "order_consumer/"); // 加入路径"order_consumer/"
   strcat(file_name, user_id);
   strcat(file_name, ".txt");
@@ -680,7 +677,7 @@ int database_order_consumer(char user_id[30], int read_type) {
 
 存放数据
 n行8列
-顾客ID | 单价 | 进价 | 销量 | 库存 | 折扣价格 | 折扣开始时间 |折扣结束时间
+顾客ID | 单价 | 进价 | 销量 | 库存 | ��扣价格 | 折扣开始时间 |折扣结束时间
 
 接收:
   user_id: 用户ID
@@ -711,11 +708,9 @@ int database_shop_index(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
 
+  strcpy(file_name, path);          // 该字符串用于处理文件名
   strcat(file_name, "shop_index/"); // 加入路径"shop_index/"
   strcat(file_name, user_id);
   strcat(file_name, ".txt");
@@ -805,7 +800,7 @@ n行3列
 
 返回:
   0: 文件不存在
-  1: 文件存在并成功读写
+  1: 文件存��并成功读��
 *************************************************/
 
 typedef struct {
@@ -820,11 +815,9 @@ int database_shopping_cart(char user_id[30], int read_type) {
   // 声明读取文件所需指针
   FILE *fwrite;
 
-  char file_name[300] =
-      "/Users/zolar/OneDrive - Queen Mary, University of "
-      "London/Project/Supermarket-Management-System/"
-      "Supermarket-Management-System/database/"; // 该字符串用于处理文件名
+  char file_name[300];
 
+  strcpy(file_name, path);             // 该字符串用于处理文件名
   strcat(file_name, "shopping_cart/"); // 加入路径"order_admin/"
 
   // 处理文件名
