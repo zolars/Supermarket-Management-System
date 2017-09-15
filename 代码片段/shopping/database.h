@@ -284,7 +284,8 @@ int database_goods_index(char user_id[30], int read_type) {
     // 写入数据
     while (goods_index[i].unit_price != 0) {
       fprintf(fwrite,
-              "%s %0.2f %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+              "%s %0.2f %0.2f %d %d %0.2f %04d:%02d:%02d:%02d:%02d "
+              "%04d:%02d:%02d:%02d:%02d\n",
               goods_index[i].shop_id,           // 超市ID
               goods_index[i].unit_price,        // 单价
               goods_index[i].in_price,          // 进价
@@ -390,7 +391,7 @@ int database_order_admin_all(char user_id[30], int read_type) {
 
     // 写入数据
     while (order_admin_all[i].purchase_num != 0) {
-      fprintf(fwrite, "%s %s %d:%d:%d:%d:%d %s %d %f %f",
+      fprintf(fwrite, "%s %s %04d:%02d:%02d:%02d:%02d %s %d %f %f",
               order_admin_all[i].order_id,         // 订单编号
               order_admin_all[i].consumer_id,      // 顾客编号
               order_admin_all[i].sold_time.year,   // 购买时间
@@ -680,7 +681,7 @@ n行8列
 顾客ID | 单价 | 进价 | 销量 | 库存 | ��扣价格 | 折扣开始时间 |折扣结束时间
 
 接收:
-  user_id: 用户ID
+  shop_id: 超市信息
   read_type: 读写类型
     0: 读取
     1: 写入
@@ -753,7 +754,8 @@ int database_shop_index(char user_id[30], int read_type) {
     // 写入数据
     while (shop_index[i].unit_price != 0) {
       fprintf(fwrite,
-              "%s %0.2f %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+              "%s %0.2f %0.2f %d %d %0.2f %04d:%02d:%02d:%02d:%02d "
+              "%04d:%02d:%02d:%02d:%02d\n",
               shop_index[i].goods_id,          // 商品编号
               shop_index[i].unit_price,        // 零售价格
               shop_index[i].in_price,          // 进货价格
@@ -805,7 +807,7 @@ n行3列
 
 typedef struct {
   char goods_id[30]; // 商品ID
-  char admin_id[30]; //管理员ID
+  char shop_id[30];  //管理员ID
   int purchase_num;  // 购买数量
 } STU_shopping_cart;
 
@@ -827,7 +829,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
   int i = 0;
   if (!read_type) {
 
-    // 打开特定的订单数据文件
+    // ���开特定的订单数据文件
     if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
       return 0;                                    // 不存在, 返回"0"
 
@@ -835,7 +837,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
     while (!feof(fwrite)) {
       fscanf(fwrite, "%s %s %d",
              shopping_cart[i].goods_id,     // 商品ID
-             shopping_cart[i].admin_id,     // 管理员ID
+             shopping_cart[i].shop_id,      // 管理员ID
              &shopping_cart[i].purchase_num // 购买数量
       );
       i++;
@@ -846,14 +848,13 @@ int database_shopping_cart(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    while (shopping_cart[i].purchase_num != 0) {
+    for (i = 0; i <= 100; i++) {
       if (shopping_cart[i].purchase_num != -1)
         fprintf(fwrite, "%s %s %d\n",
                 shopping_cart[i].goods_id,    // 商品ID
-                shopping_cart[i].admin_id,    // 管理员ID
+                shopping_cart[i].shop_id,     // 管理员ID
                 shopping_cart[i].purchase_num // 购买数量
         );
-      i++;
     }
   }
   fclose(fwrite);

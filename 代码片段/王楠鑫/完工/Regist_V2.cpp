@@ -191,7 +191,7 @@ int regist_choose() {
 
   // 容错判断
   if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0 &&
-      strcmp(choose, "3") != 0) {
+      strcmp(choose, "0") != 0) {
     printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
     choose_num = regist_choose();
   } else

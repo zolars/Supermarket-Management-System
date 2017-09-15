@@ -807,7 +807,7 @@ n行3列
 
 typedef struct {
   char goods_id[30]; // 商品ID
-  char admin_id[30]; //管理员ID
+  char shop_id[30];  //管理员ID
   int purchase_num;  // 购买数量
 } STU_shopping_cart;
 
@@ -837,7 +837,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
     while (!feof(fwrite)) {
       fscanf(fwrite, "%s %s %d",
              shopping_cart[i].goods_id,     // 商品ID
-             shopping_cart[i].admin_id,     // 管理员ID
+             shopping_cart[i].shop_id,      // 管理员ID
              &shopping_cart[i].purchase_num // 购买数量
       );
       i++;
@@ -848,14 +848,13 @@ int database_shopping_cart(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    while (shopping_cart[i].purchase_num != 0) {
+    for (i = 0; i <= 100; i++) {
       if (shopping_cart[i].purchase_num != -1)
         fprintf(fwrite, "%s %s %d\n",
                 shopping_cart[i].goods_id,    // 商品ID
-                shopping_cart[i].admin_id,    // 管理员ID
+                shopping_cart[i].shop_id,     // 管理员ID
                 shopping_cart[i].purchase_num // 购买数量
         );
-      i++;
     }
   }
   fclose(fwrite);

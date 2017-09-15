@@ -1,23 +1,31 @@
+#include "database.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct {
+  char market[11]; // 顾客选择的超市
+  char id[11];     // 顾客选择的商品
+  int num;         // 顾客购买的数量
+
+} STU_temp_choise;
+
 char temp_information_formarket[5];
 char temp_information_foritem[100][7];
 
 // 对结构体排序时, 需要使用结构体的重构来实现
-int cmp_sales_volume_market(const void *a, const void *b) {
+int cmp_sales_volume(const void *a, const void *b) {
   // 注意这里, 这里的"<"标记, 可以更改快速排序结果是升序/降序
-  return (*(STU_goods_index *)a).sales_volume >
-                 (*(STU_goods_index *)b).sales_volume
+  return (*(STU_shop_index *)a).sales_volume >
+                 (*(STU_shop_index *)b).sales_volume
              ? -1
              : 1;
 }
 
-int cmp_discount_price_market(const void *a, const void *b) {
-  return (*(STU_goods_index *)a).discount_price >
-                 (*(STU_goods_index *)b).discount_price
+int cmp_discount_price(const void *a, const void *b) {
+  return (*(STU_shop_index *)a).discount_price <
+                 (*(STU_shop_index *)b).discount_price
              ? -1
              : 1;
 }
@@ -199,7 +207,7 @@ void search_market_result_3() {
   }
 
   // 针对销量进行排序
-  qsort(shop_index, i, sizeof(shop_index[0]), cmp_sales_volume_market);
+  qsort(shop_index, i, sizeof(shop_index[0]), cmp_sales_volume);
 
   i = 0;
   while (shop_index[i].unit_price != 0) {
@@ -241,7 +249,7 @@ void search_market_result_4() {
   }
 
   // 针对销量进行排序
-  qsort(shop_index, i, sizeof(shop_index[0]), cmp_discount_price_market);
+  qsort(shop_index, i, sizeof(shop_index[0]), cmp_discount_price);
 
   i = 0;
   while (shop_index[i].unit_price != 0) {
