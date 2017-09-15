@@ -169,7 +169,7 @@ int search_order_admin_choose_1() {
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
   printf("1. 统计营业期间的营业额.\n2. 对商品进行排序.\n");
-  printf("3. 利润最高和最低的商品.\n4. 进货需求与滞销商品查看.\n5. 返回.\n");
+  printf("3. 利润最高和最低的商品.\n4. 进货需求与滞销商品查看.\n0. 返回.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
@@ -260,12 +260,12 @@ void search_order_admin_result_2() {
 
 // 主选项
 int search_order_admin_choose() {
-  char choose[10]; // 记录管���������������员���作时的��择
+  char choose[10]; // 记录管������������������员���作时的��择
   int choose_num;
 
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
-  printf("1. 统计顾客订单信息.\n2. 查看顾客订单情况.\n3. 返回.\n");
+  printf("1. 统计顾客订单信息.\n2. 查看顾客订单情况.\n0. 返回.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
@@ -320,7 +320,9 @@ int search_order_admin_main(char user_id[30]) {
     return 0; // 读取文件发生错误, 返回上一级
   }
 
-  if (!database_shop_index(user_id, 0)) { // 数据库读取, 只读
+  database_admin_information(user_id, 0);
+
+  if (!database_shop_index(admin_information.shop_id, 0)) { // 数据库读取, 只读
     printf("没有找到数据? 请先加入部分订单.");
     return 0; // 读取文件发生错误, 返回上一级
   }

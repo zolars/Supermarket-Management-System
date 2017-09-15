@@ -38,7 +38,7 @@ int check_goods_id(int deep_num_shop) {
       j = isalpha(temp_goods_id[i]);
       k = isdigit(temp_goods_id[i]);
       if (i == 0 || i == 1) {
-        if (!j)
+        if (j != 1)
           check_num = 0;
       } else if (i >= 2 && i <= 5) {
         if (!k)
