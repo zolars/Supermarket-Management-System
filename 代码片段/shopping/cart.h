@@ -1,30 +1,15 @@
+#ifndef _CART_H_ // 防止重复调用
+#define _CART_H_
+
+#include "check_goods.h"
 #include "database.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int check_goods(char id[10], char market[10], int num) {
-
-  database_goods_index(id, 0);
-
-  int i = 0;
-  do {
-    if (strcmp(market, goods_index[i].shop_id) == 0)
-      break;
-    else
-      i++;
-  } while (goods_index[i].in_price != 0);
-
-  if (num > goods_index[i].goods_in_stock) {
-
-    return 0;
-  } else {
-    return 1;
-  }
-}
-
 int cart_choose() {
-  char choose[10]; // 记录管理???操???时的选择
+  char choose[10]; // 记录管理员操作时的选择
   int choose_num;
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
@@ -92,3 +77,5 @@ int cart_main(char user_id[30]) {
   } while (shopping_cart[i].purchase_num != 0);
   return 1; //指用户清空购物车
 }
+
+#endif /*_CART_H_*/

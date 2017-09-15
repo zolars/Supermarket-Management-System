@@ -1,26 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef _CHECK_GOODS_H_ // 防止重复调用
+#define _CHECK_GOODS_H_
 
-int check_goods(char id[10], char market[10], int num) {
-  int i = 0;
-  do {
-    if (strcmp(market, goods_index[i].shop_id) == 0)
-      break;
-    else
-      i++;
-  } while (goods_index[i].in_price != 0);
+int check_goods(char, char, int);
 
-  printf("%d %s", i, goods_index[i].shop_id);
-
-  if (num > goods_index[i].goods_in_stock) {
-    /*  printf("\n抱歉. 库存不足,无法购买. \n");
-      printf("请输入任意字符并按回车键以继续...\n");
-      char screen;
-      scanf("%s", screen); // 延长屏幕显示时间*/
-    return 0;
-  } else {
-    /*printf("购买成功!");*/
-    return 1;
-  }
-}
+#endif /*_CHECK_GOODS_H_*/
