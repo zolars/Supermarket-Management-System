@@ -24,7 +24,7 @@ int cmp_sales_volume(const void *a, const void *b) {
 }
 
 int cmp_discount_price(const void *a, const void *b) {
-  return (*(STU_shop_index *)a).discount_price >
+  return (*(STU_shop_index *)a).discount_price <
                  (*(STU_shop_index *)b).discount_price
              ? -1
              : 1;
@@ -288,11 +288,11 @@ int search_market_choose() {
 
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
-  printf("1.隐藏不打折的商品.\n");
-  printf("2.显示全部相关商品.\n");
-  printf("3.按商品销量排序.\n");
-  printf("4.按打折后价格排序.\n");
-  printf("5.返回\n");
+  printf("1. 隐藏不打折的商品.\n");
+  printf("2. 显示全部相关商品.\n");
+  printf("3. 按商品销量排序.\n");
+  printf("4. 按打折后价格排序.\n");
+  printf("0. 返回\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
