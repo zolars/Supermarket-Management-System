@@ -23,6 +23,7 @@ void add_goods_result_3() { return; }
 
 /************************************************/
 
+/*
 //检查超市ID
 void check_shop_id(int deep_num) {
 
@@ -45,6 +46,7 @@ void check_shop_id(int deep_num) {
   } while (1);
   return;
 }
+*/
 
 //检查商品ID
 void check_goods_id(int deep_num) {
@@ -72,6 +74,15 @@ void check_goods_id(int deep_num) {
       printf("您输入的商品ID不合法，请重新输入: \n");
     }
   } while (1);
+
+  if (!database_goods_index(shop_index[deep_num].goods_id,
+                            0)) { // 数据库读取, 只读
+    database_goods_index(shop_index[deep_num].goods_id,
+                         1); // 如果没有该文档, 新建一个
+  }
+
+  // 存一个超市名进来
+
   return;
 }
 
@@ -418,12 +429,11 @@ void add_goods(char user_id[30]) {
 // 主程序, 负责读取数据库以及传入下一层.
 int add_goods_main(char user_id[30]) {
 
-  if (!database_shop_index(user_id, 0)) { // 数据库读取, 只读
-    database_shop_index(user_id, 1);      // 如果没有该文档, 新建一个
-  }
+  database_admin_information(user_id, 0);
 
-  if (!database_goods_index(user_id, 0)) { // 数据库读取, 只读
-    database_goods_index(user_id, 1); // 如果没有该文档, 新建一个
+  if (!database_shop_index(admin_information.shop_id, 0)) { // 数据库读取, 只读
+    database_shop_index(admin_information.shop_id,
+                        1); // 如果没有该文档, 新建一个
   }
 
   add_goods(user_id);

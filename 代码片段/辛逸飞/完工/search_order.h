@@ -260,7 +260,7 @@ void search_order_admin_result_2() {
 
 // 主选项
 int search_order_admin_choose() {
-  char choose[10]; // 记录管��������������员���作时的��择
+  char choose[10]; // 记录管���������������员���作时的��择
   int choose_num;
 
   // 用户界面
