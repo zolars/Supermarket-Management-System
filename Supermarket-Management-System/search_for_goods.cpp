@@ -1,3 +1,19 @@
+/************************************************
+
+Name:
+  search_for_goods.cpp
+Author:
+  董泽元
+Date:
+  2017-09-15
+Language:
+  C
+Features:
+
+************************************************/
+
+#include "database.h"
+#include "search_for_goods.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -96,28 +112,32 @@ void search_goods_result_0(int choise_num) {
 
   goods_purchase_num = atoi(goods_purchase);
 
+  i = 0;
   while (shopping_cart[i].purchase_num != 0) {
     i++;
   }
 
+  printf("您的订单为:\n商品编号: %s\n超市编号: %s\n购买数量: %d\n",
+         temp_information_item, temp_information_market[num_purchase_num - 1],
+         goods_purchase_num);
+
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+
   /*
 
-  加入购物车
-
   立即购买
+
+  加入购物车
 
   */
 
   strcpy(shopping_cart[i].goods_id,
          temp_information_item); // 商品ID
-  strcpy(shopping_cart[i].admin_id,
+  strcpy(shopping_cart[i].shop_id,
          temp_information_market[num_purchase_num - 1]); // 商店ID
   shopping_cart[i].purchase_num = goods_purchase_num;    // 购买数量
-
-  printf("您的订单为:\n商品编号: %s\n超市编号: %s\n购买数量: %d",
-         shopping_cart[i].goods_id, shopping_cart[i].admin_id,
-         shopping_cart[i].purchase_num);
-
   return;
 }
 
@@ -134,7 +154,7 @@ void search_goods_result_1() {
              goods_index[i].unit_price,        // 零售价格
              goods_index[i].sales_volume,      // 销量
              goods_index[i].goods_in_stock,    // 存货
-             goods_index[i].discount_price,    // 折扣价
+             goods_index[i].discount_price,    // 折扣���
              goods_index[i].time_begin.year,   // 折扣开始时间
              goods_index[i].time_begin.month,  // ...
              goods_index[i].time_begin.day,    // ...
@@ -249,8 +269,8 @@ void search_goods_result_4() {
   while (goods_index[i].unit_price != 0) {
     printf("%d %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                            // 列表序号
-           goods_index[i].shop_id,           // 商品编号
-           goods_index[i].unit_price,        // 零售价格
+           goods_index[i].shop_id,           // 商品编��
+           goods_index[i].unit_price,        // ���售�������
            goods_index[i].sales_volume,      // 销量
            goods_index[i].goods_in_stock,    // 存货
            goods_index[i].discount_price,    // 折扣价
@@ -371,8 +391,10 @@ void search_goods_begin(char user_id[30]) {
   }
   strcpy(temp_information_item, search_id_goods);
 
+  printf("您的查询结果如下:\n");
+
   while (goods_index[i].unit_price != 0) {
-    printf("%d %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                            // 列表序号
            goods_index[i].shop_id,           // 超市编号
            goods_index[i].unit_price,        // 零售价格
@@ -392,6 +414,11 @@ void search_goods_begin(char user_id[30]) {
     );
     i++;
   }
+
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+
   search_goods();
 
   database_shopping_cart(user_id, 1);

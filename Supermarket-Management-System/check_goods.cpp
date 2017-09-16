@@ -1,3 +1,5 @@
+#include "check_goods.h"
+#include "database.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

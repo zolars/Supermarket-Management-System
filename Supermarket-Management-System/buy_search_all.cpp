@@ -1,3 +1,18 @@
+/************************************************
+
+Name:
+  buy_search_all.cpp
+Author:
+  董泽元
+Date:
+  2017-09-15
+Language:
+  C
+Features:
+
+************************************************/
+
+#include "buy_search_all.h"
 #include "database.h"
 #include "search_for_goods.h"
 #include "search_for_market.h"

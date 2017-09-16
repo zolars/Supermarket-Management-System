@@ -1,0 +1,19 @@
+Undefined symbols for architecture x86_64:
+  "login_main()", referenced from:
+      _main in main-90bfae.o
+  "search_order(char*, int)", referenced from:
+      admin(char*, int) in main-90bfae.o
+  "register_main()", referenced from:
+      _main in main-90bfae.o
+  "add_goods_main(char*)", referenced from:
+      admin_2(char*) in main-90bfae.o
+  "buy_search_all(char*)", referenced from:
+      consumer(char*) in main-90bfae.o
+  "print_shop_index_main(char*)", referenced from:
+      admin_2(char*) in main-90bfae.o
+  "cart_main(char*)", referenced from:
+      consumer(char*) in main-90bfae.o
+  "_path", referenced from:
+      _main in main-90bfae.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

@@ -1,3 +1,19 @@
+/************************************************
+
+Name:
+  search_for_market.cpp
+Author:
+  董泽元
+Date:
+  2017-09-15
+Language:
+  C
+Features:
+
+************************************************/
+
+#include "database.h"
+#include "search_for_market.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,26 +111,33 @@ void search_market_result_0(int choise_num) {
 
   goods_purchase_num = atoi(goods_purchase);
 
+  i = 0;
   while (shopping_cart[i].purchase_num != 0) {
     i++;
   }
 
-  /*
-
-  加入购物车
-
-  立即购买
-
-  */
+  printf("%d", shopping_cart[i].purchase_num);
 
   printf("您的订单为:\n商品编号: %s\n超市编号: %s\n购买数量: %d",
          temp_information_foritem[num_purchase_num - 1],
          temp_information_formarket, goods_purchase_num);
 
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+
+  /*
+
+  立即购买
+
+  加入购物车
+
+  */
+
   strcpy(shopping_cart[i].goods_id,
-         temp_information_foritem[num_purchase_num - 1]);        // 商品ID
-  strcpy(shopping_cart[i].admin_id, temp_information_formarket); // 商店ID
-  shopping_cart[i].purchase_num = goods_purchase_num;            // 购买数量
+         temp_information_foritem[num_purchase_num - 1]);       // 商品ID
+  strcpy(shopping_cart[i].shop_id, temp_information_formarket); // 商店ID
+  shopping_cart[i].purchase_num = goods_purchase_num;           // 购买数量
 
   return;
 }
@@ -252,7 +275,7 @@ void search_market_result_4() {
            shop_index[i].sales_volume,      // 销量
            shop_index[i].goods_in_stock,    // 存货
            shop_index[i].discount_price,    // 折扣价
-           shop_index[i].time_begin.year,   // 折扣开始时间
+           shop_index[i].time_begin.year,   // 折扣开始���间
            shop_index[i].time_begin.month,  // ...
            shop_index[i].time_begin.day,    // ...
            shop_index[i].time_begin.hour,   // ...
@@ -367,6 +390,8 @@ void search_market_begin(char user_id[30]) {
   }
   strcpy(temp_information_formarket, search_id_market);
 
+  printf("您的查询结果如下:\n");
+
   while (shop_index[i].unit_price != 0) {
     printf("%d %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                           // 列表序号
@@ -388,6 +413,11 @@ void search_market_begin(char user_id[30]) {
     );
     i++;
   }
+
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+
   search_market();
 
   database_shopping_cart(user_id, 1);

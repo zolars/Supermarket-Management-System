@@ -94,7 +94,7 @@ typedef struct {
   char password[30]; // 密码
   char email[30];    // 邮箱
   char address[50];  // 地址
-  float money;       // 余额
+  char money[10];    // 余额
 } STU_consumer_information;
 
 extern STU_consumer_information consumer_information;

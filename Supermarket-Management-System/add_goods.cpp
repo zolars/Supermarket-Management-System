@@ -1,3 +1,18 @@
+/************************************************
+
+Name:
+  add_goods.cpp
+Author:
+  王克淼
+Date:
+  2017-09-15
+Language:
+  C
+Features:
+
+************************************************/
+
+#include "add_goods.h"
 #include "database.h"
 #include <ctype.h>
 #include <stdio.h>
@@ -21,9 +36,6 @@ void add_goods_result_1(int deep_num_shop) {
 
 // 选项2，取消发布
 void add_goods_result_2() { return; }
-
-// 选项3，修改
-void add_goods_result_3() { return; }
 
 //检查商品ID
 int check_goods_id(int deep_num_shop) {
@@ -415,15 +427,13 @@ int add_goods_choose() {
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
   printf("1. 确认发布.\n2. 取消发布.\n");
-  printf("3. 修改信息.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
   scanf("%s", choose);
 
   // 容错判断
-  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0 &&
-      strcmp(choose, "3") != 0) {
+  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0) {
     printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
     choose_num = add_goods_choose();
   } else
@@ -458,14 +468,8 @@ void add_goods(char user_id[30]) {
     break;
   }
 
-  case 3: {
-    add_goods_result_3();
-    add_goods(user_id);
-    break;
+    return;
   }
-  }
-
-  return;
 }
 
 // 主程序, 负责读取数据库以及传入下一层.
@@ -473,19 +477,14 @@ int add_goods_main(char user_id[30]) {
 
   database_admin_information(user_id, 0);
 
-  if (!database_shop_index(admin_information.shop_id, 0)) { // 数据库读取, 只读
+  if (!database_shop_index(admin_information.shop_id,
+                           0)) { // 数据库读取, 只读
     database_shop_index(admin_information.shop_id,
-                        1); // 如果没有该文档, 新建一个
+                        1); // 如果没��该文档, 新建一个
     sub_shop_index = 1;
   }
 
   add_goods(user_id);
 
   return 1;
-}
-
-int main() {
-  char user_id[30] = "guanli";
-  add_goods_main(user_id);
-  return 0;
 }

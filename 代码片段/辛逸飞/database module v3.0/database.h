@@ -105,13 +105,13 @@ extern int database_consumer_information(char user_id[30], int user_type);
 标题:
   goods_index数据库 按商品种类索引的商品清单 可读写
 
-路径
+路径:
   ./database/goods_index/
 
-文件名
+文件名:
   {goods_id}.txt
 
-存放数据
+数据:
   n行8列
   超市ID | 单价 | 进价 | 销量 | 库存 | 折扣价格 | 折扣开始时间 |折扣结束时间
 
@@ -145,13 +145,13 @@ extern int database_goods_index(char user_id[30], int user_type);
 标题:
   order_admin_all数据库 管理员可查询订单 可读写
 
-路径
+路径:
   ./database/order_admin/
 
-文件名
+文件名:
   {admin_id}_all.txt
 
-��放数据
+存放数据:
   n行7列
   订单编号 | 顾客ID | 购买时间 | 商品ID | 购买数量 | 单价 | 总价
 
@@ -184,10 +184,10 @@ extern int database_order_admin_all(char user_id[30], int user_type);
 标题:
   order_admin_consumer数据库 管理员可查询订单_按顾客分类 可读写
 
-路径
+路径:
   ./database/order_admin/
 
-文件名
+文件名:
   {admin_id}_consumer.txt
 
 存放数据
@@ -196,7 +196,7 @@ extern int database_order_admin_all(char user_id[30], int user_type);
 
 接收:
   user_id: 用户ID
-  read_type: 读���类型
+  read_type: 读取类型
     0: 读取
     1: 写入
 
@@ -219,10 +219,10 @@ extern int database_order_admin_consumer(char user_id[30], int user_type);
 标题:
   order_admin_goods数据库 管理员可查询订单_按货物分类 可读写
 
-路径
+路径:
   ./database/order_admin/
 
-文件名
+文件名:
   {admin_id}_goods.txt
 
 存放数据
@@ -255,10 +255,10 @@ extern int database_order_admin_goods(char user_id[30], int user_type);
 标题:
   order_consumer数据库 管理员可查询订单_按货物分类 可读写
 
-路径
+路径:
   ./database/order_consumer/
 
-文件名
+文件名:
   {consumer_id}.txt
 
 存放数据
@@ -293,15 +293,15 @@ extern int database_order_consumer(char user_id[30], int user_type);
 标题:
   shop_index数据库 商品清单_以管理员ID为索引 可读写
 
-路径
+路径:
   ./database/shop_index/
 
-文件名
+文件名:
   {admin_id}.txt
 
 存放数据
 n行8列
-顾客ID | 单价 | 进价 | 销量 | 库存 | ��扣价格 | 折扣开始时间 |折扣结束时间
+顾客ID | 单价 | 进价 | 销量 | 库存 | 折扣价格 | 折扣开始时间 |折扣结束时间
 
 接收:
   shop_id: 超市信息
@@ -310,7 +310,7 @@ n行8列
     1: 写入
 
 返回:
-  0: 文件�����存在
+  0: 文件不存在
   1: 文件存在并成功读写
 *************************************************/
 
@@ -333,10 +333,10 @@ extern int database_shop_index(char user_id[30], int user_type);
 标题:
   shopping_cart数据库 用户离线购物车 可读写
 
-路径
+路径:
   ./database/shopping_cart/
 
-文件名
+文件名:
   {guke_id}.txt
 
 存放数据
@@ -351,7 +351,7 @@ n行3列
 
 返回:
   0: 文件不存在
-  1: 文件存��并成功读��
+  1: 文件存在并成功读写
 *************************************************/
 
 typedef struct {
@@ -360,7 +360,7 @@ typedef struct {
   int purchase_num;  // 购买数量
 } STU_shopping_cart;
 
-extern STU_shopping_cart shopping_cart[]; // ��多存放100笔������������������
+extern STU_shopping_cart shopping_cart[]; // 最多存放100笔订单
 
 extern int database_shopping_cart(char user_id[30], int user_type);
 

@@ -1,8 +1,22 @@
-// Name: search_for_order.h
-// Author: 辛逸飞
-// Date: 2017-09-12
-// Language: C
-// Features: 完成"查询订单"功能的接口.
+/************************************************
+
+Name:
+  search_for_order.h
+Author:
+  辛逸飞
+Date:
+  2017-09-12
+Language:
+  C
+Features:
+  完成"查询订单"功能的接口.
+输入:
+  - user_id
+  - user_type
+输出:
+  成功运行返回"1"
+
+************************************************/
 
 #ifndef _SEARCH_ORDER_H_ // 防止重复调用
 #define _SEARCH_ORDER_H_
@@ -52,4 +66,4 @@ extern int search_order_consumer_main(char user_id[15]);
 // 接入主程序
 extern int search_order(char user_id[30], int user_type);
 
-#endif /* _DATABASE_H_ */
+#endif /* _SEARCH_ORDER_H_ */
