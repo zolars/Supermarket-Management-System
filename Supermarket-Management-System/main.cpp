@@ -28,6 +28,8 @@ Modules:
       - search_for_goods.h
       - search_for_market.h
 
+    - change_admin.h
+
   Native:
     - stdio.h
     - string.h
@@ -36,13 +38,14 @@ Modules:
   1. 调试指令:
 gcc main.cpp database.cpp login.cpp register.cpp search_order.cpp add_goods.cpp
 print_shop_index.cpp cart.cpp check_goods.cpp buy_search_all.cpp
-search_for_goods.cpp search_for_market.cpp -o o.out
+search_for_goods.cpp search_for_market.cpp change_admin.cpp -o o.out
 
 ************************************************/
 
 #include "add_goods.h"
 #include "buy_search_all.h"
 #include "cart.h"
+#include "change_admin.h"
 #include "check_goods.h"
 #include "database.h"
 #include "login.h"
@@ -188,9 +191,6 @@ void admin_2(char user_id[30]) {
   return;
 }
 
-// 个人信息管理
-void admin_3() { return; }
-
 // 管理员主选单
 int admin_choose() {
   char choose[10]; // 记录管理员操作时的选择
@@ -240,7 +240,7 @@ void admin(char user_id[30], int user_type) {
 
   // 个人信息管理
   case 3: {
-    admin_3();
+    change_admin(user_id);
     admin(user_id, user_type);
     break;
   }
