@@ -30,6 +30,8 @@ Modules:
 
     - change_admin.h
 
+    - change_consumer.h
+
   Native:
     - stdio.h
     - string.h
@@ -38,7 +40,8 @@ Modules:
   1. 调试指令:
 gcc main.cpp database.cpp login.cpp register.cpp search_order.cpp add_goods.cpp
 print_shop_index.cpp cart.cpp check_goods.cpp buy_search_all.cpp
-search_for_goods.cpp search_for_market.cpp change_admin.cpp -o o.out
+search_for_goods.cpp search_for_market.cpp change_admin.cpp change_consumer.cpp
+-o o.out
 
 ************************************************/
 
@@ -46,6 +49,7 @@ search_for_goods.cpp search_for_market.cpp change_admin.cpp -o o.out
 #include "buy_search_all.h"
 #include "cart.h"
 #include "change_admin.h"
+#include "change_consumer.h"
 #include "check_goods.h"
 #include "database.h"
 #include "login.h"
@@ -121,6 +125,7 @@ void consumer(char user_id[30]) {
 
   // 个人信息管理
   case 5: {
+    change_consumer(user_id);
     consumer(user_id);
     break;
   }

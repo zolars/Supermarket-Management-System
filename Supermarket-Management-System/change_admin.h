@@ -3,7 +3,8 @@
 Name:
   change_admin.h
 Author:
-  王楠鑫
+  - 王楠鑫
+  - 王克淼
 Date:
   2017-09-15
 Language:

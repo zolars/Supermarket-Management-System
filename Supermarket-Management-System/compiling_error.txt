@@ -1,22 +1,23 @@
 Undefined symbols for architecture x86_64:
-  "check_goods(char*, char*, int)", referenced from:
-      cart(char*) in cart-6d02d3.o
-  "database_goods_index(char*, int)", referenced from:
-      cart(char*) in cart-6d02d3.o
-  "database_shopping_cart(char*, int)", referenced from:
-      cart_main(char*) in cart-6d02d3.o
-  "database_consumer_information(char*, int)", referenced from:
-      cart(char*) in cart-6d02d3.o
-  "_consumer_information", referenced from:
-      cart(char*) in cart-6d02d3.o
-  "_goods_index", referenced from:
-      time_check(int) in cart-6d02d3.o
-      cart(char*) in cart-6d02d3.o
-  "_main", referenced from:
-     implicit entry/start for main executable
-     (maybe you meant: __Z9cart_mainPc)
-  "_shopping_cart", referenced from:
-      cart(char*) in cart-6d02d3.o
-      cart_main(char*) in cart-6d02d3.o
+  "login_main()", referenced from:
+      _main in main-da1035.o
+  "change_admin(char*)", referenced from:
+      admin(char*, int) in main-da1035.o
+  "search_order(char*, int)", referenced from:
+      admin(char*, int) in main-da1035.o
+  "register_main()", referenced from:
+      _main in main-da1035.o
+  "add_goods_main(char*)", referenced from:
+      admin_2(char*) in main-da1035.o
+  "buy_search_all(char*)", referenced from:
+      consumer(char*) in main-da1035.o
+  "change_consumer(char*)", referenced from:
+      consumer(char*) in main-da1035.o
+  "print_shop_index_main(char*)", referenced from:
+      admin_2(char*) in main-da1035.o
+  "cart_main(char*)", referenced from:
+      consumer(char*) in main-da1035.o
+  "_path", referenced from:
+      _main in main-da1035.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
