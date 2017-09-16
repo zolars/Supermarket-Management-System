@@ -21,6 +21,10 @@ Features:
 #include <string.h>
 #include <time.h>
 
+int time_check(int num) { // 传入goods_index中第num行数据
+  return 1;
+}
+
 int cart_choose() {
   char choose[10]; // 记录管理员操作时的选择
   int choose_num;
@@ -149,6 +153,6 @@ int cart_main(char user_id[30]) {
   } while (shopping_cart[i].purchase_num != 0);
 
   printf("\n请输入任意字符并按回车键以继续...\n");
-  scanf("%s", screen); // 延长屏幕显示时间
+  scanf("%s", screen); // 延长屏幕显示时��
   return 1;            //指用户清空购物车
 }

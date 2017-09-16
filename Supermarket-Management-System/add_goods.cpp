@@ -207,8 +207,8 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     }
     break;
   } while (1);
-  goods_index[deep_num_goods].time_begin.year = time_temp;
-  shop_index[deep_num_shop].time_begin.year = time_temp;
+  goods_index[deep_num_goods].time_begin.tm_year = time_temp;
+  shop_index[deep_num_shop].time_begin.tm_year = time_temp;
 
   time_temp = 0;
   do {
@@ -224,8 +224,8 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.month = time_temp;
-  shop_index[deep_num_shop].time_begin.month = time_temp;
+  goods_index[deep_num_goods].time_begin.tm_mon = time_temp;
+  shop_index[deep_num_shop].time_begin.tm_mon = time_temp;
 
   time_temp = 0;
   do {
@@ -241,8 +241,8 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.day = time_temp;
-  shop_index[deep_num_shop].time_begin.day = time_temp;
+  goods_index[deep_num_goods].time_begin.tm_mday = time_temp;
+  shop_index[deep_num_shop].time_begin.tm_mday = time_temp;
 
   time_temp = 0;
   do {
@@ -251,15 +251,15 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     scanf("%s", time_str);
 
     time_temp = atoi(time_str);
-    if (time_temp < 0 || time_temp > 24) {
+    if (time_temp < 0 || time_temp > 23) {
       printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.hour = time_temp;
-  shop_index[deep_num_shop].time_begin.hour = time_temp;
+  goods_index[deep_num_goods].time_begin.tm_hour = time_temp;
+  shop_index[deep_num_shop].time_begin.tm_hour = time_temp;
 
   time_temp = 0;
   do {
@@ -275,8 +275,8 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.minute = time_temp;
-  shop_index[deep_num_shop].time_begin.minute = time_temp;
+  goods_index[deep_num_goods].time_begin.tm_min = time_temp;
+  shop_index[deep_num_shop].time_begin.tm_min = time_temp;
 
   return;
 }
@@ -298,8 +298,8 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_end.year = time_temp;
-  shop_index[deep_num_shop].time_end.year = time_temp;
+  goods_index[deep_num_goods].time_end.tm_year = time_temp;
+  shop_index[deep_num_shop].time_end.tm_year = time_temp;
 
   time_temp = 0;
   do {
@@ -315,8 +315,8 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_end.month = time_temp;
-  shop_index[deep_num_shop].time_end.month = time_temp;
+  goods_index[deep_num_goods].time_end.tm_mon = time_temp;
+  shop_index[deep_num_shop].time_end.tm_mon = time_temp;
 
   time_temp = 0;
   do {
@@ -332,8 +332,8 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_end.day = time_temp;
-  shop_index[deep_num_shop].time_end.day = time_temp;
+  goods_index[deep_num_goods].time_end.tm_mday = time_temp;
+  shop_index[deep_num_shop].time_end.tm_mday = time_temp;
 
   time_temp = 0;
   // 小���
@@ -350,8 +350,8 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_end.hour = time_temp;
-  shop_index[deep_num_shop].time_end.hour = time_temp;
+  goods_index[deep_num_goods].time_end.tm_hour = time_temp;
+  shop_index[deep_num_shop].time_end.tm_hour = time_temp;
 
   time_temp = 0;
   do {
@@ -367,8 +367,8 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_end.minute = time_temp;
-  shop_index[deep_num_shop].time_end.minute = time_temp;
+  goods_index[deep_num_goods].time_end.tm_min = time_temp;
+  shop_index[deep_num_shop].time_end.tm_min = time_temp;
 
   return;
 }

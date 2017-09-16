@@ -7,6 +7,8 @@
 #ifndef _DATABASE_H_ // 防止重复调用
 #define _DATABASE_H_
 
+#include <time.h>
+
 /*************************************************
 path:
   文件路径
@@ -14,17 +16,23 @@ path:
 extern char path[300];
 
 /*************************************************
-标题:
-  STU_time 时间存取结构型
-*************************************************/
+tm 时间存取结构型
+来自<time.h>
 
-typedef struct {
-  int year;
-  int month;
-  int day;
-  int hour;
-  int minute;
-} STU_time;
+struct tm {
+   int tm_sec;    // 秒, 取值范围(0~59), 但当遇到闰秒时则会有60秒的取值
+   int tm_min;    // 分钟数, 取值范围(0-59)
+   int tm_hour;   // 小时数, 取值范围(0-23)
+   int tm_mday;   // 当天在这个月中是第几天, 取值范围(1-31)
+   int tm_mon;    // 当前月份是第几个月, 取值范围(0-11)
+   int tm_year;   // 从1900年开始至今的年数, 即(Year - 1900)的值
+   int tm_wday;   // 当天在本周是第几天, 取值范围(0-6, Sunday = 0)
+   int tm_yday;   // 当天在今年是第几天, 取值范围(0-365, 1 Jan = 0)
+   int tm_isdst;  // 夏令时标记, 值大于0表示夏令时生效; 等于0表示夏令时失效;
+                                                    小于0表示数据不可用
+   char	*tm_zone; // 时区名称, 根据系统不同可能不被声明或不同全名。
+};
+*************************************************/
 
 /*************************************************
 标题:
@@ -133,8 +141,8 @@ typedef struct {
   int sales_volume;     // 销量
   int goods_in_stock;   // 库存
   float discount_price; // 折扣价格
-  STU_time time_begin;  // 折扣开始时间
-  STU_time time_end;    //折扣结束时间
+  struct tm time_begin; // 折扣开始时间
+  struct tm time_end;   //折扣结束时间
 } STU_goods_index;
 
 extern STU_goods_index goods_index[];
@@ -169,7 +177,7 @@ extern int database_goods_index(char user_id[30], int user_type);
 typedef struct {
   char order_id[30];    // 订单编号
   char consumer_id[30]; // 顾客编号
-  STU_time sold_time;   // 购买时间
+  struct tm sold_time;  // 购买时间
   char goods_id[30];    // 商品ID
   int purchase_num;     // 购买数量
   float unit_price;     // 单价
@@ -321,8 +329,8 @@ typedef struct {
   int sales_volume;     // 销量
   int goods_in_stock;   // 存货
   float discount_price; // 折扣价
-  STU_time time_begin;  // 折扣开始时间
-  STU_time time_end;    // 折扣结束时间
+  struct tm time_begin; // 折扣开始时间
+  struct tm time_end;   // 折扣结束时间
 } STU_shop_index;
 
 extern STU_shop_index shop_index[];

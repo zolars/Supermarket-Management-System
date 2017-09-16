@@ -1,19 +1,19 @@
 Undefined symbols for architecture x86_64:
   "login_main()", referenced from:
-      _main in main-d9d291.o
+      _main in main-ffab5a.o
   "search_order(char*, int)", referenced from:
-      admin(char*, int) in main-d9d291.o
+      admin(char*, int) in main-ffab5a.o
   "register_main()", referenced from:
-      _main in main-d9d291.o
+      _main in main-ffab5a.o
   "add_goods_main(char*)", referenced from:
-      admin_2(char*) in main-d9d291.o
+      admin_2(char*) in main-ffab5a.o
   "buy_search_all(char*)", referenced from:
-      consumer(char*) in main-d9d291.o
+      consumer(char*) in main-ffab5a.o
   "print_shop_index_main(char*)", referenced from:
-      admin_2(char*) in main-d9d291.o
+      admin_2(char*) in main-ffab5a.o
   "cart_main(char*)", referenced from:
-      consumer(char*) in main-d9d291.o
+      consumer(char*) in main-ffab5a.o
   "_path", referenced from:
-      _main in main-d9d291.o
+      _main in main-ffab5a.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)

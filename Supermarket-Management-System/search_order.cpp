@@ -251,22 +251,22 @@ void search_order_admin_result_2() {
          "单价    总价\n");
   while (order_admin_all[i].purchase_num != 0) {
     printf("%s   %s    %d:%d:%d:%d:%d   %s      %d       %0.2f  %0.2f\n",
-           order_admin_all[i].order_id,         // 订单编号
-           order_admin_all[i].consumer_id,      // 顾客ID
-           order_admin_all[i].sold_time.year,   // 购买时间
-           order_admin_all[i].sold_time.month,  // ...
-           order_admin_all[i].sold_time.day,    // ...
-           order_admin_all[i].sold_time.hour,   // ...
-           order_admin_all[i].sold_time.minute, // ...
-           order_admin_all[i].goods_id,         // 商品ID
-           order_admin_all[i].purchase_num,     // 购买数量
-           order_admin_all[i].unit_price,       // 单价
-           order_admin_all[i].all_price         // 总价
+           order_admin_all[i].order_id,          // 订单编号
+           order_admin_all[i].consumer_id,       // 顾客ID
+           order_admin_all[i].sold_time.tm_year, // 购买时间
+           order_admin_all[i].sold_time.tm_mon,  // ...
+           order_admin_all[i].sold_time.tm_mday, // ...
+           order_admin_all[i].sold_time.tm_hour, // ...
+           order_admin_all[i].sold_time.tm_min,  // ...
+           order_admin_all[i].goods_id,          // 商品ID
+           order_admin_all[i].purchase_num,      // 购买数量
+           order_admin_all[i].unit_price,        // 单价
+           order_admin_all[i].all_price          // 总价
     );
     i++;
   }
 
-  printf("\n以上即为您的历史订单.\n请输入任意字符并按回车键以继续...\n");
+  printf("\n以上即为您的历史订单.\n请输入任意字符并按回车键��继续...\n");
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
   return;
