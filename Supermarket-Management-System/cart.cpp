@@ -53,12 +53,9 @@ int time_check(int num) { // 传入goods_index中第num行数据
   time_t now_tm_t = mktime(tm_local); // 将人类看得懂的时间转换为tick类型
 
   if (begin_tm_t <= now_tm_t && end_tm_t >= now_tm_t) {
-    printf("bt: %ld\nnt: %ld\tet: %ld\n", begin_tm_t, now_tm_t, end_tm_t);
     return 1;
   }
 
-  printf("bt: %ld\nnt: %ld\tet: %ld\n", begin_tm_t, now_tm_t, end_tm_t);
-  printf("none");
   return 0;
 }
 
@@ -76,7 +73,6 @@ int cart_choose() {
     printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
     choose_num = cart_choose();
   } else
-
     choose_num = atoi(choose);
 
   return choose_num;
@@ -177,20 +173,22 @@ int cart_main(char user_id[30]) {
     return 0; // 指用户返回上一级菜单，在主函数里返回一个0
   }
 
-  database_shopping_cart(user_id, 1);
-  database_shopping_cart(user_id, 0);
-
   printf("购买完成, 谢谢惠顾!\n");
-  printf("以下为本次购买物品清单, 详细信息请前往\"主菜单-查看已完成订单\". ");
+  printf("以下为本次购买物品清单, 详细信息请前往\"主菜单-查看已完成订单\".\n");
 
   i = 0;
   do {
-    printf("%s %s %d\n", shopping_cart[i].goods_id, shopping_cart[i].shop_id,
-           shopping_cart[i].purchase_num);
+    if (shopping_cart[i].purchase_num == -1)
+      printf("%s %s %d\n", shopping_cart[i].goods_id, shopping_cart[i].shop_id,
+             shopping_cart[i].purchase_num);
     i++;
   } while (shopping_cart[i].purchase_num != 0);
 
   printf("\n请输入任意字符并按回车键以继续...\n");
   scanf("%s", screen); // 延长屏幕显示时��
-  return 1;            //指用户清空购物车
+
+  database_shopping_cart(user_id, 1);
+  database_shopping_cart(user_id, 0);
+
+  return 1; //指用户清空购物车
 }
