@@ -23,9 +23,7 @@
 /*************************************************
 *************************************************/
 
-char path[300] = "/Users/zolar/OneDrive - Queen Mary, University of "
-                 "London/Project/Supermarket-Management-System/"
-                 "Supermarket-Management-System/database/";
+char path[300] = "./database/";
 
 /*************************************************
 *************************************************/
@@ -97,14 +95,14 @@ int database_consumer_information(char user_id[30], int read_type) {
       return 0;                                   // 不存在, 返回"0"
 
     // 读取数据
-    fscanf(fwrite, "%s %s %s %s %s %s %s",
+    fscanf(fwrite, "%s %s %s %s %s %s %f",
            consumer_information.name,     // 顾客姓名
            consumer_information.sex,      // 顾客性别
            consumer_information.tel,      // 手机号
            consumer_information.password, // 密码
            consumer_information.email,    // 邮箱
            consumer_information.address,  // 地址
-           consumer_information.money     // 余额
+           &consumer_information.money    // 余额
     );
 
   } else {
@@ -112,7 +110,7 @@ int database_consumer_information(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    fprintf(fwrite, "%s %s %s %s %s %s %s",
+    fprintf(fwrite, "%s %s %s %s %s %s %0.2f",
             consumer_information.name,     // 顾客姓名
             consumer_information.sex,      // 顾客性别
             consumer_information.tel,      // 手机号
@@ -339,8 +337,8 @@ int database_order_admin_goods(char user_id[30], int read_type) {
 
   char file_name[300];
 
-  strcpy(file_name, path);            // 该字符串用于处理文件名
-  strcat(file_name, "/order_admin/"); // 加入路径"order_admin/"
+  strcpy(file_name, path);           // 该字符串用于处理文件名
+  strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
   strcat(file_name, user_id);
   strcat(file_name, "_goods.txt");
 
@@ -348,9 +346,8 @@ int database_order_admin_goods(char user_id[30], int read_type) {
   if (!read_type) {
 
     // 打开特定的订单数据文件
-    if ((fwrite = fopen(file_name, "r+")) ==
-        NULL) // 判断文件是否存在及可读
-      return 0; // 不存在, 返回"0"
+    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及��读
+      return 0;                                    // 不存在, 返回"0"
 
     // 读取数据
     while (!feof(fwrite)) {
@@ -534,7 +531,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
   char file_name[300];
 
   strcpy(file_name, path);             // 该字符串用于处理文件名
-  strcat(file_name, "shopping_cart/"); // 加入路径"order_admin/"
+  strcat(file_name, "shopping_cart/"); // 加入路径"shopping_cart/"
 
   // 处理文件名
   strcat(file_name, user_id);
@@ -544,8 +541,9 @@ int database_shopping_cart(char user_id[30], int read_type) {
   if (!read_type) {
 
     // 打开特定的订单数据文件
-    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
-      return 0;                                    // 不存在, 返回"0"
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;
+    // 不存在, 返回"0"
 
     // 读取数据
     while (!feof(fwrite)) {
@@ -559,16 +557,20 @@ int database_shopping_cart(char user_id[30], int read_type) {
   } else {
 
     // 打开特定的数据文件
+
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
     for (i = 0; i <= 100; i++) {
-      if (shopping_cart[i].purchase_num != -1)
+      if (shopping_cart[i].purchase_num != -1 &&
+          shopping_cart[i].purchase_num != 0)
         fprintf(fwrite, "%s %s %d\n",
                 shopping_cart[i].goods_id,    // 商品ID
                 shopping_cart[i].shop_id,     // 管理员ID
                 shopping_cart[i].purchase_num // 购买数量
         );
+      else
+        fprintf(fwrite, "0 0 0\n");
     }
   }
   fclose(fwrite);

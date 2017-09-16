@@ -25,9 +25,10 @@ int print_shop_index_main(char user_id[30]) {
   }
 
   if (!database_shop_index(admin_information.shop_id, 0)) { // 数据库读取, 只读
+    printf("您的库存中还没有商品, 请先添加部分商品.\n");
     return 0; // 读取文件发生错误, 返回上一级
   }
-  printf("货物ID   单价   进价  销量  库存   折扣价格        "
+  printf("商品ID   单价   进价  销量  库存   折扣价格        "
          "折扣开始时间        折扣结束时间\n");
 
   while (shop_index[i].unit_price != 0) {

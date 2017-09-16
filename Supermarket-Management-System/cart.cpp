@@ -43,6 +43,7 @@ int cart_choose() {
 int cart(char user_id[30]) {
 
   int choose = cart_choose(); // 用户界面传入指令
+
   switch (choose) {
   case 1: {
 
@@ -60,17 +61,26 @@ int cart(char user_id[30]) {
           j++;
       } while (goods_index[j].unit_price != 0);
 
-      temp_price += shopping_cart[i].purchase_num * goods_index[j].unit_price;
+      if (time_check(j)) // 传入goods_index中第j行数据
+        temp_price +=
+            shopping_cart[i].purchase_num * goods_index[j].discount_price;
+      else
+        temp_price += shopping_cart[i].purchase_num * goods_index[j].unit_price;
 
       i++;
     } while (shopping_cart[i].purchase_num != 0);
 
     database_consumer_information(user_id, 0);
 
-    if (temp_price > consumer_information.money)
-      return 0;
+    if (temp_price > consumer_information.money) {
+      printf("您的余额不足以购买所有物品, 请先充值或删除部分订单.");
+      printf("\n请输入任意字符并按回车键以继续...\n");
+      char screen[10];
+      scanf("%s", screen); // 延长屏幕显示时间
+      return (cart(user_id));
+    }
 
-    i = 20;
+    i = 0;
     do {
       if (check_goods(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
                       shopping_cart[i].purchase_num) == 1) {
@@ -88,12 +98,11 @@ int cart(char user_id[30]) {
 
   case 2: {
     printf("查看详情");
-    cart();
+    cart(user_id);
     break;
   }
 
   case 0: {
-    return 0;
     break;
   }
   }
@@ -102,12 +111,12 @@ int cart(char user_id[30]) {
 
 int cart_main(char user_id[30]) {
   int i = 0;
+  char screen[10]; // 屏显字符串
 
   database_shopping_cart(user_id, 0);
   if (shopping_cart[0].purchase_num == 0) {
     printf("您暂时没有购物车信息, 请先添加部分订单.\n");
     printf("\n请输入任意字符并按回车键以继续...\n");
-    char screen[10];
     scanf("%s", screen); // 延长屏幕显示时间
     return 0;
   }
@@ -119,13 +128,10 @@ int cart_main(char user_id[30]) {
   }
 
   printf("\n请输入任意字符并按回车键以继续...\n");
-  char screen[10];
+
   scanf("%s", screen); // 延长屏幕显示时间
 
   if (cart(user_id) == 0) {
-    printf("您的余额不足以购买所有物品, 请先充值或删除部分订单.");
-    printf("\n请输入任意字符并按回车键以继续...\n");
-    scanf("%s", screen); // 延长屏幕显示时间
     return 0; // 指用户返回上一级菜单，在主函数里返回一个0
   }
 

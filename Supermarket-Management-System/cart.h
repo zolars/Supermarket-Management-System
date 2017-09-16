@@ -18,7 +18,7 @@ Features:
 
 extern int cart_choose();
 
-extern int cart();
+extern int cart(char user_id[30]);
 
 extern int cart_main(char user_id[30]);
 
