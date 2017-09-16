@@ -1,19 +1,22 @@
 Undefined symbols for architecture x86_64:
-  "login_main()", referenced from:
-      _main in main-ffab5a.o
-  "search_order(char*, int)", referenced from:
-      admin(char*, int) in main-ffab5a.o
-  "register_main()", referenced from:
-      _main in main-ffab5a.o
-  "add_goods_main(char*)", referenced from:
-      admin_2(char*) in main-ffab5a.o
-  "buy_search_all(char*)", referenced from:
-      consumer(char*) in main-ffab5a.o
-  "print_shop_index_main(char*)", referenced from:
-      admin_2(char*) in main-ffab5a.o
-  "cart_main(char*)", referenced from:
-      consumer(char*) in main-ffab5a.o
-  "_path", referenced from:
-      _main in main-ffab5a.o
+  "check_goods(char*, char*, int)", referenced from:
+      cart(char*) in cart-6d02d3.o
+  "database_goods_index(char*, int)", referenced from:
+      cart(char*) in cart-6d02d3.o
+  "database_shopping_cart(char*, int)", referenced from:
+      cart_main(char*) in cart-6d02d3.o
+  "database_consumer_information(char*, int)", referenced from:
+      cart(char*) in cart-6d02d3.o
+  "_consumer_information", referenced from:
+      cart(char*) in cart-6d02d3.o
+  "_goods_index", referenced from:
+      time_check(int) in cart-6d02d3.o
+      cart(char*) in cart-6d02d3.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+     (maybe you meant: __Z9cart_mainPc)
+  "_shopping_cart", referenced from:
+      cart(char*) in cart-6d02d3.o
+      cart_main(char*) in cart-6d02d3.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
