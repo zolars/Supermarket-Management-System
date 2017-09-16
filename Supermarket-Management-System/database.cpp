@@ -461,7 +461,10 @@ int database_shop_index(char user_id[30], int read_type) {
 
     // 打开特定的订单数据文件
     if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
-      return 0;                                   // 不存在, 返回"0"
+    {
+      fclose(fwrite);
+      return 0;
+    } // 不存在, 返回"0"
 
     while (!feof(fwrite)) {
 

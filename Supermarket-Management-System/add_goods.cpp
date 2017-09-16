@@ -44,13 +44,12 @@ int check_goods_id(int deep_num_shop) {
   do {
     scanf("%s", temp_goods_id);
 
-    int i = 0, j, k, check_num = 1;
+    int i = 0, k, check_num = 1;
 
     for (i = 0; temp_goods_id[i] != '\0'; i++) {
-      j = isalpha(temp_goods_id[i]);
       k = isdigit(temp_goods_id[i]);
       if (i == 0 || i == 1) {
-        if (j != 1)
+        if (temp_goods_id[i] < 'A' || temp_goods_id[i] > 'Z')
           check_num = 0;
       } else if (i >= 2 && i <= 5) {
         if (!k)
