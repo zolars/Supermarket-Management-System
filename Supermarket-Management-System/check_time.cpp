@@ -34,7 +34,7 @@ Output:
 #include <stdlib.h>
 #include <time.h>
 
-int time_check(int num) { // 传入goods_index中第num行数据
+int check_time(int num) { // 传入goods_index中第num行数据
   struct tm begin_tm = {
       0,                                   // 秒
       goods_index[num].time_begin.tm_min,  // 分钟数

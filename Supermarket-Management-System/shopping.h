@@ -26,6 +26,7 @@ Output:
 #ifndef _SHOPPING_H_ // 防止重复调用
 #define _SHOPPING_H_
 
-extern int shopping(char id[10], char market[10], int num);
+extern int shopping(char user_id[30], char temp_goods_id[10],
+                    char temp_shop_id[10], int temp_purchase_num);
 
 #endif /*_SHOPPING_H_*/

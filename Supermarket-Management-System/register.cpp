@@ -90,6 +90,21 @@ void register_result_1() {
 
   database_admin_information(user_id_temp, 1);
 
+  if (!database_shop_to_admin(0))
+    database_shop_to_admin(1);
+
+  // 深度探测
+  int k = 0;
+  while (shop_to_admin[k].mark) {
+    k++;
+
+    strcpy(shop_to_admin[k].admin_id, user_id_temp);
+    strcpy(shop_to_admin[k].shop_id, store);
+    shop_to_admin[k].mark = 1;
+  }
+
+  database_shop_to_admin(1);
+
   printf("\n您已成功注册!\n");
   printf("\n请输入任意字符并按回车键以继续...\n");
   char screen[10];
@@ -133,7 +148,7 @@ void register_result_2() {
   } while (1);
 
   do {
-    printf("\n请填写您的电话号码(11位数字):\n");
+    printf("\n请填写您的电话号码(11���数字):\n");
     scanf("%s", tel);
     long tel_num = atol(tel);
     if (strlen(tel) != 11 || tel_num < 10000000000 || tel_num > 99999999999) {
@@ -148,7 +163,7 @@ void register_result_2() {
 
   int i;
   do {
-    printf("\n请您填写您的邮箱(***@***.***):\n");
+    printf("\n请您填写您的邮���(***@***.***):\n");
     scanf("%s", email);
     i = check_email(email);
     if (i == 2)

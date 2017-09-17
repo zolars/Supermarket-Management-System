@@ -580,3 +580,54 @@ int database_shopping_cart(char user_id[30], int read_type) {
   fclose(fwrite);
   return 1; // 成功读写返回"1"
 }
+
+/*************************************************
+*************************************************/
+
+STU_shop_to_admin shop_to_admin[100];
+
+int database_shop_to_admin(int read_type) {
+  // 声明读取文件所需指针
+  FILE *fwrite;
+
+  char file_name[300];
+
+  strcpy(file_name, path);                 // 该字符串用于处理文件名
+  strcat(file_name, "admin_information/"); // 加入路径"shopping_cart/"
+
+  // 处理文件名
+  strcat(file_name, "STA.txt");
+
+  int i = 0;
+  if (!read_type) {
+
+    // 打开特定的订单数据文件
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;
+    // 不存在, 返回"0"
+
+    // 读取数据
+    while (!feof(fwrite)) {
+      fscanf(fwrite, "%s %s %d",
+             shop_to_admin[i].admin_id, // 管理员ID
+             shop_to_admin[i].shop_id,  // 超市ID
+             &shop_to_admin[i].mark);
+      i++;
+    }
+  } else {
+
+    // 打开特定的数据文件
+    fwrite = fopen(file_name, "w+");
+
+    // 写入数据
+    while (!feof(fwrite)) {
+      fprintf(fwrite, "%s %s %d\n",
+              shop_to_admin[i].admin_id, // 管理员ID
+              shop_to_admin[i].shop_id,  // 超市ID
+              shop_to_admin[i].mark);
+      i++;
+    }
+  }
+  fclose(fwrite);
+  return 1; // 成功读写返回"1"
+}

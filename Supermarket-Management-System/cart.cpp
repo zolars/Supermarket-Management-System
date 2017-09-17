@@ -51,7 +51,7 @@ int cart(char user_id[30]) {
     printf("以下为购买状态(商品ID : 超市ID : 购买数量)\n");
 
     do {
-      if (shopping(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
+      if (shopping(user_id, shopping_cart[i].goods_id, shopping_cart[i].shop_id,
                    shopping_cart[i].purchase_num) == 1) {
         printf("%s : %s : %d\n购买成功!\n", shopping_cart[i].goods_id,
                shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
@@ -59,7 +59,8 @@ int cart(char user_id[30]) {
         //缓存
         k += 1;
         shopping_cart[i].purchase_num = -1;
-      } else if (shopping(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
+      } else if (shopping(user_id, shopping_cart[i].goods_id,
+                          shopping_cart[i].shop_id,
                           shopping_cart[i].purchase_num) == 0) {
         printf("%s : %s : %d\n存货不足.\n", shopping_cart[i].goods_id,
                shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
@@ -76,7 +77,7 @@ int cart(char user_id[30]) {
              "谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n",
              k);
     else
-      printf("抱歉, 您所要购买的商品存货均不足, 请先删除或更改部分订单.");
+      printf("抱歉, 您选择的商品均无法购买, 请先充值或删除部分订单.");
 
     char screen[10];
     printf("\n请输入任意字符并按回车键以继续...\n");

@@ -1,0 +1,19 @@
+Undefined symbols for architecture x86_64:
+  "check_time(int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+  "database_goods_index(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+  "database_shop_to_admin(int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+  "database_consumer_information(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+  "_consumer_information", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+  "_goods_index", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+  "_shop_to_admin", referenced from:
+      shopping(char*, char*, char*, int) in shopping-b812db.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

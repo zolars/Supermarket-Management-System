@@ -32,6 +32,6 @@ Output:
 #define _CHECK_TIME_H_
 
 // 传入goods_index中第num行数据
-int time_check(int num);
+extern int check_time(int num);
 
 #endif /*_CHECK_TIME_H_*/

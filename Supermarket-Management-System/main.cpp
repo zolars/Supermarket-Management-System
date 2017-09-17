@@ -34,6 +34,8 @@ Modules:
 
     - check_time.h
 
+    - shopping.h
+
   Native:
     - stdio.h
     - string.h
@@ -42,7 +44,7 @@ Modules:
 Notes:
   1. 调试指令:
 gcc main.cpp database.cpp login.cpp register.cpp search_order.cpp add_goods.cpp
-print_shop_index.cpp cart.cpp check_goods.cpp buy_search_all.cpp
+print_shop_index.cpp cart.cpp shopping.cpp buy_search_all.cpp
 search_for_goods.cpp search_for_market.cpp change_admin.cpp change_consumer.cpp
 check_time.cpp -o a.out
 
@@ -53,7 +55,6 @@ check_time.cpp -o a.out
 #include "cart.h"
 #include "change_admin.h"
 #include "change_consumer.h"
-#include "check_goods.h"
 #include "check_time.h"
 #include "database.h"
 #include "login.h"
@@ -62,6 +63,7 @@ check_time.cpp -o a.out
 #include "search_for_goods.h"
 #include "search_for_market.h"
 #include "search_order.h"
+#include "shopping.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -191,7 +193,7 @@ void admin_2(char user_id[30]) {
     break;
   }
 
-  // 返回上一层
+  // ��回上一层
   case 0: {
     break;
   }
