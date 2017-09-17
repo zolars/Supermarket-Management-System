@@ -32,16 +32,19 @@ Modules:
 
     - change_consumer.h
 
+    - check_time.h
+
   Native:
     - stdio.h
     - string.h
     - stdlib.h
+
 备注:
   1. 调试指令:
 gcc main.cpp database.cpp login.cpp register.cpp search_order.cpp add_goods.cpp
 print_shop_index.cpp cart.cpp check_goods.cpp buy_search_all.cpp
 search_for_goods.cpp search_for_market.cpp change_admin.cpp change_consumer.cpp
--o o.out
+check_time.cpp -o o.out
 
 ************************************************/
 
@@ -51,6 +54,7 @@ search_for_goods.cpp search_for_market.cpp change_admin.cpp change_consumer.cpp
 #include "change_admin.h"
 #include "change_consumer.h"
 #include "check_goods.h"
+#include "check_time.h"
 #include "database.h"
 #include "login.h"
 #include "print_shop_index.h"

@@ -116,8 +116,6 @@ void search_market_result_0(int choise_num) {
     i++;
   }
 
-  printf("%d", shopping_cart[i].purchase_num);
-
   printf("您的订单为:\n商品编号: %s\n超市编号: %s\n购买数量: %d",
          temp_information_foritem[num_purchase_num - 1],
          temp_information_formarket, goods_purchase_num);

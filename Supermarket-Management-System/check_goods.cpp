@@ -6,6 +6,10 @@
 
 int check_goods(char id[10], char market[10], int num) {
   int i = 0;
+
+  if (!database_goods_index(id, 0))
+    return 0;
+
   do {
     if (strcmp(market, goods_index[i].shop_id) == 0)
       break;

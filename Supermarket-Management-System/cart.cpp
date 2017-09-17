@@ -15,49 +15,11 @@ Features:
 
 #include "cart.h"
 #include "check_goods.h"
+#include "check_time.h"
 #include "database.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-
-int time_check(int num) { // 传入goods_index中第num行数据
-  struct tm begin_tm = {
-      0,                                   // 秒
-      goods_index[num].time_begin.tm_min,  // 分钟数
-      goods_index[num].time_begin.tm_hour, // 小时数
-      goods_index[num].time_begin.tm_mday, // 当天在这个月中是第几天
-      goods_index[num].time_begin.tm_mon,  // 当前月份是第几个月
-      goods_index[num].time_begin.tm_year - 1900, // 从1900年开始至今的年数
-      0,                                          // 当天在本周是第几天
-      0,                                          // 当天在今年是第几天
-      0                                           // 夏令时标记
-  };
-  time_t begin_tm_t = mktime(&begin_tm); // 将人类看得懂的时间转换为tick类型
-
-  struct tm end_tm = {
-      0,                                 // 秒
-      goods_index[num].time_end.tm_min,  // 分钟数
-      goods_index[num].time_end.tm_hour, // 小时数
-      goods_index[num].time_end.tm_mday, // 当天在这个月中是第几天
-      goods_index[num].time_end.tm_mon,  // 当前月份是第几个月
-      goods_index[num].time_end.tm_year - 1900, // 从1900年开始至今的年数
-      0,                                        // 当天在本周是第几天
-      0,                                        // 当天在今年是第几天
-      0                                         // 夏令时标记
-  };
-  time_t end_tm_t = mktime(&end_tm); // 将人类看得懂的时间转换为tick类型
-
-  time_t calendar_time_t = time(NULL);
-  struct tm *tm_local = localtime(&calendar_time_t); // 传入本地时间
-  time_t now_tm_t = mktime(tm_local); // 将人类看得懂的时间转换为tick类型
-
-  if (begin_tm_t <= now_tm_t && end_tm_t >= now_tm_t) {
-    return 1;
-  }
-
-  return 0;
-}
 
 int cart_choose() {
   char choose[10]; // 记录管理员操作时的选择
@@ -118,10 +80,14 @@ int cart(char user_id[30]) {
       return (cart(user_id));
     }
 
+    printf("以下为本次购买物品清单:\n");
+    printf("商品ID  超市ID   购买数量\n");
     i = 0;
     do {
       if (check_goods(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
                       shopping_cart[i].purchase_num) == 1) {
+        printf("%s %s %d\n", shopping_cart[i].goods_id,
+               shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
         //缓存
         shopping_cart[i].purchase_num = -1;
       }
@@ -166,29 +132,17 @@ int cart_main(char user_id[30]) {
   }
 
   printf("\n请输入任意字符并按回车键以继续...\n");
-
   scanf("%s", screen); // 延长屏幕显示时间
-
   if (cart(user_id) == 0) {
     return 0; // 指用户返回上一级菜单，在主函数里返回一个0
   }
 
-  printf("购买完成, 谢谢惠顾!\n");
-  printf("以下为本次购买物品清单, 详细信息请前往\"主菜单-查看已完成订单\".\n");
-
-  i = 0;
-  do {
-    if (shopping_cart[i].purchase_num == -1)
-      printf("%s %s %d\n", shopping_cart[i].goods_id, shopping_cart[i].shop_id,
-             shopping_cart[i].purchase_num);
-    i++;
-  } while (shopping_cart[i].purchase_num != 0);
-
+  printf("购买完成, 谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n");
   printf("\n请输入任意字符并按回车键以继续...\n");
   scanf("%s", screen); // 延长屏幕显示时��
 
   database_shopping_cart(user_id, 1);
   database_shopping_cart(user_id, 0);
 
-  return 1; //指用户清空购物车
+  return 1; //指用户已经结算购物车
 }
