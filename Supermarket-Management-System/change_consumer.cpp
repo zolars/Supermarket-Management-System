@@ -41,36 +41,45 @@ void change_consumer_tel(char user_id[11]) {
   int temp = 0;
 
   do {
-    printf("\n请输入新的电话号码: \n");
+    printf("\n请输入新的电话号码(11位数字): \n");
     scanf("%s", consumer_information.tel);
     long tel_num = atol(consumer_information.tel);
     if (strlen(consumer_information.tel) != 11 || tel_num < 10000000000 ||
         tel_num > 99999999999) {
-      printf("\n电话号码为11位数字, 请检查后重新输入!\n");
+      printf("\n您的输入格式错误, 请检查后重新输入:\n");
       continue;
     }
     break;
   } while (1);
 
   printf("\n修改成功! ");
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
   return;
 }
 
 void change_consumer_password(char user_id[11]) {
 
   printf("\n请输入新的账户密码: ");
+
   scanf("%s", consumer_information.password);
   printf("\n修改成功! ");
+
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+
   return;
 }
 
 void change_consumer_email(char user_id[11]) {
-  printf("\n请输入新的邮箱: ");
+  printf("\n请输入新的邮箱(***@***.***): ");
   int i;
   scanf("%s", consumer_information.email);
   i = change_consumer_check_email(consumer_information.email);
   while (i != 2) {
-    printf("\n邮箱格式错误, 请检查后重新输入! ");
+    printf("\n您的输入格式错误, 请检查后重新输入:");
     printf("\n");
     memset(consumer_information.email, 0, sizeof(consumer_information.email));
     scanf("%s", consumer_information.email);
@@ -141,21 +150,29 @@ void change_consumer(char user_id[11]) {
   case 1: {
     printf("\n您正在修改电话号码! ");
     change_consumer_tel(user_id);
+    database_consumer_information(user_id, 1); // 入库
+    change_consumer(user_id);
     break;
   }
   case 2: {
     printf("\n您正在修改账户密码! ");
     change_consumer_password(user_id);
+    database_consumer_information(user_id, 1); // 入库
+    change_consumer(user_id);
     break;
   }
   case 3: {
     printf("\n您正在修改邮箱! ");
     change_consumer_email(user_id);
+    database_consumer_information(user_id, 1); // 入库
+    change_consumer(user_id);
     break;
   }
   case 4: {
     printf("\n您正在修改收货地址! ");
     change_consumer_address(user_id);
+    database_consumer_information(user_id, 1); // 入库
+    change_consumer(user_id);
     break;
   }
 

@@ -1,23 +1,14 @@
 Undefined symbols for architecture x86_64:
-  "login_main()", referenced from:
-      _main in main-da1035.o
-  "change_admin(char*)", referenced from:
-      admin(char*, int) in main-da1035.o
-  "search_order(char*, int)", referenced from:
-      admin(char*, int) in main-da1035.o
-  "register_main()", referenced from:
-      _main in main-da1035.o
-  "add_goods_main(char*)", referenced from:
-      admin_2(char*) in main-da1035.o
-  "buy_search_all(char*)", referenced from:
-      consumer(char*) in main-da1035.o
-  "change_consumer(char*)", referenced from:
-      consumer(char*) in main-da1035.o
-  "print_shop_index_main(char*)", referenced from:
-      admin_2(char*) in main-da1035.o
-  "cart_main(char*)", referenced from:
-      consumer(char*) in main-da1035.o
-  "_path", referenced from:
-      _main in main-da1035.o
+  "database_admin_information(char*, int)", referenced from:
+      register_result_1() in register-0bd302.o
+  "database_consumer_information(char*, int)", referenced from:
+      register_result_2() in register-0bd302.o
+  "_admin_information", referenced from:
+      register_result_1() in register-0bd302.o
+  "_consumer_information", referenced from:
+      register_result_2() in register-0bd302.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+     (maybe you meant: __Z13register_mainv)
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)

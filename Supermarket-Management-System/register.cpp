@@ -45,20 +45,20 @@ void register_result_1() {
       break;
     } else {
       printf("\n当前用户名已被注册，请使用其它用户名.");
-      continue; // 读取文件发生错误, 返回上一级
+      continue; // 读取文件发生格式错误, 返回上一级
     }
   }
 
   while (1) //查询输入的超市编号是否合法
   {
-    printf("\n请填写您所属的超市:\n");
+    printf("\n请填写您所属的超市(为四位大写字母):\n");
     scanf("%s", store);
     if (store[0] <= 'Z' && store[0] >= 'A' && store[1] <= 'Z' &&
         store[1] >= 'A' && store[2] <= 'Z' && store[2] >= 'A' &&
         store[3] <= 'Z' && store[3] >= 'A' && store[4] == '\0')
       break;
     else
-      printf("\n超市名格式错误, 应当为四位大写字母, 请检查后重新输入:\n");
+      printf("\n超市名格式格式错误, 请检查后重新输入:\n");
   }
 
   printf("\n请填写您的姓名:\n");
@@ -66,13 +66,13 @@ void register_result_1() {
 
   int i;
   do {
-    printf("\n请填写您的邮箱:\n");
+    printf("\n请填写您的邮箱(***@***.***):\n");
     scanf("%s", email);
     i = check_email(email);
     if (i == 2)
       break;
     else {
-      printf("\n邮箱格式错误, 应当为***@***.***, 请检查后重新输入:\n");
+      printf("\n邮箱格式格式错误, 请检查后重新输入:\n");
       memset(email, 0, sizeof(email));
     }
 
@@ -126,18 +126,18 @@ void register_result_2() {
     printf("1. 男\n2. 女\n");
     scanf("%s", sex);
     if (strcmp(sex, "1") != 0 && strcmp(sex, "2") != 0) {
-      printf("您的输入错误, 请检查后重新输入:\n");
+      printf("您的输入格式错误, 请检查后重新输入:\n");
       continue;
     } else
       break;
   } while (1);
 
   do {
-    printf("\n请填写您的电话号码:\n");
+    printf("\n请填写您的电话号码(11位数字):\n");
     scanf("%s", tel);
     long tel_num = atol(tel);
     if (strlen(tel) != 11 || tel_num < 10000000000 || tel_num > 99999999999) {
-      printf("\n电话格式错误, 应当为11位数字, 请检查后重新输入:\n");
+      printf("\n电话格式格式错误, 请检查后重新输入:\n");
       continue;
     }
     break;
@@ -148,13 +148,13 @@ void register_result_2() {
 
   int i;
   do {
-    printf("\n请您填写您的邮箱:\n");
+    printf("\n请您填写您的邮箱(***@***.***):\n");
     scanf("%s", email);
     i = check_email(email);
     if (i == 2)
       break;
     else {
-      printf("\n邮箱格式错误, 应当为***@***.***, 请检查后重新输入:\n");
+      printf("\n邮箱格式格式错误, 请检查后重新输入:\n");
       printf("\n");
       memset(email, 0, sizeof(email));
     }
@@ -168,15 +168,15 @@ void register_result_2() {
   // 输入并检测��额
   double money_num;
   do {
-    printf("\n请充值您的余额:\n");
+    printf("\n请充值您的余额(上限五万元):\n");
     scanf("%s", money);
     money_num = atof(money);
     if (fabs((int(money_num * 100) - (money_num * 100))) > 0.000001 ||
         money_num == 0) {
-      printf("\n输入错误, 请检查后重新输入:\n");
+      printf("\n输入格式错误, 请检查后重新输入:\n");
       continue;
     } else if (strlen(money) > 8 || atof(money) > 50000) {
-      printf("\n每次最多只能充值五万, 请检查后重新输入:\n");
+      printf("\n每次最多只能充值¥50000, 请检查后重新输入:\n");
       continue;
     }
     break;

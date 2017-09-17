@@ -59,7 +59,7 @@ void change_admin_email(char user_id[11]) {
   int i;
   i = change_admin_check_email(admin_information.email);
   while (i != 2) {
-    printf("\n邮箱格式错误, 请检查后重新输入! ");
+    printf("\n您的输入格式错误, 请检查后重新输入:");
     printf("\n");
     memset(admin_information.email, 0, sizeof(admin_information.email));
     scanf("%s", admin_information.email);
@@ -118,12 +118,14 @@ void change_admin(char user_id[11]) {
   case 1: {
     printf("\n您正在修改账户密码! ");
     change_admin_password(user_id);
+    database_admin_information(user_id, 1); // 入库
     change_admin(user_id);
     break;
   }
   case 2: {
     printf("\n您正在修改邮箱! ");
     change_admin_email(user_id);
+    database_admin_information(user_id, 1); // 入库
     change_admin(user_id);
     break;
   }
@@ -132,7 +134,7 @@ void change_admin(char user_id[11]) {
   }
   }
 
-  database_admin_information(user_id, 1);
+  database_admin_information(user_id, 1); // 入库
 
   return;
 }

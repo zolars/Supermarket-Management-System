@@ -44,13 +44,12 @@ int check_goods_id(int deep_num_shop) {
   do {
     scanf("%s", temp_goods_id);
 
-    int i = 0, j, k, check_num = 1;
+    int i = 0, k, check_num = 1;
 
     for (i = 0; temp_goods_id[i] != '\0'; i++) {
-      j = isalpha(temp_goods_id[i]);
       k = isdigit(temp_goods_id[i]);
       if (i == 0 || i == 1) {
-        if (j != 1)
+        if (temp_goods_id[i] < 'A' || temp_goods_id[i] > 'Z')
           check_num = 0;
       } else if (i >= 2 && i <= 5) {
         if (!k)
@@ -62,8 +61,8 @@ int check_goods_id(int deep_num_shop) {
     if (i == 6 && check_num == 1)
       break;
     else {
-      printf("您的输入格式错误, 请检查后重新输入:\n");
-      printf("请输入商品ID(2位大写字母+4位数字): \n");
+      printf("您输入的商品ID不合法，请重新输入: \n");
+      printf("请输入商品ID: \n");
     }
   } while (1);
 
@@ -94,42 +93,15 @@ void check_unit_price(int deep_num_shop, int deep_num_goods) {
     char price_str[10];
     scanf("%s", price_str);
 
-    int i, j, dot_num = 0; //检测是否出现非数字字符以及小数点的规范
-    for (i = 0; price_str[i] != '\0'; i++) {
-      j = isdigit(price_str[i]);
-      if (price_str[0] == '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入单价: \n");
-        break;
-      }
-      if (price_str[i + 1] == '\0' && price_str[i] == '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入单价: \n");
-        break;
-      }
-      if (price_str[i] == '.')
-        dot_num = dot_num + 1;
-      if (dot_num == 2) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入单价: \n");
-        break;
-      }
-      if (!j && price_str[i] != '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入单价: \n");
-        break;
-      }
-    }
-
     price = 0;
     price = atof(price_str); // 字符串转浮点型
 
     if ((int(price * 100) != (price * 100)) || price == 0) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入:\n");
       printf("请输入单价: \n");
       continue;
     } else if (strlen(price_str) > 8 || atof(price_str) > 50000) {
-      printf("\n售价不得超过50000, 请检查后重新输入!\n");
+      printf("\n售价不得超过五万, 请检查后重新输入!\n");
       printf("请输入单价: \n");
       continue;
     }
@@ -148,42 +120,15 @@ void check_in_price(int deep_num_shop, int deep_num_goods) {
     char price_str[10];
     scanf("%s", price_str);
 
-    int i, j, dot_num = 0; //检测是否出现非数字字符以及小数点的规范
-    for (i = 0; price_str[i] != '\0'; i++) {
-      j = isdigit(price_str[i]);
-      if (price_str[0] == '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入进价: \n");
-        break;
-      }
-      if (price_str[i + 1] == '\0' && price_str[i] == '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入进价: \n");
-        break;
-      }
-      if (price_str[i] == '.')
-        dot_num = dot_num + 1;
-      if (dot_num == 2) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入进价: \n");
-        break;
-      }
-      if (!j && price_str[i] != '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入进价: \n");
-        break;
-      }
-    }
-
     price = 0;
     price = atof(price_str); // 字符串转浮点型
 
     if ((int(price * 100) != (price * 100)) || price == 0) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入:\n");
       printf("请输入进价: \n");
       continue;
     } else if (strlen(price_str) > 8 || atof(price_str) > 50000) {
-      printf("\n进价不得超过50000, 请检查后重新输入!\n");
+      printf("\n进价不得超过五万, 请检查后重新输入!\n");
       printf("请输入进价: \n");
       continue;
     }
@@ -203,19 +148,9 @@ void check_goods_in_stock(int deep_num_shop, int deep_num_goods) {
     char goods_in_stock_str[10];
     scanf("%s", goods_in_stock_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; goods_in_stock_str[i] != '\0'; i++) {
-      j = isdigit(goods_in_stock_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入库存: \n");
-        break;
-      }
-    }
-
     goods_in_stock = atoi(goods_in_stock_str);
     if (goods_in_stock <= 0) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       printf("请输入库存: \n");
       continue;
     }
@@ -236,41 +171,14 @@ void check_discount_price(int deep_num_shop, int deep_num_goods) {
     char price_str[10];
     scanf("%s", price_str);
 
-    int i, j, dot_num = 0; //检测是否出现非数字字符以及小数点的规范
-    for (i = 0; price_str[i] != '\0'; i++) {
-      j = isdigit(price_str[i]);
-      if (price_str[0] == '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入折扣价格: \n");
-        break;
-      }
-      if (price_str[i + 1] == '\0' && price_str[i] == '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入折扣价格: \n");
-        break;
-      }
-      if (price_str[i] == '.')
-        dot_num = dot_num + 1;
-      if (dot_num == 2) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入折扣价格: \n");
-        break;
-      }
-      if (!j && price_str[i] != '.') {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        printf("请输入折扣价格: \n");
-        break;
-      }
-    }
-
     price = atof(price_str); // 字符串转浮点型
 
     if ((int(price * 100) != (price * 100)) || price == 0) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入:\n");
       printf("请输入折扣价格: \n");
       continue;
     } else if (strlen(price_str) > 8 || atof(price_str) > 50000) {
-      printf("\n折扣价不得超过50000, 请检查后重新输入!\n");
+      printf("\n折扣价不得超过五万, 请检查后重新输入!\n");
       printf("请输入折扣价格: \n");
       continue;
     }
@@ -284,7 +192,6 @@ void check_discount_price(int deep_num_shop, int deep_num_goods) {
 
 //检查折扣开始时间
 void check_begin_time(int deep_num_shop, int deep_num_goods) {
-  int i, j; //检测是否出现非数字字符
 
   int time_temp = 0;
   do {
@@ -292,23 +199,13 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入: \n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 1000 || time_temp > 9999) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
   } while (1);
-
   goods_index[deep_num_goods].time_begin.tm_year = time_temp;
   shop_index[deep_num_shop].time_begin.tm_year = time_temp;
 
@@ -318,18 +215,9 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 1 || time_temp > 12) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -340,30 +228,13 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
 
   time_temp = 0;
   do {
-
     printf("日期: ");
     char time_str[10];
     scanf("%s", time_str);
 
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 1 || time_temp > 31) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -378,18 +249,9 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
-    if (time_temp < 0 || time_temp > 24) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+    if (time_temp < 0 || time_temp > 23) {
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -404,18 +266,9 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 0 || time_temp > 60) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -436,18 +289,9 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 1000 || time_temp > 9999) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -462,18 +306,9 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 1 || time_temp > 12) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -488,18 +323,9 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 1 || time_temp > 31) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重��输入: \n");
       continue;
     }
     break;
@@ -509,23 +335,15 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
   shop_index[deep_num_shop].time_end.tm_mday = time_temp;
 
   time_temp = 0;
+  // 小���
   do {
     printf("小时: ");
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 0 || time_temp > 24) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n���的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -540,18 +358,9 @@ void check_end_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
     time_temp = atoi(time_str);
     if (time_temp < 0 || time_temp > 60) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入不合法，请重新输入: \n");
       continue;
     }
     break;
@@ -575,7 +384,7 @@ void check_information() {
   printf("请依次输入商品信息: \n");
 
   //输入商品ID并检查
-  printf("请输入商品ID(2位大写字母+4位数字): \n");
+  printf("请输入商品ID: \n");
   int deep_num_goods = check_goods_id(deep_num_shop);
 
   //输入单价并检查
@@ -602,7 +411,7 @@ void check_information() {
   printf("请输入折扣开始时间: \n");
   check_begin_time(deep_num_shop, deep_num_goods);
 
-  //�����入折扣结束时间并检��
+  //输入折扣结束时间并检查
   printf("请输入折扣结束时间: \n");
   check_end_time(deep_num_shop, deep_num_goods);
 }
@@ -670,7 +479,7 @@ int add_goods_main(char user_id[30]) {
   if (!database_shop_index(admin_information.shop_id,
                            0)) { // 数据库读取, 只读
     database_shop_index(admin_information.shop_id,
-                        1); // 如果没??该文档, 新建一个
+                        1); // 如果没��该文档, 新建一个
     sub_shop_index = 1;
   }
 
