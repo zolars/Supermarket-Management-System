@@ -39,12 +39,12 @@ Modules:
     - string.h
     - stdlib.h
 
-备注:
+Notes:
   1. 调试指令:
 gcc main.cpp database.cpp login.cpp register.cpp search_order.cpp add_goods.cpp
 print_shop_index.cpp cart.cpp check_goods.cpp buy_search_all.cpp
 search_for_goods.cpp search_for_market.cpp change_admin.cpp change_consumer.cpp
-check_time.cpp -o o.out
+check_time.cpp -o a.out
 
 ************************************************/
 

@@ -14,9 +14,9 @@ Features:
 ************************************************/
 
 #include "cart.h"
-#include "check_goods.h"
 #include "check_time.h"
 #include "database.h"
+#include "shopping.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -47,52 +47,40 @@ int cart(char user_id[30]) {
   switch (choose) {
   case 1: {
 
-    // 计算是否透支余额
-    int i = 0, j;
-    float temp_price = 0; // 价格累加器
+    int i = 0, k = 0; // 记录是否有购买完成
+    printf("以下为购买状态(商品ID : 超市ID : 购买数量)\n");
 
     do {
-      j = 0;
-      database_goods_index(shopping_cart[i].goods_id, 0);
-      do {
-        if (strcmp(shopping_cart[i].shop_id, goods_index[j].shop_id) == 0)
-          break;
-        else
-          j++;
-      } while (goods_index[j].unit_price != 0);
-
-      if (time_check(j)) // 传入goods_index中第j行数据
-        temp_price +=
-            shopping_cart[i].purchase_num * goods_index[j].discount_price;
-      else
-        temp_price += shopping_cart[i].purchase_num * goods_index[j].unit_price;
-
-      i++;
-    } while (shopping_cart[i].purchase_num != 0);
-
-    database_consumer_information(user_id, 0);
-
-    if (temp_price > consumer_information.money) {
-      printf("您的余额不足以购买所有物品, 请先充值或删除部分订单.");
-      printf("\n请输入任意字符并按回车键以继续...\n");
-      char screen[10];
-      scanf("%s", screen); // 延长屏幕显示时间
-      return (cart(user_id));
-    }
-
-    printf("以下为本次购买物品清单:\n");
-    printf("商品ID  超市ID   购买数量\n");
-    i = 0;
-    do {
-      if (check_goods(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
-                      shopping_cart[i].purchase_num) == 1) {
-        printf("%s %s %d\n", shopping_cart[i].goods_id,
+      if (shopping(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
+                   shopping_cart[i].purchase_num) == 1) {
+        printf("%s : %s : %d\n购买成功!\n", shopping_cart[i].goods_id,
                shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
+
         //缓存
+        k += 1;
         shopping_cart[i].purchase_num = -1;
+      } else if (shopping(shopping_cart[i].goods_id, shopping_cart[i].shop_id,
+                          shopping_cart[i].purchase_num) == 0) {
+        printf("%s : %s : %d\n存货不足.\n", shopping_cart[i].goods_id,
+               shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
+      } else {
+        printf("%s : %s : %d\n余额不足.\n", shopping_cart[i].goods_id,
+               shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
       }
+
       i++;
     } while (shopping_cart[i].purchase_num != 0);
+
+    if (k != 0)
+      printf("%d种商品购买完成, "
+             "谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n",
+             k);
+    else
+      printf("抱歉, 您所要购买的商品存货均不足, 请先删除或更改部分订单.");
+
+    char screen[10];
+    printf("\n请输入任意字符并按回车键以继续...\n");
+    scanf("%s", screen); // 延长屏幕显示时间
 
     //存入结构体
 
@@ -131,15 +119,7 @@ int cart_main(char user_id[30]) {
     i++;
   }
 
-  printf("\n请输入任意字符并按回车键以继续...\n");
-  scanf("%s", screen); // 延长屏幕显示时间
-  if (cart(user_id) == 0) {
-    return 0; // 指用户返回上一级菜单，在主函数里返回一个0
-  }
-
-  printf("购买完成, 谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n");
-  printf("\n请输入任意字符并按回车键以继续...\n");
-  scanf("%s", screen); // 延长屏幕显示时��
+  cart(user_id);
 
   database_shopping_cart(user_id, 1);
   database_shopping_cart(user_id, 0);

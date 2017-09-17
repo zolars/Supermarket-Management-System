@@ -9,11 +9,19 @@ Date:
 Language:
   C
 Features:
-  完成"查询订单"功能的接口.
-输入:
+  完成"查询订单"功能的模块.
+Modules:
+  Customize:
+    - database.h
+    - search_order.h
+  Native:
+    - stdio.h
+    - string.h
+    - stdlib.h
+Input:
   - user_id
   - user_type
-输出:
+Output:
   成功运行返回"1"
 
 ************************************************/

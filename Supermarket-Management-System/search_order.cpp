@@ -1,7 +1,7 @@
 /************************************************
 
 Name:
-  search_for_order.h
+  search_for_order.cpp
 Author:
   辛逸飞
 Date:
@@ -11,14 +11,17 @@ Language:
 Features:
   完成"查询订单"功能的模块.
 Modules:
-  - database.h
-  - stdio.h
-  - string.h
-  - stdlib.h
-输入:
+  Customize:
+    - database.h
+    - search_order.h
+  Native:
+    - stdio.h
+    - string.h
+    - stdlib.h
+Input:
   - user_id
   - user_type
-输出:
+Output:
   成功运行返回"1"
 
 ************************************************/
@@ -266,7 +269,7 @@ void search_order_admin_result_2() {
     i++;
   }
 
-  printf("\n以上即为您的历史订单.\n请输入任意字符并按回车键��继续...\n");
+  printf("\n以上即为您的����史订单.\n请输入任意字符并按回车键��继续...\n");
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
   return;
