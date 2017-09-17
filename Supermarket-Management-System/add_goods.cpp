@@ -19,28 +19,8 @@ Features:
 #include <stdlib.h>
 #include <string.h>
 
-int sub_shop_index; // 用于减掉由于文件末尾空行导致的录入错误
-int sub_goods_index; // 这个细节要万分注意
-
-// 选项1，确认发布
-void add_goods_result_1(int deep_num_shop) {
-
-  // 覆盖shop_index数据库
-  database_shop_index(admin_information.shop_id, 1);
-
-  // 覆盖goods_index数据库
-  database_goods_index(shop_index[deep_num_shop].goods_id, 1);
-
-  return;
-}
-
-// 选项2，取消发布
-void add_goods_result_2() { return; }
-
-//检查商品ID
-int check_goods_id(int deep_num_shop) {
-  char temp_goods_id[10];
-
+// 检查商品ID
+char *check_goods_id(char *temp_goods_id) {
   do {
     scanf("%s", temp_goods_id);
 
@@ -67,34 +47,18 @@ int check_goods_id(int deep_num_shop) {
     }
   } while (1);
 
-  if (!database_goods_index(temp_goods_id, 0)) { // 数据库读取, 只读
-    database_goods_index(temp_goods_id, 1); // 如果没有该文档, 新建一个
-    sub_goods_index = 1;
-  }
-
-  strcpy(shop_index[deep_num_shop].goods_id, temp_goods_id);
-
-  int deep_num_goods = 0; // 结构体深度
-  // 遍历求深度
-  do {
-    deep_num_goods += 1;
-  } while (goods_index[deep_num_goods].unit_price != 0);
-  deep_num_goods -= sub_goods_index;
-
-  strcpy(goods_index[deep_num_goods].shop_id, admin_information.shop_id);
-
-  return (deep_num_goods);
+  return temp_goods_id;
 }
 
-//检查单价
-void check_unit_price(int deep_num_shop, int deep_num_goods) {
+// 检查单价
+float check_unit_price() {
   float price = 0;
 
   do {
     char price_str[10];
     scanf("%s", price_str);
 
-    int i, j, dot_num = 0; //检测是否出现非数字字符以及小数点的规范
+    int i, j, dot_num = 0; // 检测是否出现非数字字符以及小数点的规范
     for (i = 0; price_str[i] != '\0'; i++) {
       j = isdigit(price_str[i]);
       if (price_str[0] == '.') {
@@ -136,19 +100,17 @@ void check_unit_price(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  shop_index[deep_num_shop].unit_price = price;
-  goods_index[deep_num_goods].unit_price = price;
-  return;
+  return price;
 }
 
-//检查进价
-void check_in_price(int deep_num_shop, int deep_num_goods) {
+// 检查进价
+float check_in_price() {
   float price = 0;
   do {
     char price_str[10];
     scanf("%s", price_str);
 
-    int i, j, dot_num = 0; //检测是否出现非数字字符以及小数点的规范
+    int i, j, dot_num = 0; // 检测是否出现非数字字符以及小数点的规范
     for (i = 0; price_str[i] != '\0'; i++) {
       j = isdigit(price_str[i]);
       if (price_str[0] == '.') {
@@ -190,20 +152,18 @@ void check_in_price(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  shop_index[deep_num_shop].in_price = price;
-  goods_index[deep_num_goods].in_price = price;
-  return;
+  return price;
 }
 
-//检查库存
-void check_goods_in_stock(int deep_num_shop, int deep_num_goods) {
+// 检查库存
+int check_goods_in_stock() {
   int goods_in_stock;
 
   do {
     char goods_in_stock_str[10];
     scanf("%s", goods_in_stock_str);
 
-    int i, j; //检测是否出现非数字字符
+    int i, j; // 检测是否出现非数字字符
     for (i = 0; goods_in_stock_str[i] != '\0'; i++) {
       j = isdigit(goods_in_stock_str[i]);
       if (!j) {
@@ -222,21 +182,18 @@ void check_goods_in_stock(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].goods_in_stock = goods_in_stock;
-  shop_index[deep_num_shop].goods_in_stock = goods_in_stock;
-
-  return;
+  return goods_in_stock;
 }
 
-//检查折扣价格
-void check_discount_price(int deep_num_shop, int deep_num_goods) {
+// 检查折扣价格
+float check_discount_price() {
   float price = 0;
 
   do {
     char price_str[10];
     scanf("%s", price_str);
 
-    int i, j, dot_num = 0; //检测是否出现非数字字符以及小数点的规范
+    int i, j, dot_num = 0; // 检测是否出现非数字字符以及小数点的规范
     for (i = 0; price_str[i] != '\0'; i++) {
       j = isdigit(price_str[i]);
       if (price_str[0] == '.') {
@@ -277,14 +234,13 @@ void check_discount_price(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].discount_price = price;
-  shop_index[deep_num_shop].discount_price = price;
-  return;
+  return price;
 }
 
-//检查折扣开始时间
-void check_begin_time(int deep_num_shop, int deep_num_goods) {
-  int i, j; //检测是否出现非数字字符
+// 检查时间
+int *check_time() {
+  int i, j; // 检测是否出现非数字字符
+  static int temp_time[6];
 
   int time_temp = 0;
   do {
@@ -292,7 +248,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
+    int i, j; // 检测是否出现非数字字符
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {
@@ -309,8 +265,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.tm_year = time_temp;
-  shop_index[deep_num_shop].time_begin.tm_year = time_temp;
+  temp_time[1] = time_temp;
 
   time_temp = 0;
   do {
@@ -318,7 +273,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
+    int i, j; // 检测是否出现���数字字符
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {
@@ -329,14 +284,13 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
 
     time_temp = atoi(time_str);
     if (time_temp < 1 || time_temp > 12) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("\n您的输入���式错误, 请检查后重新输入:\n");
       continue;
     }
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.tm_mon = time_temp;
-  shop_index[deep_num_shop].time_begin.tm_mon = time_temp;
+  temp_time[2] = time_temp;
 
   time_temp = 0;
   do {
@@ -369,8 +323,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.tm_mday = time_temp;
-  shop_index[deep_num_shop].time_begin.tm_mday = time_temp;
+  temp_time[3] = time_temp;
 
   time_temp = 0;
   do {
@@ -378,7 +331,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
+    int i, j; // 检测是否出现非数字字符
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {
@@ -395,8 +348,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.tm_hour = time_temp;
-  shop_index[deep_num_shop].time_begin.tm_hour = time_temp;
+  temp_time[4] = time_temp;
 
   time_temp = 0;
   do {
@@ -404,7 +356,7 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; //检测是否出现非数字字符
+    int i, j; // 检测是否出现非数字字符
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {
@@ -421,190 +373,9 @@ void check_begin_time(int deep_num_shop, int deep_num_goods) {
     break;
   } while (1);
 
-  goods_index[deep_num_goods].time_begin.tm_min = time_temp;
-  shop_index[deep_num_shop].time_begin.tm_min = time_temp;
+  temp_time[5] = time_temp;
 
-  return;
-}
-
-void check_end_time(int deep_num_shop, int deep_num_goods) {
-  int time_temp;
-
-  time_temp = 0;
-  do {
-    printf("年份: ");
-    char time_str[10];
-    scanf("%s", time_str);
-
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
-    time_temp = atoi(time_str);
-    if (time_temp < 1000 || time_temp > 9999) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
-      continue;
-    }
-    break;
-  } while (1);
-
-  goods_index[deep_num_goods].time_end.tm_year = time_temp;
-  shop_index[deep_num_shop].time_end.tm_year = time_temp;
-
-  time_temp = 0;
-  do {
-    printf("月份: ");
-    char time_str[10];
-    scanf("%s", time_str);
-
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
-    time_temp = atoi(time_str);
-    if (time_temp < 1 || time_temp > 12) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
-      continue;
-    }
-    break;
-  } while (1);
-
-  goods_index[deep_num_goods].time_end.tm_mon = time_temp;
-  shop_index[deep_num_shop].time_end.tm_mon = time_temp;
-
-  time_temp = 0;
-  do {
-    printf("日期: ");
-    char time_str[10];
-    scanf("%s", time_str);
-
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
-    time_temp = atoi(time_str);
-    if (time_temp < 1 || time_temp > 31) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
-      continue;
-    }
-    break;
-  } while (1);
-
-  goods_index[deep_num_goods].time_end.tm_mday = time_temp;
-  shop_index[deep_num_shop].time_end.tm_mday = time_temp;
-
-  time_temp = 0;
-  do {
-    printf("小时: ");
-    char time_str[10];
-    scanf("%s", time_str);
-
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
-    time_temp = atoi(time_str);
-    if (time_temp < 0 || time_temp > 24) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
-      continue;
-    }
-    break;
-  } while (1);
-
-  goods_index[deep_num_goods].time_end.tm_hour = time_temp;
-  shop_index[deep_num_shop].time_end.tm_hour = time_temp;
-
-  time_temp = 0;
-  do {
-    printf("分钟: ");
-    char time_str[10];
-    scanf("%s", time_str);
-
-    int i, j; //检测是否出现非数字字符
-    for (i = 0; time_str[i] != '\0'; i++) {
-      j = isdigit(time_str[i]);
-      if (!j) {
-        printf("\n您的输入格式错误, 请检查后重新输入:\n");
-        break;
-      }
-    }
-
-    time_temp = atoi(time_str);
-    if (time_temp < 0 || time_temp > 60) {
-      printf("\n您的输入格式错误, 请检查后重新输入:\n");
-      continue;
-    }
-    break;
-  } while (1);
-
-  goods_index[deep_num_goods].time_end.tm_min = time_temp;
-  shop_index[deep_num_shop].time_end.tm_min = time_temp;
-
-  return;
-}
-
-//输入新商品信息
-void check_information() {
-  int deep_num_shop = 0; // 结构体深度
-  // 遍历求深度
-  do {
-    deep_num_shop += 1;
-  } while (shop_index[deep_num_shop].unit_price != 0);
-  deep_num_shop -= sub_shop_index;
-
-  printf("请依次输入商品信息: \n");
-
-  //输入商品ID并检查
-  printf("请输入商品ID(2位大写字母+4位数字): \n");
-  int deep_num_goods = check_goods_id(deep_num_shop);
-
-  //输入单价并检查
-  printf("请输入单价: \n");
-  check_unit_price(deep_num_shop, deep_num_goods);
-
-  //输入进价并检查
-  printf("请输入进价: \n");
-  check_in_price(deep_num_shop, deep_num_goods);
-
-  //输入销量，因为是新货， 销量默认为0
-  shop_index[deep_num_shop].sales_volume = 0;
-  goods_index[deep_num_goods].sales_volume = 0;
-
-  //输入库存并检查
-  printf("请输入库存: \n");
-  check_goods_in_stock(deep_num_shop, deep_num_goods);
-
-  //输入折扣价格并检查
-  printf("请输入折扣价格: \n");
-  check_discount_price(deep_num_shop, deep_num_goods);
-
-  //输入折扣开始时间并检查
-  printf("请输入折扣开始时间: \n");
-  check_begin_time(deep_num_shop, deep_num_goods);
-
-  //�����入折扣结束时间并检��
-  printf("请输入折扣结束时间: \n");
-  check_end_time(deep_num_shop, deep_num_goods);
+  return temp_time;
 }
 
 /************************************************/
@@ -616,7 +387,7 @@ int add_goods_choose() {
 
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
-  printf("1. 确认发布.\n2. 取消发布.\n");
+  printf("1. 确认发布.\n2. 修改信息.\n 3.取消发布.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
@@ -633,28 +404,106 @@ int add_goods_choose() {
 
 void add_goods(char user_id[30]) {
 
-  //输入信息并进行检查
-  check_information();
+  // 输入信息并进行检查
 
-  //进一步操作
+  printf("请依次输入商品信息: \n");
+
+  // 读取商店ID
+  database_admin_information(user_id, 0);
+  char temp_shop_id[30];
+  strcpy(temp_shop_id, admin_information.shop_id);
+
+  // 输入商品ID并检查
+  printf("请输入商品ID(2位大写字母+4位数字): \n");
+  char temp_goods_id[30];
+  char goods_id[30];
+  strcpy(goods_id, check_goods_id(temp_goods_id));
+
+  // 输入单价并检查
+  printf("请输入单价: \n");
+  float temp_unit_price = check_unit_price();
+
+  // 输入进价并检查
+  printf("请输入进价: \n");
+  float temp_in_price = check_in_price();
+
+  // 输入销量，因为是新货， 销量默认为0
+  int temp_sales_volume = 0;
+
+  // 输入库存并检查
+  printf("请输入库存: \n");
+  int temp_goods_in_stock = check_goods_in_stock();
+
+  // 输入折扣价格��检查
+  printf("请输入折扣价格: \n");
+  float temp_discount_price = check_discount_price();
+
+  int *point; // 接收返回指针
+  int i;      // 循环变量
+
+  // 输入折扣开始时间并检查
+  printf("请输入折扣开始时间: \n");
+  point = check_time();
+  int temp_time_begin[6];
+  for (i = 1; i <= 5; i++)
+    temp_time_begin[i] = *(point + i);
+
+  // 输入折扣结束时间并检��
+  printf("请输入折扣结束时间: \n");
+  point = check_time();
+  int temp_time_end[6];
+  for (i = 1; i <= 5; i++)
+    temp_time_end[i] = *(point + i);
+
+  // 打印
+  printf("您要发布的商品信息如下, 请确认:\n");
+  printf("%s %s %0.2f %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
+         temp_shop_id,        //
+         temp_goods_id,       //
+         temp_unit_price,     //
+         temp_in_price,       //
+         temp_sales_volume,   //
+         temp_goods_in_stock, //
+         temp_discount_price, //
+         temp_time_begin[1],  //
+         temp_time_begin[2],  //
+         temp_time_begin[3],  //
+         temp_time_begin[4],  //
+         temp_time_begin[5],  //
+         temp_time_end[1],    //
+         temp_time_end[2],    //
+         temp_time_end[3],    //
+         temp_time_end[4],    //
+         temp_time_end[5]     //
+  );
+  printf("\n请输入任意字符并按回车键以继续...\n");
+  char screen[10];
+  scanf("%s", screen); // 延长屏幕显示时间
+
+  // 进一步操作
   int choose = add_goods_choose();
 
   switch (choose) {
 
+  // 选项1: 确认发布
   case 1: {
-    int deep_num_shop;
-    // 遍历求深度
-    while (shop_index[deep_num_shop].unit_price != 0) {
-      deep_num_shop += 1;
-    }
-    deep_num_shop -= 1;
+    // 打开或建立新数据库
+    if (!database_shop_index(temp_shop_id, 0))
+      database_shop_index(temp_shop_id, 1);
+    // 打开或建立新数据库
+    if (!database_goods_index(temp_shop_id, 0))
+      database_goods_index(temp_shop_id, 1);
 
-    add_goods_result_1(deep_num_shop);
     break;
   }
 
+  // 选项2: 修改信息(未完成)
   case 2: {
-    add_goods_result_2();
+    break;
+  }
+
+  // 选项3: 取消发布
+  case 3: {
     break;
   }
 
@@ -664,15 +513,6 @@ void add_goods(char user_id[30]) {
 
 // 主程序, 负责读取数据库以及传入下一层.
 int add_goods_main(char user_id[30]) {
-
-  database_admin_information(user_id, 0);
-
-  if (!database_shop_index(admin_information.shop_id,
-                           0)) { // 数据库读取, 只读
-    database_shop_index(admin_information.shop_id,
-                        1); // 如果没??该文档, 新建一个
-    sub_shop_index = 1;
-  }
 
   add_goods(user_id);
 
