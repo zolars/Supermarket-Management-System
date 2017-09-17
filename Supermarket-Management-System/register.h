@@ -1,8 +1,10 @@
-// Name: registerer.h
-// Author: 王楠鑫
-// Date: 2017-09-13
-// Language: C
-// Features:
+/*************************************************
+Name: registerer.h
+Author: 王楠鑫
+Date: 2017-09-13
+Language: C
+Features:
+*************************************************/
 
 #ifndef _REGISTER_H_ // 防止重复调用
 #define _REGISTER_H_

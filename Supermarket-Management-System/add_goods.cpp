@@ -380,6 +380,28 @@ int *check_time() {
 
 /************************************************/
 
+int add_goods_choose_2() {
+
+  char choose[10]; // 记录管理员操作时的选择
+  int choose_num;
+
+  // 用户界面
+  printf("\n---------------操作选项---------------\n\n");
+  printf("1. 确认发布.\n2. 修改信息.\n3. 取消发布.\n");
+  printf("\n-------------------------------------\n");
+  printf("请按数字键选择要执行的操作:\n");
+
+  scanf("%s", choose);
+
+  // 容错判断
+  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0) {
+    printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
+    choose_num = add_goods_choose_2();
+  } else
+    choose_num = atoi(choose);
+  return choose_num;
+}
+
 int add_goods_choose() {
 
   char choose[10]; // 记录管理员操作时的选择
@@ -387,7 +409,7 @@ int add_goods_choose() {
 
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
-  printf("1. 确认发布.\n2. 修改信息.\n 3.取消发布.\n");
+  printf("1. 确认发布.\n2. 修改信息.\n3. 取消发布.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
@@ -487,18 +509,80 @@ void add_goods(char user_id[30]) {
 
   // 选项1: 确认发布
   case 1: {
+    int i_shop = 1, i_goods = 1; // 深度测量
+    int i;                       // 循环变量
+
     // 打开或建立新数据库
-    if (!database_shop_index(temp_shop_id, 0))
+    if (!database_shop_index(temp_shop_id, 0)) {
       database_shop_index(temp_shop_id, 1);
+      i_shop = 0;
+    }
+
+    if (i_shop) {
+      i = 0;
+      while (shop_index[i].unit_price != 0)
+        i++;
+      i_shop = i;
+    }
+
+    strcpy(shop_index[i_shop].goods_id, temp_goods_id);         // 商品编号
+    shop_index[i_shop].unit_price = temp_unit_price;            // 零售价格
+    shop_index[i_shop].in_price = temp_in_price;                // 进货价格
+    shop_index[i_shop].sales_volume = temp_sales_volume;        // 销量
+    shop_index[i_shop].goods_in_stock = temp_goods_in_stock;    // 存货
+    shop_index[i_shop].discount_price = temp_discount_price;    // 折扣价
+    shop_index[i_shop].time_begin.tm_year = temp_time_begin[1]; // 开始时间
+    shop_index[i_shop].time_begin.tm_mon = temp_time_begin[2];  // ...
+    shop_index[i_shop].time_begin.tm_mday = temp_time_begin[3]; // ...
+    shop_index[i_shop].time_begin.tm_hour = temp_time_begin[4]; // ...
+    shop_index[i_shop].time_begin.tm_min = temp_time_begin[5];  // ...
+    shop_index[i_shop].time_end.tm_year = temp_time_end[1];     // 结束时间
+    shop_index[i_shop].time_end.tm_mon = temp_time_end[2];      // ...
+    shop_index[i_shop].time_end.tm_mday = temp_time_end[3];     // ...
+    shop_index[i_shop].time_end.tm_hour = temp_time_end[4];     // ...
+    shop_index[i_shop].time_end.tm_min = temp_time_end[5];      // ...
+
+    database_shop_index(temp_shop_id, 1);
+
     // 打开或建立新数据库
-    if (!database_goods_index(temp_shop_id, 0))
-      database_goods_index(temp_shop_id, 1);
+    if (!database_goods_index(temp_goods_id, 0)) {
+      database_goods_index(temp_goods_id, 1);
+      i_goods = 0;
+    }
+
+    if (i_goods) {
+      i = 0;
+      while (goods_index[i].unit_price != 0)
+        i++;
+      i_goods = i;
+    }
+
+    strcpy(goods_index[i_shop].shop_id, temp_shop_id);           // 超市编号
+    goods_index[i_shop].unit_price = temp_unit_price;            // 零售价格
+    goods_index[i_shop].in_price = temp_in_price;                // 进货价格
+    goods_index[i_shop].sales_volume = temp_sales_volume;        // 销量
+    goods_index[i_shop].goods_in_stock = temp_goods_in_stock;    // 存货
+    goods_index[i_shop].discount_price = temp_discount_price;    // 折扣价
+    goods_index[i_shop].time_begin.tm_year = temp_time_begin[1]; // 开始时间
+    goods_index[i_shop].time_begin.tm_mon = temp_time_begin[2];  // ...
+    goods_index[i_shop].time_begin.tm_mday = temp_time_begin[3]; // ...
+    goods_index[i_shop].time_begin.tm_hour = temp_time_begin[4]; // ...
+    goods_index[i_shop].time_begin.tm_min = temp_time_begin[5];  // ...
+    goods_index[i_shop].time_end.tm_year = temp_time_end[1];     // 结束时间
+    goods_index[i_shop].time_end.tm_mon = temp_time_end[2];      // ...
+    goods_index[i_shop].time_end.tm_mday = temp_time_end[3];     // ...
+    goods_index[i_shop].time_end.tm_hour = temp_time_end[4];     // ...
+    goods_index[i_shop].time_end.tm_min = temp_time_end[5];      // ...
+
+    database_goods_index(temp_goods_id, 1);
 
     break;
   }
 
   // 选项2: 修改信息(未完成)
   case 2: {
+    int choose_2 = add_goods_choose_2();
+
     break;
   }
 
