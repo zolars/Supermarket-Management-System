@@ -178,11 +178,16 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
       else
         i++;
     }
-
-    strcpy(order_admin_goods[i].goods_id, temp_goods_id);            // 商品ID
-    order_admin_goods[i].purchase_num = temp_purchase_num;           // 销量
-    order_admin_goods[i].all_price = temp_price * temp_purchase_num; // 总价
-    order_admin_goods[i].profit = temp_profit;                       // 利润
+    if (order_admin_goods[i].purchase_num == 0) {
+      strcpy(order_admin_goods[i].goods_id, temp_goods_id);  // 商品ID
+      order_admin_goods[i].purchase_num = temp_purchase_num; // 销量
+      order_admin_goods[i].all_price = temp_price * temp_purchase_num; // 总价
+      order_admin_goods[i].profit = temp_profit;                       // 利润
+    } else {
+      order_admin_goods[i].purchase_num += temp_purchase_num; // 销量
+      order_admin_goods[i].all_price += temp_price * temp_purchase_num; // 总价
+      order_admin_goods[i].profit += temp_profit; // 利润
+    }
 
     database_order_admin_goods(temp_shop_id, 1);
 
@@ -210,6 +215,26 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     }
 
     database_order_admin_consumer(temp_shop_id, 1);
+
+    /************************************************
+    增加顾客订单
+    数据库: order_consumer
+    ************************************************/
+    if (!database_order_consumer(user_id, 0))
+      database_order_consumer(user_id, 1);
+    // 深度探测
+    i = 0;
+    while (order_consumer[i].purchase_num != 0)
+      i++;
+
+    strcpy(order_consumer[i].order_id, order_admin_all[i].order_id); // 订单编号
+    strcpy(order_consumer[i].sold_time, time_str);      // 购买时间
+    strcpy(order_consumer[i].goods_id, temp_goods_id);  // 商品ID
+    order_consumer[i].purchase_num = temp_purchase_num; // 购买数量
+    order_consumer[i].unit_price = temp_price;          // 单价
+    order_consumer[i].all_price = temp_price * temp_purchase_num; // 总价
+
+    database_order_consumer(user_id, 1);
 
     return 1;
   }

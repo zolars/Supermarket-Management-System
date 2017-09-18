@@ -78,8 +78,8 @@ int consumer_choose() {
   // 用户界面
   printf("\n---------------欢迎进入顾客系统!----------------\n");
   printf("\n---------------请选择您需要的操作---------------\n");
-  printf("\n1. 商品查询.\n2. 所有商品一览.\n3. 查看购物车\n4. 查看已完成订单.\n"
-         "5. 个人信息管理\n0. 退出.\n");
+  printf("\n1. 商品查询.\n2. 查看购物车\n3. 查看已完成订单.\n"
+         "4. 个人信息管理\n0. 退出.\n");
   printf("\n---------------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
@@ -110,27 +110,22 @@ void consumer(char user_id[30]) {
     break;
   }
 
-  // 所有商品一览
-  case 2: {
-    consumer(user_id);
-    break;
-  }
-
   // 查看购物车
-  case 3: {
+  case 2: {
     cart_main(user_id);
     consumer(user_id);
     break;
   }
 
   // 查看已完成订单
-  case 4: {
+  case 3: {
+    search_order(user_id, 0);
     consumer(user_id);
     break;
   }
 
   // 个人信息管理
-  case 5: {
+  case 4: {
     change_consumer(user_id);
     consumer(user_id);
     break;
@@ -189,6 +184,7 @@ void admin_2(char user_id[30]) {
   // 添加新商品
   case 2: {
     add_goods_main(user_id);
+    admin_2(user_id);
     break;
   }
 
@@ -200,7 +196,7 @@ void admin_2(char user_id[30]) {
   return;
 }
 
-// 管理员主选单
+// 管��员主选单
 int admin_choose() {
   char choose[10]; // 记录管理员操作时的选择
   int choose_num;
