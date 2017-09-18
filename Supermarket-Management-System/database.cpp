@@ -402,8 +402,8 @@ int database_order_consumer(char user_id[30], int read_type) {
   if (!read_type) {
 
     // 打开特定的订单数据文件
-    if ((fwrite = fopen(file_name, "r+")) == NULL) // 判断文件是否存在及可读
-      return 0;                                    // 不存在, 返回"0"
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;                                   // 不存在, 返回"0"
 
     // 读取数据
     while (!feof(fwrite)) {
@@ -423,7 +423,6 @@ int database_order_consumer(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-
     while (order_consumer[i].purchase_num != 0) {
       fprintf(fwrite, "%s %s %s %d %0.2f %0.2f\n",
               order_consumer[i].order_id,     // 订单编号

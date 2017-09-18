@@ -1,31 +1,19 @@
 Undefined symbols for architecture x86_64:
-  "check_time(int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "database_shop_index(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
   "database_goods_index(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "database_order_admin_all(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "database_order_admin_goods(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "database_consumer_information(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "database_order_admin_consumer(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "_consumer_information", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
+      search_goods_begin(char*) in search_for_goods-f4b751.o
+  "database_shopping_cart(char*, int)", referenced from:
+      search_goods_begin(char*) in search_for_goods-f4b751.o
+  "shopping(char*, char*, char*, int)", referenced from:
+      search_goods_result_0(char*, int) in search_for_goods-f4b751.o
   "_goods_index", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
+      search_goods_result_1(char*) in search_for_goods-f4b751.o
+      search_goods_result_2(char*) in search_for_goods-f4b751.o
+      search_goods_result_3(char*) in search_for_goods-f4b751.o
+      search_goods_result_4(char*) in search_for_goods-f4b751.o
+      search_goods_begin(char*) in search_for_goods-f4b751.o
   "_main", referenced from:
      implicit entry/start for main executable
-  "_order_admin_all", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "_order_admin_consumer", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "_order_admin_goods", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
-  "_shop_index", referenced from:
-      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_shopping_cart", referenced from:
+      search_goods_result_0(char*, int) in search_for_goods-f4b751.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)

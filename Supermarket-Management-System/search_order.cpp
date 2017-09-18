@@ -376,7 +376,7 @@ int search_order_consumer_main(char user_id[15]) {
   // 顾客: 打印数据
   printf("\n");
   while (order_consumer[i].unit_price != 0) {
-    printf("%s\t%s\t%s\t%d\t%0.2f\t%0.2f\n", order_consumer[i].order_id,
+    printf("%s %s %s %d %0.2f %0.2f\n", order_consumer[i].order_id,
            order_consumer[i].sold_time, order_consumer[i].goods_id,
            order_consumer[i].purchase_num, order_consumer[i].unit_price,
            order_consumer[i].all_price);

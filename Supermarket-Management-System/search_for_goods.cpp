@@ -14,6 +14,7 @@ Features:
 
 #include "database.h"
 #include "search_for_goods.h"
+#include "shopping.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,29 @@ int cmp_discount_price_goods(const void *a, const void *b) {
              : 1;
 }
 
-void search_goods_result_0(int choise_num) {
+int search_goods_choose_0() {
+  char choose[10]; // 记录顾客操作��项
+  int choose_num;
+
+  // 用户界面
+  printf("\n---------------操作选项---------------\n\n");
+  printf("1. 立即购买.\n");
+  printf("2. 将订单加入购物车.\n");
+  printf("0. 取消订单.\n");
+  printf("\n-------------------------------------\n");
+  printf("请按数字键选择要执行的操作:\n");
+
+  scanf("%s", choose);
+  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0 &&
+      strcmp(choose, "0")) {
+    printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
+    choose_num = search_goods_choose_0();
+  } else
+    choose_num = atoi(choose);
+  return choose_num;
+}
+
+void search_goods_result_0(char user_id[30], int choise_num) {
 
   char num_purchase[11],  // 顾客购买的超市编号
       goods_purchase[11]; // 顾客购买的物品数量
@@ -120,29 +143,47 @@ void search_goods_result_0(int choise_num) {
   printf("您的订单为:\n商品编号: %s\n超市编号: %s\n购买数量: %d\n",
          temp_information_item, temp_information_market[num_purchase_num - 1],
          goods_purchase_num);
-
   printf("\n请输入任意字符并按回车键以继续...\n");
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
 
-  /*
+  int choose = search_goods_choose_0();
 
-  立即购买
+  if (choose == 1) {
+    choose = shopping(user_id, temp_information_item,
+                      temp_information_market[num_purchase_num - 1],
+                      goods_purchase_num);
+    if (choose == 1)
+      printf("您的商品购买完成, "
+             "谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n");
+    else if (choose == 0)
+      ("抱歉, 您选择的商品存货不足, 请选择其他商品.");
+    else if (choose == -1)
+      printf("抱歉, 您的余额不足, 请先充值.");
 
-  加入购物车
+    printf("\n请输入任意字符并按回车键以继续...\n");
+    scanf("%s", screen); // 延长屏幕显示时间
 
-  */
+    return;
+  }
 
-  strcpy(shopping_cart[i].goods_id,
-         temp_information_item); // 商品ID
-  strcpy(shopping_cart[i].shop_id,
-         temp_information_market[num_purchase_num - 1]); // 商店ID
-  shopping_cart[i].purchase_num = goods_purchase_num;    // 购买数量
+  else if (choose == 2) {
+    strcpy(shopping_cart[i].goods_id,
+           temp_information_item); // 商品ID
+    strcpy(shopping_cart[i].shop_id,
+           temp_information_market[num_purchase_num - 1]); // 商店ID
+    shopping_cart[i].purchase_num = goods_purchase_num;    // 购买数量
+    printf("您的订单已经存进购物车, 可在购物车中查看 : )\n");
+    printf("\n请输入任意字符并按回车键以继续...\n");
+    scanf("%s", screen); // 延长屏幕显示时间
+    return;
+  }
+
   return;
 }
 
 // 筛选打折的商品
-void search_goods_result_1() {
+void search_goods_result_1(char user_id[30]) {
   int i = 0, j = 0; //循环变量
   while (goods_index[i].unit_price != 0) {
     if (fabs(goods_index[i].unit_price - goods_index[i].discount_price) >
@@ -174,12 +215,12 @@ void search_goods_result_1() {
   temp_information_market[j][0] = '\0';
 
   int choise_num = j;
-  search_goods_result_0(choise_num);
+  search_goods_result_0(user_id, choise_num);
   return;
 }
 
 // 打印不打折的商品
-void search_goods_result_2() {
+void search_goods_result_2(char user_id[30]) {
   int i = 0; //循环变量
   while (goods_index[i].unit_price != 0) {
 
@@ -208,11 +249,11 @@ void search_goods_result_2() {
   temp_information_market[i][0] = '\0';
 
   int choise_num = i;
-  search_goods_result_0(choise_num);
+  search_goods_result_0(user_id, choise_num);
   return;
 }
 
-void search_goods_result_3() {
+void search_goods_result_3(char user_id[30]) {
   int i = 0; //循环变量
 
   // 深度探测
@@ -237,7 +278,7 @@ void search_goods_result_3() {
            goods_index[i].time_begin.tm_mday, // ...
            goods_index[i].time_begin.tm_hour, // ...
            goods_index[i].time_begin.tm_min,  // ...
-           goods_index[i].time_end.tm_year,   // 折扣结束时间
+           goods_index[i].time_end.tm_year,   // 折扣结束��间
            goods_index[i].time_end.tm_mon,    // ...
            goods_index[i].time_end.tm_mday,   // ...
            goods_index[i].time_end.tm_hour,   // ...
@@ -250,11 +291,11 @@ void search_goods_result_3() {
   temp_information_market[i][0] = '\0';
 
   int choise_num = i;
-  search_goods_result_0(choise_num);
+  search_goods_result_0(user_id, choise_num);
   return;
 }
 
-void search_goods_result_4() {
+void search_goods_result_4(char user_id[30]) {
   int i = 0; //循环变量
 
   // 深度探测
@@ -292,7 +333,7 @@ void search_goods_result_4() {
   temp_information_market[i][0] = '\0';
 
   int choise_num = i;
-  search_goods_result_0(choise_num);
+  search_goods_result_0(user_id, choise_num);
   return;
 }
 
@@ -322,28 +363,28 @@ int search_goods_choose() {
 }
 
 // search_goods所使用的选择函数
-void search_goods() {
+void search_goods(char user_id[30]) {
   int choose = search_goods_choose();
 
   switch (choose) {
   case 1: {
-    search_goods_result_1();
-    search_goods();
+    search_goods_result_1(user_id);
+    search_goods(user_id);
     break;
   }
   case 2: {
-    search_goods_result_2();
-    search_goods();
+    search_goods_result_2(user_id);
+    search_goods(user_id);
     break;
   }
   case 3: {
-    search_goods_result_3();
-    search_goods();
+    search_goods_result_3(user_id);
+    search_goods(user_id);
     break;
   }
   case 4: {
-    search_goods_result_4();
-    search_goods();
+    search_goods_result_4(user_id);
+    search_goods(user_id);
     break;
   }
   case 5: {
@@ -419,7 +460,7 @@ void search_goods_begin(char user_id[30]) {
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
 
-  search_goods();
+  search_goods(user_id);
 
   database_shopping_cart(user_id, 1);
   return;
