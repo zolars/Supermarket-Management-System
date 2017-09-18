@@ -1,17 +1,4 @@
-Undefined symbols for architecture x86_64:
-  "check_time(int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-17f8ce.o
-  "database_goods_index(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-17f8ce.o
-  "database_order_admin_all(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-17f8ce.o
-  "database_consumer_information(char*, int)", referenced from:
-      shopping(char*, char*, char*, int) in shopping-17f8ce.o
-  "_consumer_information", referenced from:
-      shopping(char*, char*, char*, int) in shopping-17f8ce.o
-  "_goods_index", referenced from:
-      shopping(char*, char*, char*, int) in shopping-17f8ce.o
-  "_main", referenced from:
-     implicit entry/start for main executable
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+/Users/zolar/OneDrive - Queen Mary, University of London/Project/Supermarket-Management-System/Supermarket-Management-System/add_goods.cpp:578:34: error: invalid application of 'sizeof' to an incomplete type 'STU_goods_index []'
+    memset(goods_index, 0, sizeof(goods_index));
+                                 ^~~~~~~~~~~~~
+1 error generated.

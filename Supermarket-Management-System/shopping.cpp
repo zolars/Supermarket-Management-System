@@ -99,8 +99,8 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     database_goods_index(temp_goods_id, 1);
 
     /************************************************
-    增加管理员订单
-    数据库order_admin
+    增加管理员订单all
+    数据库order_admin_all
     ************************************************/
 
     // 找到该货物所对应的超市名并存入订单
@@ -125,26 +125,26 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     strcpy(order_admin_all[i].order_id, user_id);
     strcat(order_admin_all[i].order_id, "|");
     strcat(order_admin_all[i].order_id, time_str);
+    strcpy(time_str, "");
 
-    order_admin_all[i].sold_time = *tm_local; // 记录购买时间
+    order_admin_all[i].sold_time.tm_year = tm_local->tm_year; // 记录购买时间
+    order_admin_all[i].sold_time.tm_mon = tm_local->tm_mon;   // ...
+    order_admin_all[i].sold_time.tm_mday = tm_local->tm_mday; // ...
+    order_admin_all[i].sold_time.tm_hour = tm_local->tm_hour; // ...
+    order_admin_all[i].sold_time.tm_min = tm_local->tm_min;   // ...
 
+    strcpy(order_admin_all[i].consumer_id, user_id);
     strcpy(order_admin_all[i].goods_id, temp_goods_id);
     order_admin_all[i].unit_price = temp_price;
+    order_admin_all[i].purchase_num = temp_purchase_num;
     order_admin_all[i].all_price = temp_price * temp_purchase_num;
 
-    printf("%s %s %04d:%02d:%02d:%02d:%02d %s %d %f %f\n",
-           order_admin_all[i].order_id,          // 订单编号
-           order_admin_all[i].consumer_id,       // 顾客编号
-           order_admin_all[i].sold_time.tm_year, // 购买时间
-           order_admin_all[i].sold_time.tm_mon,  // ...
-           order_admin_all[i].sold_time.tm_mday, // ...
-           order_admin_all[i].sold_time.tm_hour, // ...
-           order_admin_all[i].sold_time.tm_min,  // ...
-           order_admin_all[i].goods_id,          // 商品ID
-           order_admin_all[i].purchase_num,      // 购买数量
-           order_admin_all[i].unit_price,        // 单价
-           order_admin_all[i].all_price          // 总价
-    );
+    database_order_admin_all(temp_shop_id, 1);
+
+    /************************************************
+    增加管理员订单_goods
+    数据库order_admin_goods
+    ************************************************/
 
     return 1;
   }

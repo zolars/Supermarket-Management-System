@@ -189,7 +189,6 @@ void admin_2(char user_id[30]) {
   // 添加新商品
   case 2: {
     add_goods_main(user_id);
-    admin_2(user_id);
     break;
   }
 

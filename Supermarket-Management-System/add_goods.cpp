@@ -479,7 +479,8 @@ void add_goods(char user_id[30]) {
 
   // 打印
   printf("您要发布的商品信息如下, 请确认:\n");
-  printf("%s %s %0.2f %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
+  printf("%s %s %0.2f %0.2f %d %d %0.2f %04d:%02d:%02d:%02d:%02d "
+         "%04d:%02d:%02d:%02d:%02d",
          temp_shop_id,        //
          temp_goods_id,       //
          temp_unit_price,     //
@@ -509,8 +510,8 @@ void add_goods(char user_id[30]) {
 
   // 选项1: 确认发布
   case 1: {
-    int i_shop = 1, i_goods = 1; // 深度测量
-    int i;                       // 循环变量
+    int i_shop = 1, i_goods; // 深度测量
+    int i;                   // 循环变量
 
     // 打开或建立新数据库
     if (!database_shop_index(temp_shop_id, 0)) {
@@ -547,35 +548,51 @@ void add_goods(char user_id[30]) {
     // 打开或建立新数据库
     if (!database_goods_index(temp_goods_id, 0)) {
       database_goods_index(temp_goods_id, 1);
-      i_goods = 0;
     }
 
-    if (i_goods) {
-      i = 0;
-      while (goods_index[i].unit_price != 0)
-        i++;
-      i_goods = i;
-    }
+    i = 0;
+    while (goods_index[i].unit_price != 0)
+      i++;
+    i_goods = i;
 
-    strcpy(goods_index[i_shop].shop_id, temp_shop_id);           // 超市编号
-    goods_index[i_shop].unit_price = temp_unit_price;            // 零售价格
-    goods_index[i_shop].in_price = temp_in_price;                // 进货价格
-    goods_index[i_shop].sales_volume = temp_sales_volume;        // 销量
-    goods_index[i_shop].goods_in_stock = temp_goods_in_stock;    // 存货
-    goods_index[i_shop].discount_price = temp_discount_price;    // 折扣价
-    goods_index[i_shop].time_begin.tm_year = temp_time_begin[1]; // 开始时间
-    goods_index[i_shop].time_begin.tm_mon = temp_time_begin[2];  // ...
-    goods_index[i_shop].time_begin.tm_mday = temp_time_begin[3]; // ...
-    goods_index[i_shop].time_begin.tm_hour = temp_time_begin[4]; // ...
-    goods_index[i_shop].time_begin.tm_min = temp_time_begin[5];  // ...
-    goods_index[i_shop].time_end.tm_year = temp_time_end[1];     // 结束时间
-    goods_index[i_shop].time_end.tm_mon = temp_time_end[2];      // ...
-    goods_index[i_shop].time_end.tm_mday = temp_time_end[3];     // ...
-    goods_index[i_shop].time_end.tm_hour = temp_time_end[4];     // ...
-    goods_index[i_shop].time_end.tm_min = temp_time_end[5];      // ...
+    strcpy(goods_index[i_goods].shop_id, temp_shop_id);        // 超市编号
+    goods_index[i_goods].unit_price = temp_unit_price;         // 零售价格
+    goods_index[i_goods].in_price = temp_in_price;             // 进货价格
+    goods_index[i_goods].sales_volume = temp_sales_volume;     // 销量
+    goods_index[i_goods].goods_in_stock = temp_goods_in_stock; // 存货
+    goods_index[i_goods].discount_price = temp_discount_price; // 折扣价
+    goods_index[i_goods].time_begin.tm_year = temp_time_begin[1]; // 开始���间
+    goods_index[i_goods].time_begin.tm_mon = temp_time_begin[2];  // ...
+    goods_index[i_goods].time_begin.tm_mday = temp_time_begin[3]; // ...
+    goods_index[i_goods].time_begin.tm_hour = temp_time_begin[4]; // ...
+    goods_index[i_goods].time_begin.tm_min = temp_time_begin[5];  // ...
+    goods_index[i_goods].time_end.tm_year = temp_time_end[1]; // 结束时间
+    goods_index[i_goods].time_end.tm_mon = temp_time_end[2];  // ...
+    goods_index[i_goods].time_end.tm_mday = temp_time_end[3]; // ...
+    goods_index[i_goods].time_end.tm_hour = temp_time_end[4]; // ...
+    goods_index[i_goods].time_end.tm_min = temp_time_end[5];  // ...
 
     database_goods_index(temp_goods_id, 1);
-
+    /*
+            for (i = 0; i < 100; i++) {
+              strcpy(goods_index[i].shop_id, "");    // 超市ID
+              goods_index[i].unit_price = 0;         // 单价
+              goods_index[i].in_price = 0;           // 进价
+              goods_index[i].sales_volume = 0;       // 销量
+              goods_index[i].goods_in_stock = 0;     // 库存
+              goods_index[i].discount_price = 0;     // 折扣价格
+              goods_index[i].time_begin.tm_year = 0; // 折扣开始时间
+              goods_index[i].time_begin.tm_mon = 0;  // ...
+              goods_index[i].time_begin.tm_mday = 0; // ...
+              goods_index[i].time_begin.tm_hour = 0; // ...
+              goods_index[i].time_begin.tm_min = 0;  // ...
+              goods_index[i].time_end.tm_year = 0;   // 折扣结束时间
+              goods_index[i].time_end.tm_mon = 0;    // ...
+              goods_index[i].time_end.tm_mday = 0;   // ...
+              goods_index[i].time_end.tm_hour = 0;   // ...
+              goods_index[i].time_end.tm_min = 0;    // ...}
+            }
+            */
     break;
   }
 
