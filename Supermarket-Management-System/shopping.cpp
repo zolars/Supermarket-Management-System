@@ -121,10 +121,12 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
             tm_local->tm_min);
 
     strcpy(order_admin_all[i].order_id, user_id);
+    strcat(order_admin_all[i].order_id, "|");
     strcat(order_admin_all[i].order_id, time_str);
 
-    // 订单编号
-    printf(order_admin_all[i].consumer_id,       // 顾客编号
+    printf("%s %s %04d:%02d:%02d:%02d:%02d %s %d %f %f",
+           order_admin_all[i].order_id,          // 订单编号
+           order_admin_all[i].consumer_id,       // 顾客编号
            order_admin_all[i].sold_time.tm_year, // 购买时间
            order_admin_all[i].sold_time.tm_mon,  // ...
            order_admin_all[i].sold_time.tm_mday, // ...
@@ -136,7 +138,6 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
            order_admin_all[i].all_price          // 总价
     );
 
-    database_order_admin_all(temp_shop_id, 1);
     printf("alldone");
     return 1;
   }
