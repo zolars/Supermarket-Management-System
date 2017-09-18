@@ -24,13 +24,12 @@ char *check_goods_id(char *temp_goods_id) {
   do {
     scanf("%s", temp_goods_id);
 
-    int i = 0, j, k, check_num = 1;
+    int i = 0, k, check_num = 1;
 
     for (i = 0; temp_goods_id[i] != '\0'; i++) {
-      j = isalpha(temp_goods_id[i]);
       k = isdigit(temp_goods_id[i]);
       if (i == 0 || i == 1) {
-        if (j != 1)
+        if (temp_goods_id[i] < 'A' || temp_goods_id[i] > 'Z')
           check_num = 0;
       } else if (i >= 2 && i <= 5) {
         if (!k)
@@ -547,6 +546,25 @@ void add_goods(char user_id[30]) {
 
     // 打开或建立新数据库
     if (!database_goods_index(temp_goods_id, 0)) {
+      // 清空结构体
+      for (i = 0; i < 100; i++) {
+        strcpy(goods_index[i].shop_id, "");    // 超市ID
+        goods_index[i].unit_price = 0;         // 单价
+        goods_index[i].in_price = 0;           // 进价
+        goods_index[i].sales_volume = 0;       // 销量
+        goods_index[i].goods_in_stock = 0;     // 库存
+        goods_index[i].discount_price = 0;     // 折扣价格
+        goods_index[i].time_begin.tm_year = 0; // 折扣开始时间
+        goods_index[i].time_begin.tm_mon = 0;  // ...
+        goods_index[i].time_begin.tm_mday = 0; // ...
+        goods_index[i].time_begin.tm_hour = 0; // ...
+        goods_index[i].time_begin.tm_min = 0;  // ...
+        goods_index[i].time_end.tm_year = 0;   // 折扣结束时间
+        goods_index[i].time_end.tm_mon = 0;    // ...
+        goods_index[i].time_end.tm_mday = 0;   // ...
+        goods_index[i].time_end.tm_hour = 0;   // ...
+        goods_index[i].time_end.tm_min = 0;    // ...}
+      }
       database_goods_index(temp_goods_id, 1);
     }
 
@@ -573,26 +591,7 @@ void add_goods(char user_id[30]) {
     goods_index[i_goods].time_end.tm_min = temp_time_end[5];  // ...
 
     database_goods_index(temp_goods_id, 1);
-    /*
-            for (i = 0; i < 100; i++) {
-              strcpy(goods_index[i].shop_id, "");    // 超市ID
-              goods_index[i].unit_price = 0;         // 单价
-              goods_index[i].in_price = 0;           // 进价
-              goods_index[i].sales_volume = 0;       // 销量
-              goods_index[i].goods_in_stock = 0;     // 库存
-              goods_index[i].discount_price = 0;     // 折扣价格
-              goods_index[i].time_begin.tm_year = 0; // 折扣开始时间
-              goods_index[i].time_begin.tm_mon = 0;  // ...
-              goods_index[i].time_begin.tm_mday = 0; // ...
-              goods_index[i].time_begin.tm_hour = 0; // ...
-              goods_index[i].time_begin.tm_min = 0;  // ...
-              goods_index[i].time_end.tm_year = 0;   // 折扣结束时间
-              goods_index[i].time_end.tm_mon = 0;    // ...
-              goods_index[i].time_end.tm_mday = 0;   // ...
-              goods_index[i].time_end.tm_hour = 0;   // ...
-              goods_index[i].time_end.tm_min = 0;    // ...}
-            }
-            */
+
     break;
   }
 
