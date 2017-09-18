@@ -124,7 +124,9 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     strcat(order_admin_all[i].order_id, "|");
     strcat(order_admin_all[i].order_id, time_str);
 
-    printf("%s %s %04d:%02d:%02d:%02d:%02d %s %d %f %f",
+    order_admin_all[i].sold_time = *tm_local;
+
+    printf("%s %s %04d:%02d:%02d:%02d:%02d %s %d %f %f\n",
            order_admin_all[i].order_id,          // 订单编号
            order_admin_all[i].consumer_id,       // 顾客编号
            order_admin_all[i].sold_time.tm_year, // 购买时间
@@ -138,7 +140,6 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
            order_admin_all[i].all_price          // 总价
     );
 
-    printf("alldone");
     return 1;
   }
 
