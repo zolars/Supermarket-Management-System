@@ -62,11 +62,7 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
       i++;
   }
 
-  if (goods_index[i].in_price == 0)
-    printf("运行出问题了? 请联系: zolars@outlook.com");
-
   if (temp_purchase_num > goods_index[i].goods_in_stock) {
-    printf("%d %d", temp_purchase_num, goods_index[i].goods_in_stock);
     return 0;
   }
 
@@ -182,11 +178,11 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
       strcpy(order_admin_goods[i].goods_id, temp_goods_id);  // 商品ID
       order_admin_goods[i].purchase_num = temp_purchase_num; // 销量
       order_admin_goods[i].all_price = temp_price * temp_purchase_num; // 总价
-      order_admin_goods[i].profit = temp_profit;                       // 利润
+      order_admin_goods[i].profit = temp_profit * temp_purchase_num;   // 利润
     } else {
       order_admin_goods[i].purchase_num += temp_purchase_num; // 销量
       order_admin_goods[i].all_price += temp_price * temp_purchase_num; // 总价
-      order_admin_goods[i].profit += temp_profit; // 利润
+      order_admin_goods[i].profit += temp_profit * temp_purchase_num; // 利润
     }
 
     database_order_admin_goods(temp_shop_id, 1);
@@ -226,6 +222,15 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     i = 0;
     while (order_consumer[i].purchase_num != 0)
       i++;
+
+    // 找到目前的时间信息并存入字符串
+    calendar_time = time(NULL);
+    struct tm *tm_local2 = localtime(&calendar_time);
+    tm_local2->tm_year += 1900; // 处理tm类型偏差
+    tm_local2->tm_mon += 1;     // 处理tm类型偏差
+    sprintf(time_str, "%04d:%02d:%02d:%02d:%02d", tm_local2->tm_year,
+            tm_local2->tm_mon, tm_local2->tm_mday, tm_local2->tm_hour,
+            tm_local2->tm_min);
 
     strcpy(order_consumer[i].order_id, order_admin_all[i].order_id); // 订单编号
     strcpy(order_consumer[i].sold_time, time_str);      // 购买时间

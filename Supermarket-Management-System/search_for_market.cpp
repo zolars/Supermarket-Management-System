@@ -14,6 +14,7 @@ Features:
 
 #include "database.h"
 #include "search_for_market.h"
+#include "shopping.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,29 @@ int cmp_discount_price_market(const void *a, const void *b) {
              : 1;
 }
 
-void search_market_result_0(int choise_num) {
+int search_market_choose_0() {
+  char choose[10]; // 记录顾客操作��项
+  int choose_num;
+
+  // 用户界面
+  printf("\n---------------操作选项---------------\n\n");
+  printf("1. 立即购买.\n");
+  printf("2. 将订单加入购物车.\n");
+  printf("0. 取消订单.\n");
+  printf("\n-------------------------------------\n");
+  printf("请按数字键选择要执行的操作:\n");
+
+  scanf("%s", choose);
+  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0 &&
+      strcmp(choose, "0")) {
+    printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
+    choose_num = search_market_choose_0();
+  } else
+    choose_num = atoi(choose);
+  return choose_num;
+}
+
+void search_market_result_0(char user_id[30], int choise_num) {
 
   char num_purchase[11],  // 顾客购买的物品序号
       goods_purchase[11]; // 顾客购买的物品数量
@@ -124,24 +147,39 @@ void search_market_result_0(int choise_num) {
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
 
-  /*
+  int choose = search_market_choose_0();
 
-  立即购买
+  if (choose == 1) {
+    choose = shopping(user_id, temp_information_foritem[num_purchase_num - 1],
+                      temp_information_formarket, goods_purchase_num);
+    if (choose == 1)
+      printf("您的商品购买完成, "
+             "谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n");
+    else if (choose == 0)
+      printf("抱歉, 您选择的商品存货不足, 请选择其他商品.");
+    else if (choose == -1)
+      printf("抱歉, 您的余额不足, 请先充值.");
 
-  加入购物车
+    printf("\n请输入任意字符并按回车键以继续...\n");
+    scanf("%s", screen); // 延长屏幕显示时间
 
-  */
+    return;
+  }
 
-  strcpy(shopping_cart[i].goods_id,
-         temp_information_foritem[num_purchase_num - 1]);       // 商品ID
-  strcpy(shopping_cart[i].shop_id, temp_information_formarket); // 商店ID
-  shopping_cart[i].purchase_num = goods_purchase_num;           // 购买数量
+  else if (choose == 2) {
 
+    strcpy(shopping_cart[i].goods_id,
+           temp_information_foritem[num_purchase_num - 1]);       // 商品ID
+    strcpy(shopping_cart[i].shop_id, temp_information_formarket); // 商店ID
+    shopping_cart[i].purchase_num = goods_purchase_num; // 购买数量
+
+    return;
+  }
   return;
 }
 
 // 筛选打折的商品
-void search_market_result_1() {
+void search_market_result_1(char user_id[30]) {
   int i = 0, j = 0; //循环变量
   while (shop_index[i].unit_price != 0) {
     if (fabs(shop_index[i].unit_price - shop_index[i].discount_price) >
@@ -173,16 +211,16 @@ void search_market_result_1() {
   temp_information_foritem[j][0] = '\0';
 
   int choise_num = j;
-  search_market_result_0(choise_num);
+  search_market_result_0(user_id, choise_num);
   return;
 }
 
 // 打印不打折的商品
-void search_market_result_2() {
+void search_market_result_2(char user_id[30]) {
   int i = 0; //循环变量
   while (shop_index[i].unit_price != 0) {
 
-    printf("%d %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                            // 列表序号
            shop_index[i].goods_id,           // 商品编号
            shop_index[i].unit_price,         // 零售价格
@@ -207,11 +245,11 @@ void search_market_result_2() {
   temp_information_foritem[i][0] = '\0';
 
   int choise_num = i;
-  search_market_result_0(choise_num);
+  search_market_result_0(user_id, choise_num);
   return;
 }
 
-void search_market_result_3() {
+void search_market_result_3(char user_id[30]) {
   int i = 0; //循环变量
 
   // 深度探测
@@ -224,7 +262,7 @@ void search_market_result_3() {
 
   i = 0;
   while (shop_index[i].unit_price != 0) {
-    printf("%d %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                            // 列表序号
            shop_index[i].goods_id,           // 商品编号
            shop_index[i].unit_price,         // 零售价格
@@ -249,11 +287,11 @@ void search_market_result_3() {
   temp_information_foritem[i][0] = '\0';
 
   int choise_num = i;
-  search_market_result_0(choise_num);
+  search_market_result_0(user_id, choise_num);
   return;
 }
 
-void search_market_result_4() {
+void search_market_result_4(char user_id[30]) {
   int i = 0; //循环变量
 
   // 深度探测
@@ -266,7 +304,7 @@ void search_market_result_4() {
 
   i = 0;
   while (shop_index[i].unit_price != 0) {
-    printf("%d %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                            // 列表序号
            shop_index[i].goods_id,           // 商品编号
            shop_index[i].unit_price,         // 零售价格
@@ -291,7 +329,7 @@ void search_market_result_4() {
   temp_information_foritem[i][0] = '\0';
 
   int choise_num = i;
-  search_market_result_0(choise_num);
+  search_market_result_0(user_id, choise_num);
   return;
 }
 
@@ -321,28 +359,28 @@ int search_market_choose() {
 }
 
 // search_market所使用的选择函数
-void search_market() {
+void search_market(char user_id[30]) {
   int choose = search_market_choose();
 
   switch (choose) {
   case 1: {
-    search_market_result_1();
-    search_market();
+    search_market_result_1(user_id);
+    search_market(user_id);
     break;
   }
   case 2: {
-    search_market_result_2();
-    search_market();
+    search_market_result_2(user_id);
+    search_market(user_id);
     break;
   }
   case 3: {
-    search_market_result_3(); // it`s your showtime
-    search_market();
+    search_market_result_3(user_id); // it`s your showtime
+    search_market(user_id);
     break;
   }
   case 4: {
-    search_market_result_4(); // it`s your showtime
-    search_market();
+    search_market_result_4(user_id); // it`s your showtime
+    search_market(user_id);
     break;
   }
   case 5: {
@@ -391,7 +429,7 @@ void search_market_begin(char user_id[30]) {
   printf("您的查询结果如下:\n");
 
   while (shop_index[i].unit_price != 0) {
-    printf("%d %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %0.2f %d %d %0.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                            // 列表序号
            shop_index[i].goods_id,           // 商品变号
            shop_index[i].unit_price,         // 零售价格
@@ -416,7 +454,7 @@ void search_market_begin(char user_id[30]) {
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
 
-  search_market();
+  search_market(user_id);
 
   database_shopping_cart(user_id, 1);
   return;

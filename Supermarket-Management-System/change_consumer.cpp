@@ -15,6 +15,7 @@ Features:
 
 #include "change_consumer.h"
 #include "database.h"
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -98,28 +99,81 @@ void change_consumer_address(char user_id[11]) {
   return;
 }
 
+float check_price() {
+  float price = 0;
+
+  do {
+    char price_str[10];
+    scanf("%s", price_str);
+
+    int i, j, dot_num = 0; // 检测是否出现非数字字符以及小数点的规范
+    for (i = 0; price_str[i] != '\0'; i++) {
+      j = isdigit(price_str[i]);
+      if (price_str[0] == '.') {
+        printf("\n您的输入格式错误, 请检查后重新输入:\n");
+        printf("请输入充值金额: \n");
+        break;
+      }
+      if (price_str[i + 1] == '\0' && price_str[i] == '.') {
+        printf("\n您的输入格式错误, 请检查后重新输入:\n");
+        printf("请输入充值金额: \n");
+        break;
+      }
+      if (price_str[i] == '.')
+        dot_num = dot_num + 1;
+      if (dot_num == 2) {
+        printf("\n您的输入格式错误, 请检查后重新输入:\n");
+        printf("请输入充值金额: \n");
+        break;
+      }
+      if (!j && price_str[i] != '.') {
+        printf("\n您的输入格式错误, 请检查后重新输入:\n");
+        printf("请输入充值金额: \n");
+        break;
+      }
+    }
+
+    price = 0;
+    price = atof(price_str); // 字符串转浮点型
+
+    if ((int(price * 100) != (price * 100)) || price == 0) {
+      printf("\n您的输入格式错误, 请检查后重新输入:\n");
+      printf("请输入充值金额: \n");
+      continue;
+    } else if (strlen(price_str) > 8 || atof(price_str) > 50000) {
+      printf("\n充值金额不得超过50000, 请检查后重新输入!\n");
+      printf("请输入充值金额: \n");
+      continue;
+    }
+    break;
+  } while (1);
+
+  return price;
+}
+
 int change_consumer_choose() {
   char choose[10]; // 记录管理员操作时的选择
   int choose_num;
 
   printf("您的个人信息如下:\n");
-  printf("姓名  性别  手机号码   密码   邮箱   地址\n");
+  printf("姓名  性别  手机号码   密码   邮箱   地址 余额\n");
   printf("%s ", consumer_information.name);       // 顾客姓名
   if (strcmp(consumer_information.sex, "1") == 0) // 顾客性别判断
     printf("男 ");
   else
     printf("女 ");
-  printf("%s %s %s %s",
+  printf("%s %s %s %s %0.2f",
          consumer_information.tel,      // 手机号
          consumer_information.password, // 密码
          consumer_information.email,    // 邮箱
-         consumer_information.address   // 地址
+         consumer_information.address,  // 地址
+         consumer_information.money     // 余额
   );
 
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
-  printf("1. 修改电话号码.\n2. 修改账户密码.\n");
-  printf("3. 修改邮箱.\n4. 修改收货地址.\n0. 返回.\n");
+  printf("1. 充值余额\n2. 修改电话号码.\n3. 修改账户密码.\n");
+  printf("4. 修改邮箱.\n5. 修改收货地址.\n0. 返回.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
@@ -148,27 +202,36 @@ void change_consumer(char user_id[11]) {
   int i = 1;
   switch (choose) {
   case 1: {
+    printf("\n输入您要充值的金额:\n");
+
+    consumer_information.money += check_price();
+
+    database_consumer_information(user_id, 1); // 入库
+    change_consumer(user_id);
+    break;
+  }
+  case 2: {
     printf("\n您正在修改电话号码! ");
     change_consumer_tel(user_id);
     database_consumer_information(user_id, 1); // 入库
     change_consumer(user_id);
     break;
   }
-  case 2: {
+  case 3: {
     printf("\n您正在修改账户密码! ");
     change_consumer_password(user_id);
     database_consumer_information(user_id, 1); // 入库
     change_consumer(user_id);
     break;
   }
-  case 3: {
+  case 4: {
     printf("\n您正在修改邮箱! ");
     change_consumer_email(user_id);
     database_consumer_information(user_id, 1); // 入库
     change_consumer(user_id);
     break;
   }
-  case 4: {
+  case 5: {
     printf("\n您正在修改收货地址! ");
     change_consumer_address(user_id);
     database_consumer_information(user_id, 1); // 入库

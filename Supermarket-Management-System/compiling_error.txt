@@ -1,19 +1,18 @@
 Undefined symbols for architecture x86_64:
+  "database_shop_index(char*, int)", referenced from:
+      add_goods(char*) in add_goods-1a4583.o
   "database_goods_index(char*, int)", referenced from:
-      search_goods_begin(char*) in search_for_goods-f4b751.o
-  "database_shopping_cart(char*, int)", referenced from:
-      search_goods_begin(char*) in search_for_goods-f4b751.o
-  "shopping(char*, char*, char*, int)", referenced from:
-      search_goods_result_0(char*, int) in search_for_goods-f4b751.o
+      add_goods(char*) in add_goods-1a4583.o
+  "database_admin_information(char*, int)", referenced from:
+      add_goods(char*) in add_goods-1a4583.o
+  "_admin_information", referenced from:
+      add_goods(char*) in add_goods-1a4583.o
   "_goods_index", referenced from:
-      search_goods_result_1(char*) in search_for_goods-f4b751.o
-      search_goods_result_2(char*) in search_for_goods-f4b751.o
-      search_goods_result_3(char*) in search_for_goods-f4b751.o
-      search_goods_result_4(char*) in search_for_goods-f4b751.o
-      search_goods_begin(char*) in search_for_goods-f4b751.o
+      add_goods(char*) in add_goods-1a4583.o
   "_main", referenced from:
      implicit entry/start for main executable
-  "_shopping_cart", referenced from:
-      search_goods_result_0(char*, int) in search_for_goods-f4b751.o
+     (maybe you meant: __Z14add_goods_mainPc)
+  "_shop_index", referenced from:
+      add_goods(char*) in add_goods-1a4583.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)

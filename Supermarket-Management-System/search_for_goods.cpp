@@ -157,7 +157,7 @@ void search_goods_result_0(char user_id[30], int choise_num) {
       printf("您的商品购买完成, "
              "谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n");
     else if (choose == 0)
-      ("抱歉, 您选择的商品存货不足, 请选择其他商品.");
+      printf("抱歉, 您选择的商品存货不足, 请选择其他商品.");
     else if (choose == -1)
       printf("抱歉, 您的余额不足, 请先充值.");
 
@@ -224,7 +224,7 @@ void search_goods_result_2(char user_id[30]) {
   int i = 0; //循环变量
   while (goods_index[i].unit_price != 0) {
 
-    printf("%d %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                             // 列表序号
            goods_index[i].shop_id,            // 商品编号
            goods_index[i].unit_price,         // 零售价格
@@ -266,7 +266,7 @@ void search_goods_result_3(char user_id[30]) {
 
   i = 0;
   while (goods_index[i].unit_price != 0) {
-    printf("%d %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                             // 列表序号
            goods_index[i].shop_id,            // 商品编号
            goods_index[i].unit_price,         // 零售价格
@@ -308,7 +308,7 @@ void search_goods_result_4(char user_id[30]) {
 
   i = 0;
   while (goods_index[i].unit_price != 0) {
-    printf("%d %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
+    printf("%d. %s %10.2f %d %d %10.2f %d:%d:%d:%d:%d %d:%d:%d:%d:%d\n",
            i + 1,                         // 列表序号
            goods_index[i].shop_id,        // 商品编��
            goods_index[i].unit_price,     // ���售�������

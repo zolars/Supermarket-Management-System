@@ -162,18 +162,22 @@ int check_goods_in_stock() {
     char goods_in_stock_str[10];
     scanf("%s", goods_in_stock_str);
 
-    int i, j; // 检测是否出现非数字字符
+    int i, j, k = 0; // 检测是否出现非数字字符
     for (i = 0; goods_in_stock_str[i] != '\0'; i++) {
       j = isdigit(goods_in_stock_str[i]);
       if (!j) {
+        k = k + 1;
         printf("\n您的输入格式错误, 请检查后重新输入:\n");
         printf("请输入库存: \n");
+        k = -2;
         break;
       }
     }
+    if (k == -2)
+      continue;
 
     goods_in_stock = atoi(goods_in_stock_str);
-    if (goods_in_stock <= 0) {
+    if (goods_in_stock <= 0 && k == 0) {
       printf("\n您的输入格式错误, 请检查后重新输入:\n");
       printf("请输入库存: \n");
       continue;

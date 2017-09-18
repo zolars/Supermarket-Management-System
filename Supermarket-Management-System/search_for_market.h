@@ -24,22 +24,22 @@ extern int cmp_sales_volume_market(const void *a, const void *b);
 
 extern int cmp_discount_price_market(const void *a, const void *b);
 
-extern void search_market_result_0(int choise_num);
+extern void search_market_result_0(char user_id[30], int choise_num);
 
 // 筛选打折的商品
-extern void search_market_result_1();
+extern void search_market_result_1(char user_id[30]);
 
 // 打印不打折的商品
-extern void search_market_result_2();
+extern void search_market_result_2(char user_id[30]);
 
-extern void search_market_result_3();
+extern void search_market_result_3(char user_id[30]);
 
-extern void search_market_result_4();
+extern void search_market_result_4(char user_id[30]);
 
 extern int search_market_choose();
 
 // search_market所使用的选择函数
-extern void search_market();
+extern void search_market(char user_id[30]);
 
 //根据超市名称进行查询
 extern void search_market_begin(char user_id[30]);
