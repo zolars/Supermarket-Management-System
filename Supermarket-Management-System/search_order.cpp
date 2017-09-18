@@ -327,23 +327,25 @@ void search_order_admin() {
 // 管理员查询主程序, 负责读取数据库以及传入下一层级.
 int search_order_admin_main(char user_id[30]) {
 
-  if (!database_order_admin_all(user_id, 0)) { // 数据库读取, 只读
-    printf("没有找到数据? 请先加入部分订单.");
-    printf("\n请输入任意字符并按回车键以继续...\n");
-    char screen[10];
-    scanf("%s", screen); // 延长屏幕显示时间
-    return 0;            // 读取文件发生错误, 返回上一级
-  }
-
-  if (!database_order_admin_goods(user_id, 0)) { // 数据库读取, 只读
-    printf("没有找到数据? 请先加入部分订单.");
-    printf("\n请输入任意字符并按回车键以继续...\n");
-    char screen[10];
-    scanf("%s", screen); // 延长屏幕显示时间
-    return 0;            // 读取文件发生错误, 返回上一级
-  }
-
   database_admin_information(user_id, 0);
+
+  if (!database_order_admin_all(admin_information.shop_id,
+                                0)) { // 数据库读取, 只读
+    printf("没有找到数据? 请先加入部分订单.");
+    printf("\n请输入任意字符并按回车键以继续...\n");
+    char screen[10];
+    scanf("%s", screen); // 延长屏幕显示时间
+    return 0;            // 读取文件发生错误, 返回上一级
+  }
+
+  if (!database_order_admin_goods(admin_information.shop_id,
+                                  0)) { // 数据库读取, 只读
+    printf("没有找到数据? 请先加入部分订单.");
+    printf("\n请输入任意字符并按回车键以继续...\n");
+    char screen[10];
+    scanf("%s", screen); // 延长屏幕显示时间
+    return 0;            // 读取文件发生错误, 返回上一级
+  }
 
   if (!database_shop_index(admin_information.shop_id, 0)) { // 数据库读取, 只读
     printf("没有找到数据? 请先加入部分订单.");
@@ -388,9 +390,9 @@ int search_order_consumer_main(char user_id[15]) {
 }
 
 int search_order(char user_id[30], int user_type) {
-  if (user_type)
+  if (user_type) {
     search_order_admin_main(user_id);
-  else
+  } else
     search_order_consumer_main(user_id);
 
   return 1;

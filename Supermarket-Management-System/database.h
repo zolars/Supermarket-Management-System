@@ -157,7 +157,7 @@ extern int database_goods_index(char user_id[30], int read_type);
   ./database/order_admin/
 
 文件名:
-  {admin_id}_all.txt
+  {shop_id}_all.txt
 
 存放数据:
   n行7列
@@ -186,7 +186,7 @@ typedef struct {
 
 extern STU_order_admin_all order_admin_all[];
 
-extern int database_order_admin_all(char user_id[30], int read_type);
+extern int database_order_admin_all(char shop_id[30], int read_type);
 
 /*************************************************
 标题:
@@ -196,7 +196,7 @@ extern int database_order_admin_all(char user_id[30], int read_type);
   ./database/order_admin/
 
 文件名:
-  {admin_id}_consumer.txt
+  {shop_id}_consumer.txt
 
 存放数据
   n行3列
@@ -221,7 +221,7 @@ typedef struct {
 
 extern STU_order_admin_consumer order_admin_consumer[];
 
-extern int database_order_admin_consumer(char user_id[30], int read_type);
+extern int database_order_admin_consumer(char shop_id[30], int read_type);
 
 /*************************************************
 标题:
@@ -231,7 +231,7 @@ extern int database_order_admin_consumer(char user_id[30], int read_type);
   ./database/order_admin/
 
 文件名:
-  {admin_id}_goods.txt
+  {shop_id}_goods.txt
 
 存放数据
 n行4列
@@ -257,7 +257,7 @@ typedef struct {
 
 extern STU_order_admin_goods order_admin_goods[];
 
-extern int database_order_admin_goods(char user_id[30], int read_type);
+extern int database_order_admin_goods(char shop_id[30], int read_type);
 
 /*************************************************
 标题:
@@ -372,38 +372,4 @@ extern STU_shopping_cart shopping_cart[]; // 最多存放100笔订单
 
 extern int database_shopping_cart(char user_id[30], int read_type);
 
-/*************************************************
-标题:
-  shop_to_admin数据库 用户离线购物车 可读写
-
-路径:
-  ./database/admin_information/
-
-文件名:
-  shop_to_admin.txt
-
-存放数据
-n行3列
-超市ID | 管理员ID
-
-接收:
-  read_type: 读写类型
-    0: 读取
-    1: 写入
-
-返回:
-  0: 文件不存在
-  1: 文件存在并成功读写
-*************************************************/
-
-typedef struct {
-  char admin_id[30];
-  char shop_id[30];
-  int mark;
-} STU_shop_to_admin;
-
-extern STU_shop_to_admin shop_to_admin[100];
-
-extern int database_shop_to_admin(int read_type);
-
-#endif /* _DATABASE_H_ */
+#endif /*_DATABASE_H_*/
