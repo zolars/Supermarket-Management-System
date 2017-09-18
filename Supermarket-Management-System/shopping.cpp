@@ -116,15 +116,21 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     time_t calendar_time = time(NULL);
     struct tm *tm_local = localtime(&calendar_time);
     char time_str[30];
-    sprintf(time_str, "%04d:%02d:%02d:%02d:%02d", tm_local->tm_year + 1900,
-            tm_local->tm_mon + 1, tm_local->tm_mday, tm_local->tm_hour,
+    tm_local->tm_year += 1900; // 处理tm类型偏差
+    tm_local->tm_mon += 1;     // 处理tm类型偏差
+    sprintf(time_str, "%04d:%02d:%02d:%02d:%02d", tm_local->tm_year,
+            tm_local->tm_mon, tm_local->tm_mday, tm_local->tm_hour,
             tm_local->tm_min);
 
     strcpy(order_admin_all[i].order_id, user_id);
     strcat(order_admin_all[i].order_id, "|");
     strcat(order_admin_all[i].order_id, time_str);
 
-    order_admin_all[i].sold_time = *tm_local;
+    order_admin_all[i].sold_time = *tm_local; // 记录购买时间
+
+    strcpy(order_admin_all[i].goods_id, temp_goods_id);
+    order_admin_all[i].unit_price = temp_price;
+    order_admin_all[i].all_price = temp_price * temp_purchase_num;
 
     printf("%s %s %04d:%02d:%02d:%02d:%02d %s %d %f %f\n",
            order_admin_all[i].order_id,          // 订单编号
