@@ -1,4 +1,31 @@
-/Users/zolar/OneDrive - Queen Mary, University of London/Project/Supermarket-Management-System/Supermarket-Management-System/add_goods.cpp:578:34: error: invalid application of 'sizeof' to an incomplete type 'STU_goods_index []'
-    memset(goods_index, 0, sizeof(goods_index));
-                                 ^~~~~~~~~~~~~
-1 error generated.
+Undefined symbols for architecture x86_64:
+  "check_time(int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "database_shop_index(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "database_goods_index(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "database_order_admin_all(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "database_order_admin_goods(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "database_consumer_information(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "database_order_admin_consumer(char*, int)", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_consumer_information", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_goods_index", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+  "_order_admin_all", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_order_admin_consumer", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_order_admin_goods", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+  "_shop_index", referenced from:
+      shopping(char*, char*, char*, int) in shopping-015c44.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

@@ -55,12 +55,12 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
 
   database_consumer_information(user_id, 0);
 
-  do {
+  while (goods_index[i].in_price != 0) {
     if (strcmp(temp_shop_id, goods_index[i].shop_id) == 0)
       break;
     else
       i++;
-  } while (goods_index[i].in_price != 0);
+  }
 
   if (goods_index[i].in_price == 0)
     printf("运行出问题了? 请联系: zolars@outlook.com");
@@ -80,6 +80,9 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
   else
     temp_price = goods_index[i].unit_price;
 
+  float temp_profit;
+  temp_profit = temp_price - goods_index[i].in_price;
+
   if (temp_price * temp_purchase_num <= consumer_information.money) {
 
     /************************************************
@@ -91,16 +94,35 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     database_consumer_information(user_id, 1);
 
     /************************************************
-    减掉商品清单中的库存
+    减掉商品清单中的库存, 销量加1
     数据库: goods_index
     ************************************************/
 
     goods_index[i].goods_in_stock -= temp_purchase_num;
+    goods_index[i].sales_volume += 1;
     database_goods_index(temp_goods_id, 1);
 
     /************************************************
+    减掉商店清单中的库存, 销量加1
+    数据库: shop_index
+    ************************************************/
+
+    database_shop_index(temp_shop_id, 0);
+
+    while (shop_index[i].in_price != 0) {
+      if (strcmp(temp_goods_id, shop_index[i].goods_id) == 0)
+        break;
+      else
+        i++;
+    }
+    shop_index[i].goods_in_stock -= temp_purchase_num;
+    shop_index[i].sales_volume += 1;
+
+    database_shop_index(temp_shop_id, 1);
+
+    /************************************************
     增加管理员订单all
-    数据库order_admin_all
+    数据库: order_admin_all
     ************************************************/
 
     // 找到该货物所对应的超市名并存入订单
@@ -122,7 +144,7 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
             tm_local->tm_mon, tm_local->tm_mday, tm_local->tm_hour,
             tm_local->tm_min);
 
-    strcpy(order_admin_all[i].order_id, user_id);
+    strcpy(order_admin_all[i].order_id, user_id); // 订单编号
     strcat(order_admin_all[i].order_id, "|");
     strcat(order_admin_all[i].order_id, time_str);
     strcpy(time_str, "");
@@ -133,18 +155,61 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     order_admin_all[i].sold_time.tm_hour = tm_local->tm_hour; // ...
     order_admin_all[i].sold_time.tm_min = tm_local->tm_min;   // ...
 
-    strcpy(order_admin_all[i].consumer_id, user_id);
-    strcpy(order_admin_all[i].goods_id, temp_goods_id);
-    order_admin_all[i].unit_price = temp_price;
-    order_admin_all[i].purchase_num = temp_purchase_num;
-    order_admin_all[i].all_price = temp_price * temp_purchase_num;
+    strcpy(order_admin_all[i].consumer_id, user_id);     // 顾客ID
+    strcpy(order_admin_all[i].goods_id, temp_goods_id);  // 商品ID
+    order_admin_all[i].unit_price = temp_price;          // 单价
+    order_admin_all[i].purchase_num = temp_purchase_num; // 购买数量
+    order_admin_all[i].all_price = temp_price * temp_purchase_num; // 总价
 
     database_order_admin_all(temp_shop_id, 1);
 
     /************************************************
     增加管理员订单_goods
-    数据库order_admin_goods
+    数据库: order_admin_goods
     ************************************************/
+
+    if (!database_order_admin_goods(temp_shop_id, 0))
+      database_order_admin_goods(temp_shop_id, 1);
+
+    i = 0;
+    while (order_admin_goods[i].purchase_num != 0) {
+      if (strcmp(temp_goods_id, order_admin_goods[i].goods_id) == 0)
+        break;
+      else
+        i++;
+    }
+
+    strcpy(order_admin_goods[i].goods_id, temp_goods_id);            // 商品ID
+    order_admin_goods[i].purchase_num = temp_purchase_num;           // 销量
+    order_admin_goods[i].all_price = temp_price * temp_purchase_num; // 总价
+    order_admin_goods[i].profit = temp_profit;                       // 利润
+
+    database_order_admin_goods(temp_shop_id, 1);
+
+    /************************************************
+    增加管理员订单_consumer
+    数据库: order_admin_consumer
+    ************************************************/
+
+    if (!database_order_admin_consumer(temp_shop_id, 0))
+      database_order_admin_consumer(temp_shop_id, 1);
+
+    i = 0;
+    while (order_admin_consumer[i].purchase_num != 0) {
+      if (strcmp(user_id, order_admin_consumer[i].consumer_id) == 0)
+        break;
+      else
+        i++;
+    }
+
+    if (order_admin_consumer[i].purchase_num == 0 ||
+        order_admin_consumer[i].purchase_num < temp_purchase_num) {
+      strcpy(order_admin_consumer[i].consumer_id, user_id);
+      strcpy(order_admin_consumer[i].goods_id, temp_goods_id);
+      order_admin_consumer[i].purchase_num = temp_purchase_num;
+    }
+
+    database_order_admin_consumer(temp_shop_id, 1);
 
     return 1;
   }
