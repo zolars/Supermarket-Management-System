@@ -251,7 +251,8 @@ int *check_time() {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; // 检测是否出现非数字字符
+    i = 0;
+    j = 0; // 检测是否出现非数字字符
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {
@@ -276,7 +277,8 @@ int *check_time() {
     char time_str[10];
     scanf("%s", time_str);
 
-    int i, j; // 检测是否出现���数字字符
+    i = 0; // 检测是否出现���数字字符
+    j = 0;
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {
@@ -287,7 +289,7 @@ int *check_time() {
 
     time_temp = atoi(time_str);
     if (time_temp < 1 || time_temp > 12) {
-      printf("\n您的输入���式错误, 请检查后重新输入:\n");
+      printf("\n您的输入格式错误, 请检查后重新输入:\n");
       continue;
     }
     break;
