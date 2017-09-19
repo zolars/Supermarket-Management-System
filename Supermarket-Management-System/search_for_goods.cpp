@@ -20,8 +20,8 @@ Features:
 #include <stdlib.h>
 #include <string.h>
 
-char temp_information_market[100][5];
-char temp_information_item[7];
+char temp_information_market[100][30];
+char temp_information_item[30];
 
 // 对结构体排序时, 需要使用结构体的重构来实现
 int cmp_sales_volume_goods(const void *a, const void *b) {

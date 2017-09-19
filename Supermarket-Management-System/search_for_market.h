@@ -15,9 +15,9 @@ Features:
 #ifndef _SEARCH_FOR_MARKET_H_ // 防止重复调用
 #define _SEARCH_FOR_MARKET_H_
 
-extern char temp_information_formarket[5];
+extern char temp_information_formarket[30];
 
-extern char temp_information_foritem[100][7];
+extern char temp_information_foritem[100][30];
 
 // 对结构体排序时, 需要使用结构体的重构来实现
 extern int cmp_sales_volume_market(const void *a, const void *b);

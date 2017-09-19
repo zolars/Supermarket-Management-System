@@ -15,9 +15,9 @@ Features:
 #ifndef _SEARCH_FOR_GOODS_H_ // 防止重复调用
 #define _SEARCH_FOR_GOODS_H_
 
-extern char temp_information_market[100][5];
+extern char temp_information_market[100][30];
 
-extern char temp_information_item[7];
+extern char temp_information_item[30];
 
 // 对结构体排序时, 需要使用结构体的重构来实现
 extern int cmp_sales_volume_goods(const void *a, const void *b);

@@ -20,8 +20,8 @@ Features:
 #include <stdlib.h>
 #include <string.h>
 
-char temp_information_formarket[5];
-char temp_information_foritem[100][7];
+char temp_information_formarket[30];
+char temp_information_foritem[100][30];
 
 // 对结构体排序时, 需要使用结构体的重构来实现
 int cmp_sales_volume_market(const void *a, const void *b) {
@@ -398,7 +398,7 @@ void search_market_begin(char user_id[30]) {
     database_shopping_cart(user_id, 1);
   }
 
-  char search_id_market[5]; // 顾客搜索的超市ID
+  char search_id_market[30]; // 顾客搜索的超市ID
 
   // 用户界面
   printf("请输入您所要查询的超市名称:");
