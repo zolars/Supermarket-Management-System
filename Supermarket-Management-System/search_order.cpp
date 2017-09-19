@@ -249,7 +249,7 @@ void search_order_admin_result_1() {
 void search_order_admin_result_2() {
   int i = 0; // 循环变量
   printf("\n您店内的所有订单如下:\n");
-  printf("      订单编号         顾客编号       购买时间   商品编号  "
+  printf("        订单编号         顾客编号       购买时间   商品编号  "
          "购买数量    "
          "单价    总价\n");
   while (order_admin_all[i].purchase_num != 0) {
@@ -268,8 +268,8 @@ void search_order_admin_result_2() {
     );
     i++;
   }
-  // 打印
-  printf("\n以上即为您的历史订单.\n请输入任意字符并按回车键以继续...\n");
+
+  printf("\n以上即为您的����史订单.\n请输入任意字符并按回车键��继续...\n");
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
   return;

@@ -1,4 +1,5 @@
 /************************************************
+
 Name:
   shopping.cpp
 Author:
@@ -20,13 +21,20 @@ Modules:
     - stdlib.h
 Input:
   - user_id
+
   - temp_goods_id
+
   - temp_shop_id
+
   - temp_purchase_num
+
 Output:
   - 1: 购买成功
+
   - 0: 存货不足
+
   - (-1): 余额不足
+
 ************************************************/
 
 #include "check_time.h"
@@ -210,6 +218,7 @@ int shopping(char user_id[30], char temp_goods_id[10], char temp_shop_id[10],
     ************************************************/
     if (!database_order_consumer(user_id, 0))
       database_order_consumer(user_id, 1);
+
     // 深度探测
     i = 0;
     while (order_consumer[i].purchase_num != 0)

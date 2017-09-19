@@ -49,8 +49,17 @@ void register_result_1() {
     }
   }
 
-  printf("\n请填写您所属的超市:\n");
-  scanf("%s", store);
+  while (1) //查询输入的超市编号是否合法
+  {
+    printf("\n请填写您所属的超市(为四位大写字母):\n");
+    scanf("%s", store);
+    if (store[0] <= 'Z' && store[0] >= 'A' && store[1] <= 'Z' &&
+        store[1] >= 'A' && store[2] <= 'Z' && store[2] >= 'A' &&
+        store[3] <= 'Z' && store[3] >= 'A' && store[4] == '\0')
+      break;
+    else
+      printf("\n超市名格式格式错误, 请检查后重新输入:\n");
+  }
 
   printf("\n请填写您的姓名:\n");
   scanf("%s", name);
@@ -128,7 +137,7 @@ void register_result_2() {
     scanf("%s", tel);
 
     if (strlen(tel) != 11) {
-      printf("\n电话格式格式错误, 请检查后重新输入:\n");
+      printf("\n电话格式错误, 请检查后重新输入:\n");
       continue;
     }
 
@@ -136,7 +145,7 @@ void register_result_2() {
 
     while (tel[temp] != '\0') {
       if (tel[temp] < '0' || tel[temp] > '9') {
-        printf("\n电话格式格式错误, 请检查后重新输入:\n");
+        printf("\n电话格式错误, 请检查后重新输入:\n");
         temp = 0;
         break;
       }
@@ -152,7 +161,7 @@ void register_result_2() {
 
   int i;
   do {
-    printf("\n请您填写您的邮???(***@***.***):\n");
+    printf("\n请填写您的邮箱(***@***.***):\n");
     scanf("%s", email);
     i = check_email(email);
     if (i == 2)

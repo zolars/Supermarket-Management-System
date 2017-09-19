@@ -41,7 +41,7 @@ void change_consumer_tel(char user_id[11]) {
   int temp = 0;
 
   do {
-    printf("\n请填写您的电话号码(11位数字)\n");
+    printf("\n请输入您的电话号码(11位数字)\n");
     scanf("%s", consumer_information.tel);
 
     if (strlen(consumer_information.tel) != 11) {
