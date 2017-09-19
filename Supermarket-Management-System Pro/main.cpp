@@ -48,6 +48,8 @@ print_shop_index.cpp cart.cpp shopping.cpp buy_search_all.cpp
 search_for_goods.cpp search_for_market.cpp change_admin.cpp change_consumer.cpp
 check_time.cpp -o a.out
 
+  2. 项目于2017-09-12开始, 于2017-09-19结束.
+
 ************************************************/
 
 #include "add_goods.h"
