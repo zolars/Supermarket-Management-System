@@ -401,20 +401,9 @@ void search_market_begin(char user_id[30]) {
   char search_id_market[5]; // 顾客搜索的超市ID
 
   // 用户界面
-  printf("请输入您所要查询的超市名称(四位大写字母):");
+  printf("请输入您所要查询的超市名称:");
 
-  while (1) //查询输入的超市编号是否合法
-  {
-    scanf("%s", search_id_market);
-    if (search_id_market[0] <= 'Z' && search_id_market[0] >= 'A' &&
-        search_id_market[1] <= 'Z' && search_id_market[1] >= 'A' &&
-        search_id_market[2] <= 'Z' && search_id_market[2] >= 'A' &&
-        search_id_market[3] <= 'Z' && search_id_market[3] >= 'A' &&
-        search_id_market[4] == '\0')
-      break;
-    else
-      printf("\n请重新输入:");
-  }
+  scanf("%s", search_id_market);
 
   // ��查是否存在该超市
 
