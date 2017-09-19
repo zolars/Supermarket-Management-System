@@ -300,13 +300,16 @@ int database_order_admin_consumer(char shop_id[30], int read_type) {
       return 0;                                   // 不存在, 返回"0"
 
     // 读取数据
-    while (!feof(fwrite)) {
-      fscanf(fwrite, "%s %s %d",
-             order_admin_consumer[i].consumer_id,  // 顾客ID
-             order_admin_consumer[i].goods_id,     //商品ID
-             &order_admin_consumer[i].purchase_num // 购买数量
-      );
-      i++;
+    i = 0;
+
+    fscanf(fwrite, "%s %s %d",
+           order_admin_consumer[i].consumer_id,  // 顾客ID
+           order_admin_consumer[i].goods_id,     //商品ID
+           &order_admin_consumer[i].purchase_num // 购买数量
+    );
+    if (order_admin_consumer[i].purchase_num != 0) {
+      printf("以下为该超市最受欢迎的商品名, 欢迎选购:\n");
+      printf("%s\n", order_admin_consumer[i].goods_id);
     }
   } else {
 
@@ -419,6 +422,9 @@ int database_order_consumer(char user_id[30], int read_type) {
     }
   } else {
 
+    if ((fwrite = fopen(file_name, "r")) == NULL) // 判断文件是否存在及可读
+      return 0;                                   // 不存在, 返回"0"
+
     // 打开特定的订单数据文件
     fwrite = fopen(file_name, "w+");
 
@@ -469,9 +475,9 @@ int database_shop_index(char user_id[30], int read_type) {
 
       // 读取数据
       fscanf(fwrite, "%s %f %f %d %d %f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
-             shop_index[i].goods_id,            // 商品编号
-             &shop_index[i].unit_price,         // 零售价格
-             &shop_index[i].in_price,           // 进货价格
+             shop_index[i].goods_id,    // ���品编号
+             &shop_index[i].unit_price, // 零售价格
+             &shop_index[i].in_price, // 进货价�������������
              &shop_index[i].sales_volume,       // 销量
              &shop_index[i].goods_in_stock,     // 存货
              &shop_index[i].discount_price,     // 折扣价
@@ -578,4 +584,42 @@ int database_shopping_cart(char user_id[30], int read_type) {
   }
   fclose(fwrite);
   return 1; // 成功读写返回"1"
+}
+
+/*************************************************
+*************************************************/
+
+void database_all_index(int read_type, char goods_id[30], char shop_id[30]) {
+  char file_name[300];
+
+  strcpy(file_name, path); // 该���符串用于处理文件名
+  // 处理文件名
+  strcat(file_name, "all_index.txt");
+
+  if (read_type == 1) {
+    FILE *fwrite;
+    fwrite = fopen(file_name, "a");
+    fprintf(fwrite, "%s %s", goods_id, shop_id);
+    fclose(fwrite);
+  } else {
+    char goods_id[30];
+    char shop_id[30];
+
+    FILE *fwrite;
+    fwrite = fopen(file_name, "r");
+
+    int i = 0;
+    while (!feof(fwrite)) {
+      if (i >= 20)
+        break;
+      fscanf(fwrite, "%s %s",
+             goods_id, // 商品ID
+             shop_id   // 管理员ID
+      );
+      printf("%s : %s\n", goods_id, shop_id);
+      i++;
+    }
+    fclose(fwrite);
+  }
+  return;
 }

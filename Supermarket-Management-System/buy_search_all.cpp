@@ -43,6 +43,11 @@ int buy_search_all_choose() {
 }
 
 int buy_search_all(char user_id[30]) {
+  printf("\n以下为我们推荐的部分商品清单(商品名 : 超市名), "
+         "您可以参考其ID进行更准确的搜索, 祝您购物愉快.\n");
+
+  char temp_a[5] = "true", temp_b[6] = "false";
+  database_all_index(0, temp_a, temp_b);
 
   int choose = buy_search_all_choose(); // 用户界面传入指令
 

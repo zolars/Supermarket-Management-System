@@ -426,6 +426,9 @@ void search_market_begin(char user_id[30]) {
   }
   strcpy(temp_information_formarket, search_id_market);
 
+  // 显示推荐条目
+  database_order_admin_consumer(search_id_market, 0);
+
   printf("您的查询结果如下:\n");
 
   while (shop_index[i].unit_price != 0) {

@@ -1,18 +1,7 @@
-Undefined symbols for architecture x86_64:
-  "database_shop_index(char*, int)", referenced from:
-      add_goods(char*) in add_goods-1a4583.o
-  "database_goods_index(char*, int)", referenced from:
-      add_goods(char*) in add_goods-1a4583.o
-  "database_admin_information(char*, int)", referenced from:
-      add_goods(char*) in add_goods-1a4583.o
-  "_admin_information", referenced from:
-      add_goods(char*) in add_goods-1a4583.o
-  "_goods_index", referenced from:
-      add_goods(char*) in add_goods-1a4583.o
-  "_main", referenced from:
-     implicit entry/start for main executable
-     (maybe you meant: __Z14add_goods_mainPc)
-  "_shop_index", referenced from:
-      add_goods(char*) in add_goods-1a4583.o
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+/Users/zolar/OneDrive - Queen Mary, University of London/Project/Supermarket-Management-System/Supermarket-Management-System/buy_search_all.cpp:48:3: error: no matching function for call to 'database_all_index'
+  database_all_index(0, 't', 'a');
+  ^~~~~~~~~~~~~~~~~~
+/Users/zolar/OneDrive - Queen Mary, University of London/Project/Supermarket-Management-System/Supermarket-Management-System/database.h:402:13: note: candidate function not viable: no known conversion from 'char' to 'char *' for 2nd argument
+extern void database_all_index(int read_type, char goods_id[30],
+            ^
+1 error generated.

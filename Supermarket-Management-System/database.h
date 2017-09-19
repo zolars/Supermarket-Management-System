@@ -372,4 +372,34 @@ extern STU_shopping_cart shopping_cart[]; // 最多存放100笔订单
 
 extern int database_shopping_cart(char user_id[30], int read_type);
 
+/*************************************************
+标题:
+  all_index数据库 顾客&管理员信息 可读写
+
+路径:
+  ./database/all_index/
+
+文件名:
+  all_index.txt
+
+数据:
+  1行2列
+  商品名 | 超市名
+
+接收:
+  read_type: 读写类型
+    - 0: 读取
+    - 1: 写入
+  good_id: 用户ID
+  shop_id: 商品ID
+
+
+返回:
+  0: 文件不存在
+  1: 成功读写数据
+*************************************************/
+
+extern void database_all_index(int read_type, char goods_id[30],
+                               char shop_id[30]);
+
 #endif /*_DATABASE_H_*/
