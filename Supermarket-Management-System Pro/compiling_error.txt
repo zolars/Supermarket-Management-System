@@ -1,0 +1,14 @@
+Undefined symbols for architecture x86_64:
+  "database_consumer_information(char*, int)", referenced from:
+      change_consumer(char*) in change_consumer-290ec0.o
+  "_consumer_information", referenced from:
+      change_consumer_tel(char*) in change_consumer-290ec0.o
+      change_consumer_password(char*) in change_consumer-290ec0.o
+      change_consumer_email(char*) in change_consumer-290ec0.o
+      change_consumer_address(char*) in change_consumer-290ec0.o
+      change_consumer_choose() in change_consumer-290ec0.o
+      change_consumer(char*) in change_consumer-290ec0.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
