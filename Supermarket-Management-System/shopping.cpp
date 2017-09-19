@@ -1,5 +1,4 @@
 /************************************************
-
 Name:
   shopping.cpp
 Author:
@@ -21,20 +20,13 @@ Modules:
     - stdlib.h
 Input:
   - user_id
-
   - temp_goods_id
-
   - temp_shop_id
-
   - temp_purchase_num
-
 Output:
   - 1: 购买成功
-
   - 0: 存货不足
-
   - (-1): 余额不足
-
 ************************************************/
 
 #include "check_time.h"

@@ -216,12 +216,12 @@ int database_order_admin_all(char shop_id[30], int read_type) {
 
   char file_name[300];
 
-  strcpy(file_name, path);           // 该字符串用于处理文件名
-  strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
+  strcpy(file_name, path);               // 该字符串用于处理文件名
+  strcat(file_name, "order_admin/all/"); // 加入路径"order_admin/"
 
   // 处理文件名
   strcat(file_name, shop_id);
-  strcat(file_name, "_all.txt");
+  strcat(file_name, ".txt");
 
   int i = 0;
   if (!read_type) {
@@ -285,12 +285,12 @@ int database_order_admin_consumer(char shop_id[30], int read_type) {
 
   char file_name[300];
 
-  strcpy(file_name, path);           // 该字符串用于处理文件名
-  strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
+  strcpy(file_name, path); // 该字符串用于处理文件名
+  strcat(file_name, "order_admin/consumer/"); // 加入路径"order_admin/"
 
   // 处理文件名
   strcat(file_name, shop_id);
-  strcat(file_name, "_consumer.txt");
+  strcat(file_name, ".txt");
 
   int i = 0;
   if (!read_type) {
@@ -341,10 +341,10 @@ int database_order_admin_goods(char shop_id[30], int read_type) {
 
   char file_name[300];
 
-  strcpy(file_name, path);           // 该字符串用于处理文件名
-  strcat(file_name, "order_admin/"); // 加入路径"order_admin/"
+  strcpy(file_name, path);                 // 该字符串用于处理文件名
+  strcat(file_name, "order_admin/goods/"); // 加入路径"order_admin/"
   strcat(file_name, shop_id);
-  strcat(file_name, "_goods.txt");
+  strcat(file_name, ".txt");
 
   int i = 0;
   if (!read_type) {
@@ -599,7 +599,7 @@ void database_all_index(int read_type, char goods_id[30], char shop_id[30]) {
   if (read_type == 1) {
     FILE *fwrite;
     fwrite = fopen(file_name, "a");
-    fprintf(fwrite, "%s %s", goods_id, shop_id);
+    fprintf(fwrite, "%s %s\n", goods_id, shop_id);
     fclose(fwrite);
   } else {
     char goods_id[30];
@@ -621,5 +621,44 @@ void database_all_index(int read_type, char goods_id[30], char shop_id[30]) {
     }
     fclose(fwrite);
   }
+  return;
+}
+
+/*************************************************
+*************************************************/
+
+void database_name_to_id(int read_type, char goods_name[30],
+                         char goods_id[30]) {
+  char file_name[300];
+
+  strcpy(file_name, path); // 该���符串用于处理文件名
+  // 处理文件名
+  strcat(file_name, "name_to_id.txt");
+  FILE *fwrite;
+
+  if (read_type == 1) {
+
+    fwrite = fopen(file_name, "a");
+    fprintf(fwrite, "%s %s", goods_name, goods_id);
+
+  } /*else {
+    char goods_name[30];
+    char goods_id[30];
+
+    FILE *fwrite;
+    fwrite = fopen(file_name, "r");
+
+    int i = 0;
+    while (!feof(fwrite)) {
+      fscanf(fwrite, "%s %s",
+             goods_name, // 商品名
+             goods_id    // 商品ID
+      );
+
+      i++;
+    }
+
+  }*/
+  fclose(fwrite);
   return;
 }

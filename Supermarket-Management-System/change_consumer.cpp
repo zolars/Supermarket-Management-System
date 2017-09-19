@@ -40,28 +40,30 @@ void change_consumer_tel(char user_id[11]) {
 
   int temp = 0;
 
+  do {
+    printf("\n请填写您的电话号码(11位数字)\n");
+    scanf("%s", consumer_information.tel);
 
-   do {
-    printf("\n请输入您的电话号码(11位数字)\n");
-    scanf("%s",consumer_information.tel);
-    
-    if(strlen(consumer_information.tel)!=11)
-    {printf("\n电话格式格式错误, 请检查后重新输入:\n");
-      continue;}
-    
-    temp=0;
-    
-    while(consumer_information.tel[temp]!='\0')
-    if(consumer_information.tel[temp]<'0' || consumer_information.tel[temp]>'9')    
-    {
+    if (strlen(consumer_information.tel) != 11) {
       printf("\n电话格式格式错误, 请检查后重新输入:\n");
       continue;
     }
-  	break;
+
+    temp = 0;
+
+    while (consumer_information.tel[temp] != '\0') {
+      if (consumer_information.tel[temp] < '0' ||
+          consumer_information.tel[temp] > '9') {
+        printf("\n电话格式格式错误, 请检查后重新输入:\n");
+        temp = 0;
+        break;
+      }
+      temp++;
+    }
+    if (temp == 0)
+      continue;
+    break;
   } while (1);
-  
-  
-  
 
   printf("\n修改成功! ");
   printf("\n请输入任意字符并按回车键以继续...\n");
