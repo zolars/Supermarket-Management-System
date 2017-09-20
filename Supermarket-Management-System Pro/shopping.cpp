@@ -141,7 +141,7 @@ int shopping(char user_id[30], char temp_goods_name[10], char temp_shop_id[10],
             tm_local->tm_min);
 
     strcpy(order_admin_all[i].order_id, user_id); // 订单编号
-    strcat(order_admin_all[i].order_id, "|");
+    strcat(order_admin_all[i].order_id, ":");
     strcat(order_admin_all[i].order_id, time_str);
     strcpy(time_str, "");
 

@@ -473,7 +473,7 @@ int database_shop_index(char user_id[30], int read_type) {
       fscanf(fwrite, "%s %f %f %d %d %f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
              shop_index[i].goods_name,  // ����品编号
              &shop_index[i].unit_price, // 零售价格
-             &shop_index[i].in_price, // 进货价��������������
+             &shop_index[i].in_price, // 进货价�������������������
              &shop_index[i].sales_volume,       // 销量
              &shop_index[i].goods_in_stock,     // 存货
              &shop_index[i].discount_price,     // 折扣价
@@ -552,6 +552,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
 
     // 读取数据
     while (!feof(fwrite)) {
+
       fscanf(fwrite, "%s %s %d",
              shopping_cart[i].goods_name,   // 商品名
              shopping_cart[i].shop_id,      // 管理员ID
@@ -567,15 +568,12 @@ int database_shopping_cart(char user_id[30], int read_type) {
 
     // 写入数据
     for (i = 0; i <= 100; i++) {
-      if (shopping_cart[i].purchase_num != -1 &&
-          shopping_cart[i].purchase_num != 0)
+      if (shopping_cart[i].purchase_num != -1)
         fprintf(fwrite, "%s %s %d\n",
                 shopping_cart[i].goods_name,  // 商品名
                 shopping_cart[i].shop_id,     // 管理员ID
                 shopping_cart[i].purchase_num // 购买数量
         );
-      else
-        fprintf(fwrite, "0 0 0\n");
     }
   }
   fclose(fwrite);

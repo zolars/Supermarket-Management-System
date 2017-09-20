@@ -424,15 +424,18 @@ int add_goods_choose_2() {
   int choose_num;
 
   // 用户界面
-  printf("\n---------------操作选项---------------\n\n");
-  printf("1. 确认发布.\n2. 修改信息.\n3. 取消发布.\n");
-  printf("\n-------------------------------------\n");
+  printf("\n---------------您要修改哪一项?--------------\n\n");
+  printf("1. 单价.\n2. 折扣价.\n3. 进价\n4. 库存.\n5. "
+         "折扣开始时间.\n6. 折扣结束时间.\n");
+  printf("\n------------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
   scanf("%s", choose);
 
   // 容错判断
-  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0) {
+  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0 &&
+      strcmp(choose, "3") != 0 && strcmp(choose, "4") != 0 &&
+      strcmp(choose, "5") != 0 && strcmp(choose, "6") != 0) {
     printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
     choose_num = add_goods_choose_2();
   } else
@@ -447,14 +450,15 @@ int add_goods_choose() {
 
   // 用户界面
   printf("\n---------------操作选项---------------\n\n");
-  printf("1. 确认发布.\n2. 修改信息.\n3. 取消发布.\n");
+  printf("1. 确认发布.\n2. 修改信息.\n0. 取消发布.\n");
   printf("\n-------------------------------------\n");
   printf("请按数字键选择要执行的操作:\n");
 
   scanf("%s", choose);
 
   // 容错判断
-  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0) {
+  if (strcmp(choose, "1") != 0 && strcmp(choose, "2") != 0 &&
+      strcmp(choose, "0") != 0) {
     printf("\n您的输入有误, 请按照操作选项再次输入:\n\n");
     choose_num = add_goods_choose();
   } else
@@ -527,14 +531,14 @@ void add_goods(char user_id[30]) {
     temp_time_end[i] = *(point + i);
 
   // 打印
+  database_name_to_id(temp_goods_name, 1);
   printf("您要发布的商品信息如下, 请确认:\n");
-  printf(
-      "超市名       商品名          单价     折扣价   进价      库存   销量  "
-      "      折扣开始时间      折扣结束时间\n");
-  printf("%6s     %10s %10.2f %10.2f %10.2f    %4d %4d      "
-         "%04d:%02d:%02d:%02d:%02d       "
-         "%04d:%02d:%02d:%02d:%02d\n",
-         temp_shop_id,        //
+  printf("商品ID\t商品名\t\t单价\t折扣价\t进价\t库存\t销量\t折扣"
+         "开始时间\t\t折扣结束时间\n");
+  database_name_to_id(temp_goods_name, 1);
+  printf("%s\t%-8s\t%0.2f\t%0.2f\t%0.2f\t%d\t%d\t%04d:%02d:%02d:%02d"
+         ":%02d\t%04d:%02d:%02d:%02d:%02d\n",
+         name_to_id_goods_id, //
          temp_goods_name,     //
          temp_unit_price,     //
          temp_discount_price, //
@@ -556,8 +560,107 @@ void add_goods(char user_id[30]) {
   char screen[10];
   scanf("%s", screen); // 延长屏幕显示时间
 
+  int choose = 0;
   // 进一步操作
-  int choose = add_goods_choose();
+  do {
+    printf("您要发布的商品信息如下, 请确认:\n");
+    printf("商品ID\t商品名\t\t单价\t折扣价\t进价\t库存\t销量\t折扣"
+           "开始时间\t\t折扣结束时间\n");
+    database_name_to_id(temp_goods_name, 1);
+    printf("%s\t%-8s\t%0.2f\t%0.2f\t%0.2f\t%d\t%d\t%04d:%02d:%02d:%02d"
+           ":%02d\t%04d:%02d:%02d:%02d:%02d\n",
+           name_to_id_goods_id, //
+           temp_goods_name,     //
+           temp_unit_price,     //
+           temp_discount_price, //
+           temp_in_price,       //
+           temp_goods_in_stock, //
+           temp_sales_volume,   //
+           temp_time_begin[1],  //
+           temp_time_begin[2],  //
+           temp_time_begin[3],  //
+           temp_time_begin[4],  //
+           temp_time_begin[5],  //
+           temp_time_end[1],    //
+           temp_time_end[2],    //
+           temp_time_end[3],    //
+           temp_time_end[4],    //
+           temp_time_end[5]     //
+    );
+    choose = add_goods_choose();
+    if (choose == 2) {
+      // 打印
+      printf("您要发布的商品信���������如下, 请确认:\n");
+      printf("商品ID\t商品名\t\t单价\t折扣价\t进价\t库存\t销量\t折扣"
+             "开始时间\t\t折扣结束时间\n");
+      database_name_to_id(temp_goods_name, 1);
+      printf("%s\t%-8s\t%0.2f\t%0.2f\t%0.2f\t%d\t%d\t%04d:%02d:%02d:%02d"
+             ":%02d\t%04d:%02d:%02d:%02d:%02d\n",
+             name_to_id_goods_id, //
+             temp_goods_name,     //
+             temp_unit_price,     //
+             temp_discount_price, //
+             temp_in_price,       //
+             temp_goods_in_stock, //
+             temp_sales_volume,   //
+             temp_time_begin[1],  //
+             temp_time_begin[2],  //
+             temp_time_begin[3],  //
+             temp_time_begin[4],  //
+             temp_time_begin[5],  //
+             temp_time_end[1],    //
+             temp_time_end[2],    //
+             temp_time_end[3],    //
+             temp_time_end[4],    //
+             temp_time_end[5]     //
+      );
+
+      int choose_2 = add_goods_choose_2();
+      switch (choose_2) {
+
+      case 1: {
+        // 输入单价并检查
+        printf("请输入单价: \n");
+        temp_unit_price = check_unit_price();
+        break;
+      }
+      case 2: {
+        printf("请输入折扣价格: \n");
+        temp_discount_price = check_discount_price();
+        break;
+      }
+      case 3: {
+        // 输入进价并检查
+        printf("请输入进价: \n");
+        temp_in_price = check_in_price();
+        break;
+      }
+      case 4: {
+        // 输入库存并检查
+        printf("请输入库存: \n");
+        temp_goods_in_stock = check_goods_in_stock();
+        break;
+      }
+      case 5: {
+        // 输入折扣开始时间并检查
+        printf("请输入折扣开始时间: \n");
+        point = check_time();
+        for (i = 1; i <= 5; i++)
+          temp_time_begin[i] = *(point + i);
+        break;
+      }
+      case 6: {
+        // 输入折扣结束时间并检��
+        printf("请输入折扣结束时间: \n");
+        point = check_time();
+        for (i = 1; i <= 5; i++)
+          temp_time_end[i] = *(point + i);
+        break;
+      }
+      }
+    } else
+      break;
+  } while (1);
 
   switch (choose) {
 
@@ -651,15 +754,8 @@ void add_goods(char user_id[30]) {
     break;
   }
 
-  // 选项2: 修改信息(已完成)
-  case 2: {
-    int choose_2 = add_goods_choose_2();
-
-    break;
-  }
-
   // 选项3: 取消发布
-  case 3: {
+  case 0: {
     break;
   }
 

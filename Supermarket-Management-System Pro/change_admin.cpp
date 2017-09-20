@@ -76,9 +76,9 @@ int change_admin_choose() {
   int choose_num;
 
   printf("您的个人信息如下:\n");
-  printf("超市名     管理员姓名          邮箱             密码\n");
+  printf("超市名\t\t管理员姓名\t\t邮箱\t\t\t密码\n");
 
-  printf("%-16s %-16s %-20s %-10s\n",
+  printf("%-16s\t%-16s\t\t%-20s\t%-10s\n",
          admin_information.shop_id, // 超市名
          admin_information.name,    // 管理员姓名
          admin_information.email,   // 邮箱
