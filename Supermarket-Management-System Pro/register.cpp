@@ -1,8 +1,25 @@
-// Name: registerer.cpp
-// Author: 王楠鑫
-// Date: 2017-09-13
-// Language: C
-// Features:
+/************************************************
+
+Name:
+  register.cpp
+Author:
+  - 王楠鑫
+Date:
+  2017-09-14
+Language:
+  C
+Features:
+用户输入新的用户名以后会检测该用户名是否已经被注册
+自带电话号码及电子邮箱输入检测
+Modules:
+database.h
+register.h
+math.h
+stdio.h
+stdlib.h
+string.h
+
+************************************************/
 
 #include "database.h"
 #include "register.h"

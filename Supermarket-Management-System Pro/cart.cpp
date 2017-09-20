@@ -10,6 +10,15 @@ Date:
 Language:
   C
 Features:
+  购物车模块，存储顾客选择的商品的信息，验证库存余额能否购买
+Modules:
+  - cart.h
+  - check_time.h
+  - database.h
+  - shopping.h
+  - stdio.h
+  - stdlib.h
+  - string.h
 
 ************************************************/
 

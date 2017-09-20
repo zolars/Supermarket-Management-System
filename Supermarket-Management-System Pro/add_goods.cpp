@@ -9,6 +9,16 @@ Date:
 Language:
   C
 Features:
+  完成"商品添加"功能的模块.
+  - 管理员添加商品信息
+  - 添加信息时对每一个信息进行检测，判断是否不合法
+Modules
+  - add_goods.h
+  - database.h
+  - ctype.h
+  - stdio.h
+  - stdlib.h
+  - string.h
 
 ************************************************/
 
@@ -300,7 +310,7 @@ int *check_time() {
     scanf("%s", time_str);
 
     i = 0;
-    k = 0; // 检测是否出现非数字字符
+    k = 0; // 检测是��出现非数字字符
     for (i = 0; time_str[i] != '\0'; i++) {
       j = isdigit(time_str[i]);
       if (!j) {

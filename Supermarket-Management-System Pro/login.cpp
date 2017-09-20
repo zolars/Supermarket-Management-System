@@ -1,14 +1,21 @@
 /************************************************
 
 Name:
-  login.cpp
+login.cpp
 Author:
-  刘育成
+刘育成
 Date:
-  2017-09-13
+2017-09-13
 Language:
-  C
+C
 Features:
+登录模块，选择用户类型，用户名密码验证
+Modules: database.h
+login.h
+stdio.h
+stdlib.h
+string.h
+
 
 ************************************************/
 
