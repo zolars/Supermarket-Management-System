@@ -122,8 +122,20 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     ************************************************/
     // 找到该货物所对应的超市名并存入订单
     if (!database_order_admin_all(temp_shop_id, 0)) {
+      for (i = 0; i <= 100; i++) {
+        strcpy(order_admin_all[i].order_id, "");    // 订单编号
+        strcpy(order_admin_all[i].consumer_id, ""); // 顾客编号
+        order_admin_all[i].sold_time.tm_year = 0;   // 购买时间
+        order_admin_all[i].sold_time.tm_mon = 0;    // ...
+        order_admin_all[i].sold_time.tm_mday = 0;   // ...
+        order_admin_all[i].sold_time.tm_hour = 0;   // ...
+        order_admin_all[i].sold_time.tm_min = 0;    // ...
+        strcpy(order_admin_all[i].goods_name, "");  // 商品名
+        order_admin_all[i].purchase_num = 0;        // 购买数量
+        order_admin_all[i].unit_price = 0;          // 单价
+        order_admin_all[i].all_price = 0;
+      } // 总价
       database_order_admin_all(temp_shop_id, 1);
-      database_order_admin_all(temp_shop_id, 0);
     }
 
     // 深度探测
@@ -223,7 +235,6 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     ************************************************/
     if (!database_order_consumer(user_id, 0)) {
       database_order_consumer(user_id, 1);
-      database_order_consumer(user_id, 0);
     }
 
     // 深度探测
