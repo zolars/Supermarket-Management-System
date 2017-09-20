@@ -222,7 +222,7 @@ void change_consumer(char user_id[11]) {
   switch (choose) {
   case 1: {
     printf("\n请输入您要充值的金额:");
-    consumer_information.money = charge(user_id);
+    consumer_information.money += charge(user_id);
     printf("您充值的金额为:%0.2f\n", consumer_information.money);
     printf("\n请输入任意字符并按回车键以继续...\n");
     char screen[10];
