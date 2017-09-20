@@ -533,7 +533,7 @@ void add_goods(char user_id[30]) {
   // 打印
   database_name_to_id(temp_goods_name, 1);
   printf("您要发布的商品信息如下, 请确认:\n");
-  printf("商品ID\t商品名\t\t单价\t折扣价\t进价\t库存\t销量\t折扣"
+  printf("商品ID\t商品名\t单价\t折扣价\t进价\t库存\t销量\t折扣"
          "开始时间\t\t折扣结束时间\n");
   database_name_to_id(temp_goods_name, 1);
   printf("%s\t%-8s\t%0.2f\t%0.2f\t%0.2f\t%d\t%d\t%04d:%02d:%02d:%02d"
@@ -564,7 +564,7 @@ void add_goods(char user_id[30]) {
   // 进一步操作
   do {
     printf("您要发布的商品信息如下, 请确认:\n");
-    printf("商品ID\t商品名\t\t单价\t折扣价\t进价\t库存\t销量\t折扣"
+    printf("商品ID\t商品名\t单价\t折扣价\t进价\t库存\t销量\t折扣"
            "开始时间\t\t折扣结束时间\n");
     database_name_to_id(temp_goods_name, 1);
     printf("%s\t%-8s\t%0.2f\t%0.2f\t%0.2f\t%d\t%d\t%04d:%02d:%02d:%02d"
@@ -590,8 +590,8 @@ void add_goods(char user_id[30]) {
     choose = add_goods_choose();
     if (choose == 2) {
       // 打印
-      printf("您要发布的商品信���������如下, 请确认:\n");
-      printf("商品ID\t商品名\t\t单价\t折扣价\t进价\t库存\t销量\t折扣"
+      printf("您要发布的商品信息如下, 请确认:\n");
+      printf("商品ID\t商品名\t单价\t折扣价\t进价\t库存\t销量\t折扣"
              "开始时间\t\t折扣结束时间\n");
       database_name_to_id(temp_goods_name, 1);
       printf("%s\t%-8s\t%0.2f\t%0.2f\t%0.2f\t%d\t%d\t%04d:%02d:%02d:%02d"
