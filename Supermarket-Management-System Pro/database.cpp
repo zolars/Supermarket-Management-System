@@ -495,7 +495,7 @@ int database_shop_index(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    while (shop_index[i].unit_price != 0) {
+    for (i = 0; i <= 100; i++) {
       fprintf(fwrite,
               "%s %0.2f %0.2f %d %d %0.2f %04d:%02d:%02d:%02d:%02d "
               "%04d:%02d:%02d:%02d:%02d\n",
@@ -516,7 +516,6 @@ int database_shop_index(char user_id[30], int read_type) {
               shop_index[i].time_end.tm_hour,   // ...
               shop_index[i].time_end.tm_min     // ...
       );
-      i++;
     }
   }
   fclose(fwrite);
