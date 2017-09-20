@@ -467,7 +467,7 @@ int database_shop_index(char user_id[30], int read_type) {
       return 0;
     } // 不存在, 返回"0"
 
-    while (!feof(fwrite)) {
+    for (i = 0; i <= 100; i++) {
 
       // 读取数据
       fscanf(fwrite, "%s %f %f %d %d %f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
@@ -488,7 +488,6 @@ int database_shop_index(char user_id[30], int read_type) {
              &shop_index[i].time_end.tm_hour,   // ...
              &shop_index[i].time_end.tm_min     // ...
       );
-      i++;
     }
   } else {
 

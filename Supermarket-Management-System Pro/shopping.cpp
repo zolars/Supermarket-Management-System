@@ -95,7 +95,7 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     ************************************************/
 
     goods_index[i].goods_in_stock -= temp_purchase_num;
-    goods_index[i].sales_volume += 1;
+    goods_index[i].sales_volume += temp_purchase_num;
     database_goods_index(temp_goods_name, 1);
 
     /************************************************
@@ -112,7 +112,7 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
         i++;
     }
     shop_index[i].goods_in_stock -= temp_purchase_num;
-    shop_index[i].sales_volume += 1;
+    shop_index[i].sales_volume += temp_purchase_num;
 
     database_shop_index(temp_shop_id, 1);
 

@@ -671,6 +671,7 @@ void add_goods(char user_id[30]) {
 
     // 打开或建立新数据库
     if (!database_shop_index(temp_shop_id, 0)) {
+      shop_index[0].unit_price = 0;
       database_shop_index(temp_shop_id, 1);
       i_shop = 0;
     }
