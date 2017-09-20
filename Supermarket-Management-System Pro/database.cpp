@@ -177,7 +177,7 @@ int database_goods_index(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    for (i = 0; i <= 100; i++)
+    for (i = 0; i <= 98; i++)
       fprintf(fwrite,
               "%s %0.2f %0.2f %d %d %0.2f %04d:%02d:%02d:%02d:%02d "
               "%04d:%02d:%02d:%02d:%02d\n",
@@ -427,7 +427,7 @@ int database_order_consumer(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    for (i = 0; i <= 100; i++)
+    for (i = 0; i <= 98; i++)
       fprintf(fwrite, "%s %s %s %d %0.2f %0.2f\n",
               order_consumer[i].order_id,     // 订单编号
               order_consumer[i].sold_time,    // 购买时间
@@ -467,13 +467,13 @@ int database_shop_index(char user_id[30], int read_type) {
       return 0;
     } // 不存在, 返回"0"
 
-    for (i = 0; i <= 100; i++) {
+    for (i = 0; i <= 98; i++) {
 
       // 读取数据
       fscanf(fwrite, "%s %f %f %d %d %f %d:%d:%d:%d:%d %d:%d:%d:%d:%d",
              shop_index[i].goods_name,  // ����品编号
              &shop_index[i].unit_price, // 零售价格
-             &shop_index[i].in_price, // 进货价�������������������
+             &shop_index[i].in_price, // 进货价�����������������������
              &shop_index[i].sales_volume,       // 销量
              &shop_index[i].goods_in_stock,     // 存货
              &shop_index[i].discount_price,     // 折扣价
@@ -495,7 +495,7 @@ int database_shop_index(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    for (i = 0; i <= 100; i++) {
+    for (i = 0; i <= 90; i++) {
       fprintf(fwrite,
               "%s %0.2f %0.2f %d %d %0.2f %04d:%02d:%02d:%02d:%02d "
               "%04d:%02d:%02d:%02d:%02d\n",
@@ -565,7 +565,7 @@ int database_shopping_cart(char user_id[30], int read_type) {
     fwrite = fopen(file_name, "w+");
 
     // 写入数据
-    for (i = 0; i <= 100; i++) {
+    for (i = 0; i <= 98; i++) {
       if (shopping_cart[i].purchase_num != -1)
         fprintf(fwrite, "%s %s %d\n",
                 shopping_cart[i].goods_name,  // 商品名

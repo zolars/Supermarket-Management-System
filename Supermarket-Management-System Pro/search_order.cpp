@@ -135,7 +135,7 @@ void search_order_admin_result_1_3() {
            order_admin_goods[i].goods_name, //
            order_admin_goods[i].purchase_num, order_admin_goods[i].all_price,
            order_admin_goods[i].profit);
-  printf("\n利润最高的商���为:%s\n利润最低的商品为:%s\n",
+  printf("\n利润最高的商品为:%s\n利润最低的商品为:%s\n",
          order_admin_goods[0].goods_name,
          order_admin_goods[deep_num - 1].goods_name);
 
