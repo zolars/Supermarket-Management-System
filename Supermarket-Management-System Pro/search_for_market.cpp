@@ -153,8 +153,9 @@ void search_market_result_0(char user_id[30], int choise_num) {
     choose = shopping(user_id, temp_information_foritem[num_purchase_num - 1],
                       temp_information_formarket, goods_purchase_num);
     if (choose == 1) {
+      // 用户接口
       printf("您的商品购买完成, "
-             "谢谢惠顾!\n详���信息请前往\"主菜单-查看已完成订单\".\n\n");
+             "谢谢惠顾!\n详细信息请前往\"主菜单-查看已完成订单\".\n\n");
       // 显示推荐条目
       database_order_admin_consumer(temp_information_formarket, -1);
     } else if (choose == 0)
@@ -199,7 +200,7 @@ void search_market_result_1(char user_id[30]) {
           "%02d:"
           "%02d:%02d\t"
           "|%04d:%02d:%02d:%02d:%02d\n",
-          i + 1,                            // 列表序号
+          j + 1,                            // 列表序号
           shop_index[i].goods_name,         // 商品名
           temp_information_formarket,       // 超市名
           shop_index[i].unit_price,         // 零售价格
@@ -377,7 +378,7 @@ int search_market_choose() {
   printf("\n---------------操作选项---------------\n\n");
   printf("1. 隐藏不打折的商品.\n");
   printf("2. 显示全部相关商品.\n");
-  printf("3. 按���品销量排序.\n");
+  printf("3. 按商品销量排序.\n");
   printf("4. 按打折后价格排序.\n");
   printf("0. 返回\n");
   printf("\n-------------------------------------\n");

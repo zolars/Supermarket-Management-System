@@ -242,6 +242,8 @@ int shopping(char user_id[30], char temp_goods_name[10], char temp_shop_id[10],
 
     database_order_consumer(user_id, 1);
 
+    strcpy(order_admin_all[i].order_id, "");
+
     return 1;
   }
 

@@ -383,7 +383,7 @@ int search_order_consumer_main(char user_id[15]) {
   printf("\n");
   printf("|订单编号\t\t|购买时间\t\t|商品ID\t|商品名\t\t"
          "|购买数量\t"
-         "|单价\t\t|总价\n");
+         "|单价\t\t\t|总价\n");
 
   while (order_consumer[i].unit_price != 0) {
     database_name_to_id(order_consumer[i].goods_name, 0);
