@@ -233,7 +233,10 @@ int shopping(char user_id[30], char temp_goods_name[10], char temp_shop_id[10],
             tm_local2->tm_mon, tm_local2->tm_mday, tm_local2->tm_hour,
             tm_local2->tm_min);
 
-    strcpy(order_consumer[i].order_id, order_admin_all[i].order_id); // 订单编号
+    strcpy(order_consumer[i].order_id, user_id); // 订单编号
+    strcat(order_consumer[i].order_id, ":");
+    strcat(order_consumer[i].order_id, time_str);
+
     strcpy(order_consumer[i].sold_time, time_str);         // 购买时间
     strcpy(order_consumer[i].goods_name, temp_goods_name); // 商品名
     order_consumer[i].purchase_num = temp_purchase_num;    // 购买数量
@@ -241,8 +244,6 @@ int shopping(char user_id[30], char temp_goods_name[10], char temp_shop_id[10],
     order_consumer[i].all_price = temp_price * temp_purchase_num; // 总价
 
     database_order_consumer(user_id, 1);
-
-    strcpy(order_admin_all[i].order_id, "");
 
     return 1;
   }
