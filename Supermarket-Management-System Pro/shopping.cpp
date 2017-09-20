@@ -45,7 +45,7 @@ Output:
 #include <string.h>
 #include <time.h>
 
-int shopping(char user_id[30], char temp_goods_name[10], char temp_shop_id[10],
+int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
              int temp_purchase_num) {
   int i = 0;
 

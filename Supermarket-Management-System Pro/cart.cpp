@@ -197,8 +197,6 @@ int cart(char user_id[30]) {
     printf("\n请输入任意字符并按回车键以继续...\n");
     scanf("%s", screen); // 延长屏幕显示时间
 
-    //存入结构体
-
     return 1;
     break;
   }
