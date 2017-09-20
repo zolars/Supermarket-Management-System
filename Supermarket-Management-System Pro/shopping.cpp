@@ -120,10 +120,11 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     增加管理员订单all
     数据库: order_admin_all
     ************************************************/
-
     // 找到该货物所对应的超市名并存入订单
-    if (!database_order_admin_all(temp_shop_id, 0))
+    if (!database_order_admin_all(temp_shop_id, 0)) {
       database_order_admin_all(temp_shop_id, 1);
+      database_order_admin_all(temp_shop_id, 0);
+    }
 
     // 深度探测
     i = 0;
@@ -163,8 +164,11 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     增加管理员订单_goods
     数据库: order_admin_goods
     ************************************************/
-    if (!database_order_admin_goods(temp_shop_id, 0))
+
+    if (!database_order_admin_goods(temp_shop_id, 0)) {
       database_order_admin_goods(temp_shop_id, 1);
+      database_order_admin_goods(temp_shop_id, 0);
+    }
 
     i = 0;
     while (order_admin_goods[i].purchase_num != 0) {
@@ -191,8 +195,10 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     数据库: order_admin_consumer
     ************************************************/
 
-    if (!database_order_admin_consumer(temp_shop_id, 0))
+    if (!database_order_admin_consumer(temp_shop_id, 0)) {
       database_order_admin_consumer(temp_shop_id, 1);
+      database_order_admin_consumer(temp_shop_id, 0);
+    }
 
     i = 0;
     while (order_admin_consumer[i].purchase_num != 0) {
@@ -215,8 +221,10 @@ int shopping(char user_id[30], char temp_goods_name[50], char temp_shop_id[50],
     增加顾客订单
     数据库: order_consumer
     ************************************************/
-    if (!database_order_consumer(user_id, 0))
+    if (!database_order_consumer(user_id, 0)) {
       database_order_consumer(user_id, 1);
+      database_order_consumer(user_id, 0);
+    }
 
     // 深度探测
     i = 0;

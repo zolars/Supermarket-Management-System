@@ -167,10 +167,6 @@ int cart(char user_id[30]) {
         printf("%s : %s : %d\n购买成功!\n", shopping_cart[i].goods_name,
                shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
 
-        char screen[10];
-        printf("\n请输入任意字符并按回车键以继续...\n");
-        scanf("%s", screen); // 延长屏幕显示时间
-
         //缓存
         k += 1;
         shopping_cart[i].purchase_num = -1;
