@@ -163,7 +163,6 @@ int shopping(char user_id[30], char temp_goods_name[10], char temp_shop_id[10],
     增加管理员订单_goods
     数据库: order_admin_goods
     ************************************************/
-
     if (!database_order_admin_goods(temp_shop_id, 0))
       database_order_admin_goods(temp_shop_id, 1);
 

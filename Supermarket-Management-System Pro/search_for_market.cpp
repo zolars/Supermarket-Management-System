@@ -435,7 +435,7 @@ void search_market_begin(char user_id[30]) {
     database_shopping_cart(user_id, 1);
   }
 
-  char search_id_market[30]; // 顾客搜索的超市ID
+  char search_id_market[50]; // 顾客搜索的超市ID
 
   // 用户界面
   printf("请输入您所要查询的超市名称:");

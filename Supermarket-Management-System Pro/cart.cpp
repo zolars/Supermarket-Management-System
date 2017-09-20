@@ -155,29 +155,32 @@ int cart(char user_id[30]) {
 
     i = 0;
     k = 0;
+    int temp_return;
     printf("以下为购买状态(商品名 : 超市ID : 购买数量)\n");
 
     do {
 
-      int temp_return =
+      temp_return =
           shopping(user_id, shopping_cart[i].goods_name,
                    shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
       if (temp_return == 1) {
-        if (shopping_cart[i].purchase_num != 0)
-          printf("%s : %s : %d\n购买成功!\n", shopping_cart[i].goods_name,
-                 shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
+        printf("%s : %s : %d\n购买成功!\n", shopping_cart[i].goods_name,
+               shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
+
+        char screen[10];
+        printf("\n请输入任意字符并按回车键以继续...\n");
+        scanf("%s", screen); // 延长屏幕显示时间
 
         //缓存
         k += 1;
         shopping_cart[i].purchase_num = -1;
       } else if (temp_return == 0) {
-        if (shopping_cart[i].purchase_num != 0)
-          printf("%s : %s : %d\n存货不足.\n", shopping_cart[i].goods_name,
-                 shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
+
+        printf("%s : %s : %d\n存货不足.\n", shopping_cart[i].goods_name,
+               shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
       } else {
-        if (shopping_cart[i].purchase_num != 0)
-          printf("%s : %s : %d\n余额不足.\n", shopping_cart[i].goods_name,
-                 shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
+        printf("%s : %s : %d\n余额不足.\n", shopping_cart[i].goods_name,
+               shopping_cart[i].shop_id, shopping_cart[i].purchase_num);
       }
 
       i++;

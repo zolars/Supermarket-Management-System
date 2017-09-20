@@ -441,7 +441,7 @@ void search_goods_begin(char user_id[30]) {
     database_shopping_cart(user_id, 1);
   }
 
-  char search_id_goods[10]; // 顾客搜索的商品ID
+  char search_id_goods[50]; // 顾客搜索的商品ID
 
   // 用户界面
   printf("请输入您所要查询的商品名称:");
@@ -454,7 +454,7 @@ void search_goods_begin(char user_id[30]) {
   if (searched_result_num != 1) {
     printf("抱歉, 没有该商品, 请搜索其他信息.\n");
     printf("\n请输入任意字符并按回车键以继续...\n");
-    char screen[10];
+    char screen[50];
     scanf("%s", screen); // 延长屏幕显示时间
     return;
   }
