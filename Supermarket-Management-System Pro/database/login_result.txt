@@ -1,1 +1,1 @@
-test3 0
+test_admin 1
